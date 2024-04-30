@@ -1,0 +1,11 @@
+# vscode
+.vscode/
+
+# npm
+node_modules
+package-lock.json
+
+# output
+Include
+Build
+Deploy

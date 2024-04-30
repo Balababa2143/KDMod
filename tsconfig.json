@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "alwaysStrict": true,
+        "strictBindCallApply": true,
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "allowJs": true,
+        "checkJs": true,
+        "isolatedModules": true,
+        "outDir": "Build",
+        "declarationDir": "Include",
+        "declaration": true,
+        "lib": [
+            "DOM",
+            "ESNext"
+        ]
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "references": [
+        {
+            "path": "./KinkyDUngeonInterfaceWrapper/Submodule/KDInterface"
+        },
+        {
+            "path": "./KinkyDUngeonInterfaceWrapper/Generated"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "name": "kdmod",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "debug:watch": "node esbuild.config.mjs --Debug --Watch",
+        "debug:build": "node esbuild.config.mjs --Debug --Build",
+        "debug:Deploy": "node esbuild.config.mjs --Debug --Deploy"
+    },
+    "author": "Balababa2143@gmail.com",
+    "license": "MIT",
+    "devDependencies": {
+        "archiver": "^7.0.1",
+        "esbuild": "^0.20.2",
+        "esbuild-plugin-clean": "^1.0.1",
+        "typescript": "^5.4.5"
+    },
+    "dependencies": {
+        "kinkydungeoninterfacewrapper": "file:kinkydungeoninterfacewrapper"
+    }
+}
