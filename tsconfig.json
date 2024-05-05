@@ -17,6 +17,10 @@
         "lib": [
             "DOM",
             "ESNext"
+        ],
+        "typeRoots": [
+            "./libs",
+            "node_modules/@types"
         ]
     },
     "include": [

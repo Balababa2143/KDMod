@@ -4,8 +4,6 @@ import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
 import { RestraintDefinitionManager } from './Common'
 import * as DroneSet from './DroneSet'
 
-// declare let KDPrereqs: Record<string, (enemy: string, e: KinkyDungeonEvent, data: any) => boolean>
-
 // KDPrereqs["DroneSetComplete"] = (enemy, e, data) => {
 //     return true
 // }
@@ -81,6 +79,9 @@ KDPerkStart["StartDrone"] = () => {
                 minfloor: 1,
                 powerBonus: 0,
             },
+            //faction: "Dollsmith"
+            // faction: 'AncientRobot'
+            faction: 'Curse'
         })
     });
 }
