@@ -4,7 +4,7 @@ import * as fs from 'fs'
 import archiver from 'archiver'
 
 (async () => {
-    //#region Hlper functions
+    //#region Helper functions
     function deepFreeze(object) {
         // Retrieve the property names defined on object
         const propNames = Reflect.ownKeys(object);
@@ -44,19 +44,23 @@ import archiver from 'archiver'
     //#endregion
 
     //#region Build logic
-    const OutputDir = (() => {
+    const [BuildConfig, OtherConfig] = deepFreeze((() => {
         switch (BuildTarget) {
             case '--Debug':
-                return DEBUG_PATH
+                return [
+                    {
+                        ...DEFAULT_BUILD_CONFIG,
+                        outdir: `Build/${DEBUG_PATH}`,
+                    },
+                    {
+                        archiveDir: `Deploy/${DEBUG_PATH}`
+                    }
+                ]
                 break
             default:
                 throw new Error('Build target unknown')
         }
-    })()
-    const BuildConfig = deepFreeze({
-        ...DEFAULT_BUILD_CONFIG,
-        outdir: `Build/${OutputDir}`
-    })
+    })())
 
     function setArchiverEventHandlers(writeStream, archiver) {
         writeStream.on('close', function () {
@@ -89,12 +93,12 @@ import archiver from 'archiver'
             break
         case '--Deploy':
             await esbuild.build(BuildConfig)
-            const archiveOutputDir = `Deploy/${OutputDir}`
-            if (!fs.existsSync(archiveOutputDir)){
+            const archiveOutputDir = OtherConfig.archiveDir
+            if (!fs.existsSync(archiveOutputDir)) {
                 fs.mkdirSync(archiveOutputDir, { recursive: true });
             }
             const archiveFilePath = `${archiveOutputDir}/KDMod.zip`
-            if (fs.existsSync(archiveFilePath)){
+            if (fs.existsSync(archiveFilePath)) {
                 fs.unlinkSync(archiveFilePath)
             }
             const stream = fs.createWriteStream(`${archiveOutputDir}/KDMod.zip`)
