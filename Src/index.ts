@@ -57,6 +57,10 @@ import * as DroneSet from './DroneSet'
 //     }
 // }
 
+import { Register as RegisterLockedGlove } from './Model/LockedGlove'
+
+RegisterLockedGlove()
+
 const manager = new RestraintDefinitionManager()
 DroneSet.RestraintDefinition.Register(manager)
 
@@ -79,9 +83,9 @@ KDPerkStart["StartDrone"] = () => {
                 minfloor: 1,
                 powerBonus: 0,
             },
-            //faction: "Dollsmith"
+            faction: "Dollsmith"
             // faction: 'AncientRobot'
-            faction: 'Curse'
+            // faction: 'Curse'
         })
     });
 }

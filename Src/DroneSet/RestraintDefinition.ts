@@ -98,7 +98,6 @@ const RestraintPrototypes: List<Template> = List([
             escapeChance: { "Struggle": -0.4, "Cut": -0.2, "Remove": 0.05, "Pick": -0.1 },
             enemyTags: { "cyberdollrestraints": 10 },
             events: [
-                { trigger: "postUnlock", type: "RequireLocked", inheritLinked: true },
                 { trigger: "beforeStruggleCalc", type: "struggleDebuff", msg: "KDHarnessGagRemoveBlindfold", inheritLinked: true, StruggleType: "Remove", power: 0.35, requiredTag: "Blindfolds" },
                 { trigger: "beforeStruggleCalc", type: "struggleDebuff", msg: "KDHarnessGagStruggleBlindfold", inheritLinked: true, StruggleType: "Struggle", power: 0.25, requiredTag: "Blindfolds" },
             ],
@@ -142,7 +141,6 @@ const RestraintPrototypes: List<Template> = List([
             escapeChance: { "Struggle": -0.25, "Cut": -0.8, "Remove": 0.05, "Pick": -0.25 },
             enemyTags: {},
             events: [
-                { trigger: "postUnlock", type: "RequireLocked", inheritLinked: true },
             ],
             playerTags: {},
             minLevel: 9,
@@ -195,11 +193,43 @@ const RestraintPrototypes: List<Template> = List([
         })
     }),
     Template.Create({
+        QualifiedName: Stack.of('Collar'),
+        Property: Property.Create({
+            inventory: true,
+            sfx: "FutureLock",
+            name: DEFAULT,
+            debris: "Chains",
+            accessible: true,
+            Asset: "FuturisticCollar",
+            Model: "FutureCollar",
+            tightType: "Secure",
+            factionFilters: {
+                Display: { color: "Highlight", override: false },
+                Base: { color: "DarkNeutral", override: true },
+                Rim: { color: "LightNeutral", override: true },
+                Band: { color: "LightNeutral", override: true },
+            },
+            Color: ['#499ed6', '#555555', '#b927a8', '#000000'],
+            factionColor: [[], [2], [0]],
+            DefaultLock: "Disc",
+            Group: "ItemNeck",
+            LinkableBy: [...KDCollarLink],
+            renderWhenLinked: [...KDCollarRender],
+            power: 9,
+            weight: 0,
+            escapeChance: { "Struggle": -0.5, "Cut": -0.25, "Remove": 0.33, "Pick": -0.15 },
+            maxwill: 0.5,
+            enemyTags: {},
+            playerTags: { "ItemNeckEmpty": 10 },
+            minLevel: 0, allFloors: true, shrine: ["Metal", "Collars", "Cyber"],
+        })
+    }),
+    Template.Create({
         QualifiedName: Stack.of('Harness'),
         Property: Property.Create({
             alwaysRender: true, sfx: "FutureLock",
             inventory: true,
-            name: "ControlHarness",
+            name: DEFAULT,
             debris: "Chains",
             accessible: true,
             Asset: "FuturisticHarness",
@@ -222,12 +252,73 @@ const RestraintPrototypes: List<Template> = List([
             escapeChance: { "Struggle": -0.4, "Cut": -0.2, "Remove": 0.4, "Pick": 0.1 },
             DefaultLock: "Blue",
             maxwill: 0.5,
-            enemyTags: { "controlHarness": 20, "roboPrisoner": 10, "cyberdollrestraints": 100 },
+            enemyTags: {},
             playerTags: {},
-            minLevel: 7, allFloors: true, shrine: ["Metal", "Harnesses", "Cyber"],
+            minLevel: 7, allFloors: true, shrine: ["Metal", "Harnesses"],
             events: [
-                { trigger: "postUnlock", type: "RequireLocked", inheritLinked: true },
             ]
+        })
+    }),
+    Template.Create({
+        QualifiedName: Stack.of('Glove'),
+        Property: Property.Create({
+            inventory: true,
+            unlimited: true,
+            name: DEFAULT,
+            Model: "LockedGlove",
+            tightType: "Secure",
+            factionFilters: {
+                GloveBody: { color: "LightNeutral", override: true },
+                Mitten: { color: "LightNeutral", override: true },
+                Band: { color: "Highlight", override: true },
+                Lock: { color: "DarkNeutral", override: true },
+            },
+            factionColor: [[], [], [0]],
+            Asset: "LatexElbowGloves",
+            Color: "#ff5277",
+            LinkableBy: [...KDGlovesLink],
+            renderWhenLinked: ["Mittens"],
+            Group: "ItemHands",
+            bindhands: 0.3,
+            power: 10,
+            weight: 0,
+            escapeChance: { "Struggle": -0.4, "Cut": -0.2, "Remove": 0.05, "Pick": -0.1, "Unlock": 0.2 },
+            maxwill: 0.4,
+            enemyTags: {},
+            playerTags: { "ItemHandsFull": -2 },
+            minLevel: 0,
+            allFloors: true,
+            shrine: ["Metal", "Mittens"]
+        })
+    }),
+    Template.Create({
+        QualifiedName: Stack.of('Heel'),
+        Property: Property.Create({
+            inventory: true,
+            sfx: "FutureLock",
+            name: DEFAULT,
+            inaccessible: true,
+            Asset: "FuturisticHeels2",
+            remove: ["Shoes"],
+            Model: "CyberBalletHeels",
+            factionFilters: {
+                Glow: { color: "Highlight", override: true },
+                Shoe: { color: "LightNeutral", override: true },
+            },
+            factionColor: [[0], [4], [1]],
+            Color: ["#222222", "#499ed6", "#ffffff", "Default", "#b927a8", "#222222", "#000000"],
+            Group: "ItemBoots",
+            heelpower: 2,
+            power: 10,
+            weight: 0,
+            escapeChance: { "Struggle": -0.4, "Cut": -0.35, "Remove": 0.2, "Pick": -0.25, "Unlock": 0.2 },
+            maxwill: 0.25, enemyTags: { "cyberdollrestraints": 10 },
+            events: [
+            ],
+            playerTags: {},
+            minLevel: 0,
+            allFloors: true,
+            shrine: ["Metal", "Boots"]
         })
     }),
     Template.Create({
@@ -262,41 +353,9 @@ const RestraintPrototypes: List<Template> = List([
             playerTags: {},
             minLevel: 7, allFloors: true, shrine: ["Metal"],
             events: [
-                { trigger: "postUnlock", type: "RequireLocked", inheritLinked: true },
             ]
         })
     }),
-    Template.Create({
-        QualifiedName: Stack.of('CyberHeel'),
-        Property: Property.Create({
-            inventory: true,
-            sfx: "FutureLock",
-            name: DEFAULT,
-            inaccessible: true,
-            Asset: "FuturisticHeels2",
-            remove: ["Shoes"],
-            Model: "CyberBalletHeels",
-            factionFilters: {
-                Glow: { color: "Highlight", override: true },
-                Shoe: { color: "LightNeutral", override: true },
-            },
-            factionColor: [[0], [4], [1]],
-            Color: ["#222222", "#499ed6", "#ffffff", "Default", "#b927a8", "#222222", "#000000"],
-            Group: "ItemBoots",
-            heelpower: 2,
-            power: 10,
-            weight: 0,
-            escapeChance: { "Struggle": -0.4, "Cut": -0.35, "Remove": 0.2, "Pick": -0.25, "Unlock": 0.2 },
-            maxwill: 0.25, enemyTags: { "cyberdollrestraints": 10 },
-            events: [
-                { trigger: "postUnlock", type: "RequireLocked", inheritLinked: true },
-            ],
-            playerTags: {},
-            minLevel: 0,
-            allFloors: true,
-            shrine: ["Metal", "Boots"]
-        })
-    })
 ])
 
 export const DroneSet =

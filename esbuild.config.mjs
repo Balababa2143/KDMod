@@ -33,7 +33,7 @@ import archiver from 'archiver'
             clean({
                 patterns: ['./Build/*']
             }),
-        ]
+        ],
     })
     //#endregion
 
@@ -82,17 +82,20 @@ import archiver from 'archiver'
             throw err;
         })
     }
-
+    const RunBuild = async () => {
+        await esbuild.build(BuildConfig)
+        fs.cpSync('Asset', BuildConfig.outdir, {recursive: true})
+    }
     switch (BuildMode) {
         case '--Watch':
             const context = await esbuild.context(BuildConfig)
             await context.watch()
             break
         case '--Build':
-            await esbuild.build(BuildConfig)
+            await RunBuild()
             break
         case '--Deploy':
-            await esbuild.build(BuildConfig)
+            await RunBuild()
             const archiveOutputDir = OtherConfig.archiveDir
             if (!fs.existsSync(archiveOutputDir)) {
                 fs.mkdirSync(archiveOutputDir, { recursive: true });
