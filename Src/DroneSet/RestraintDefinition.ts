@@ -18,7 +18,7 @@ const RestraintPrototypes: List<Template> = List([
             DefaultLock: "Blue",
             Color: ['#91023a'],
             factionFilters: {
-                Goggles: { color: "LightNeutral", override: true }
+                Goggles: { color: "Highlight", override: true }
             },
             Group: "ItemHead", LinkableBy: [...KDVisorLink, ...KDMaskLink],
             power: 40,
@@ -238,7 +238,7 @@ const RestraintPrototypes: List<Template> = List([
             DefaultLock: "Red",
             tightType: "Secure",
             factionFilters: {
-                GloveBody: { color: "LightNeutral", override: true },
+                GloveBody: { color: "DarkNeutral", override: true },
                 Mitten: { color: "LightNeutral", override: true },
                 Band: { color: "Highlight", override: true },
                 Lock: { color: "DarkNeutral", override: true },
@@ -550,7 +550,7 @@ const RestraintPrototypes: List<Template> = List([
             allFloors: true,
             shrine: ["Cuffs", "Metal", "AnkleCuffsBase", "HogtieLower"],
         })
-    }),
+    })
 ])
 
 export const DroneSet =

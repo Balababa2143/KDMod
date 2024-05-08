@@ -17,27 +17,26 @@ export function Register() {
         AddPose: ["Mittens"],
         Layers: ToLayerMap([
             {
-                Name: "ShoulderLeft", Layer: "MittenLeft", Pri: 100.1,
-                Poses: ToMap([...SHOULDERPOSES]),
-            },
-            {
                 Name: "ArmLeft", Layer: "MittenLeft", Pri: 100.1,
                 Poses: ToMapSubtract(ARMPOSES, [...HIDEARMPOSES], "Hogtie"),
                 GlobalDefaultOverride: ToMap(["Hogtie", "Front", "Crossed"]),
                 AppendPose: ToMapDupe(["Hogtie"]),
                 AppendPoseRequire: ToMap(["Wristtie"]),
+                InheritColor: 'GloveBody'
             },
             {
                 Name: "ForeArmLeft", Layer: "MittenLeft", Pri: 100.1,
                 Poses: ToMap(FOREARMPOSES),
                 GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
                 SwapLayerPose: { Crossed: "CrossArmLeft" },
+                InheritColor: 'GloveBody'
             },
             {
                 Name: "HandLeft", Layer: "MittenLeft", Pri: 100.1,
                 Poses: ToMap(HANDLEFTPOSES),
                 GlobalDefaultOverride: ToMap(["Front"]),
                 HidePoses: ToMap(["HideHands", "EncaseHandLeft"]),
+                InheritColor: 'GloveBody'
             },
             {
                 Name: "ForeHandLeft", Layer: "MittenLeft", Pri: 100.1,
@@ -45,6 +44,7 @@ export function Register() {
                 Poses: ToMap(FOREHANDLEFTPOSES),
                 GlobalDefaultOverride: ToMap(["Front"]),
                 HidePoses: ToMap(["HideHands", "EncaseHandLeft"]),
+                InheritColor: 'GloveBody'
             },
             {
                 Name: "ZipperLeft", Layer: "MittenLeft", Pri: 100.2,
@@ -85,27 +85,26 @@ export function Register() {
         AddPose: ["Mittens"],
         Layers: ToLayerMap([
             {
-                Name: "ShoulderRight", Layer: "MittenRight", Pri: 100.1,
-                Poses: ToMap([...SHOULDERPOSES]),
-            },
-            {
                 Name: "ArmRight", Layer: "MittenRight", Pri: 100.1,
                 Poses: ToMapSubtract(ARMPOSES, [...HIDEARMPOSES], "Hogtie"),
                 GlobalDefaultOverride: ToMap(["Hogtie", "Front", "Crossed"]),
                 AppendPose: ToMapDupe(["Hogtie"]),
                 AppendPoseRequire: ToMap(["Wristtie"]),
+                InheritColor: 'GloveBody'
             },
             {
                 Name: "ForeArmRight", Layer: "MittenRight", Pri: 100.1,
                 Poses: ToMap(FOREARMPOSES),
                 GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
                 SwapLayerPose: { Crossed: "CrossArmRight" },
+                InheritColor: 'GloveBody'
             },
             {
                 Name: "HandRight", Layer: "MittenRight", Pri: 100.1,
                 Poses: ToMap(HANDRIGHTPOSES),
                 GlobalDefaultOverride: ToMap(["Front"]),
                 HidePoses: ToMap(["HideHands", "EncaseHandRight"]),
+                InheritColor: 'GloveBody'
             },
             {
                 Name: "ForeHandRight", Layer: "MittenRight", Pri: 100.1,
@@ -113,6 +112,7 @@ export function Register() {
                 Poses: ToMap(FOREHANDRIGHTPOSES),
                 GlobalDefaultOverride: ToMap(["Front"]),
                 HidePoses: ToMap(["HideHands", "EncaseHandRight"]),
+                InheritColor: 'GloveBody'
             },
             {
                 Name: "ZipperRight", Layer: "MittenRight", Pri: 100.2,
@@ -153,12 +153,10 @@ export function Register() {
         AddPose: ["Mittens"],
         Layers: ToLayerMap([
             ...KD.GetModelLayers_({
-                ModelName: ModelName.LockedGloveLeft,
-                InheritColor: 'GloveBody'
+                ModelName: ModelName.LockedGloveLeft
             }),
             ...KD.GetModelLayers_({
-                ModelName: ModelName.LockedGloveRight,
-                InheritColor: 'GloveBody'
+                ModelName: ModelName.LockedGloveRight
             }),
         ])
     })

@@ -82,7 +82,7 @@ KDPerkStart["StartDrone"] = () => {
                 minfloor: 1,
                 powerBonus: 0,
             },
-            // faction: "Dollsmith"
+            // faction: 'Dollsmith'
             // faction: 'AncientRobot'
             faction: 'Curse'
         })
@@ -101,7 +101,7 @@ KDPerkStart["StartDrone"] = () => {
             //     minfloor: 1,
             //     powerBonus: 0,
             // },
-            // faction: "Dollsmith"
+            // faction: 'Dollsmith'
             // faction: 'AncientRobot'
             faction: 'Curse'
         })
