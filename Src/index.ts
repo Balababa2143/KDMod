@@ -71,7 +71,6 @@ KDPerkStart["StartDrone"] = () => {
     .forEach(def => {
         KD.AddRestraintIfWeaker_({
             restraint: def.Property.name,
-            Tightness: 2,
             Bypass: true,
             // Curse: "CompletedDroneSet",
             variant: {
@@ -83,11 +82,30 @@ KDPerkStart["StartDrone"] = () => {
                 minfloor: 1,
                 powerBonus: 0,
             },
-            faction: "Dollsmith"
+            // faction: "Dollsmith"
             // faction: 'AncientRobot'
-            // faction: 'Curse'
+            faction: 'Curse'
         })
     });
+    ["TrapPlug3", "RearVibe1", "TrapVibeProto", "NippleClamps3"].forEach(r =>{
+        KD.AddRestraintIfWeaker_({
+            restraint: r,
+            Bypass: true,
+            // Curse: "CompletedDroneSet",
+            // variant: {
+            //     hexes: [
+            //         // "DroneSetComplete"
+            //     ],
+            //     enchants: [],
+            //     level: 0,
+            //     minfloor: 1,
+            //     powerBonus: 0,
+            // },
+            // faction: "Dollsmith"
+            // faction: 'AncientRobot'
+            faction: 'Curse'
+        })
+    })
 }
 
 KinkyDungeonStatsPresets["StartDrone"] = {
