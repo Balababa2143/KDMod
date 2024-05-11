@@ -10,7 +10,7 @@ const ModelName = {
 export function Register() {
     AddModel({
         Name: ModelName.LockedGloveLeft,
-        Folder: "LockedGlove",
+        Folder: "KDMod/LockedGlove",
         Parent: ModelName.LockedGlove,
         Categories: ["Gloves", "Mittens", "Restraints"],
         Restraint: true,
@@ -78,7 +78,7 @@ export function Register() {
 
     AddModel({
         Name: ModelName.LockedGloveRight,
-        Folder: "LockedGlove",
+        Folder: "KDMod/LockedGlove",
         Parent: ModelName.LockedGlove,
         Categories: ["Gloves", "Mittens", "Restraints"],
         Restraint: true,
@@ -146,7 +146,7 @@ export function Register() {
 
     AddModel({
         Name: ModelName.LockedGlove,
-        Folder: "LockedGlove",
+        Folder: "KDMod/LockedGlove",
         TopLevel: true,
         Categories: ["Gloves", "Mittens", "Restraints"],
         Restraint: true,

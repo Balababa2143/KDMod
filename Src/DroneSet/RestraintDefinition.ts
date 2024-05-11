@@ -225,7 +225,9 @@ const RestraintPrototypes: List<Template> = List([
             maxwill: 0.5,
             enemyTags: {},
             playerTags: { "ItemNeckEmpty": 10 },
-            minLevel: 0, allFloors: true, shrine: ["Metal", "Collars", "Cyber"],
+            minLevel: 0,
+            allFloors: true,
+            shrine: ["Metal", "Collars", "Cyber"],
         })
     }),
     Template.Create({
@@ -283,7 +285,7 @@ const RestraintPrototypes: List<Template> = List([
             power: 10,
             weight: 0,
             escapeChance: { "Struggle": -0.4, "Cut": -0.35, "Remove": 0.2, "Pick": -0.25 },
-            maxwill: 0.25, enemyTags: { "cyberdollrestraints": 10 },
+            maxwill: 0.25, enemyTags: {},
             events: [
             ],
             playerTags: {},
@@ -322,7 +324,9 @@ const RestraintPrototypes: List<Template> = List([
             maxwill: 0.5,
             enemyTags: {},
             playerTags: {},
-            minLevel: 7, allFloors: true, shrine: ["Metal", "Harnesses"],
+            minLevel: 7,
+            allFloors: true,
+            shrine: ["Metal", "Harnesses"],
             events: [
             ]
         })
@@ -439,7 +443,7 @@ const RestraintPrototypes: List<Template> = List([
             playerTags: {},
             minLevel: 7,
             allFloors: true,
-            shrine: ["Metal", "Cuffs",],
+            shrine: ["Metal", "Cuffs"],
             events: [
             ]
         })
