@@ -473,7 +473,7 @@ export namespace Prototype {
             linkCategory: "Cuffs",
             linkSize: 0.55,
             LinkableBy: [...KDDevices, ...KDBindable],
-            Link: 'KDMod.DroneSet.ArmLink',
+            // Link: 'KDMod.DroneSet.ArmLink',
             Color: ["#499ed6", "#b927a8", "#000000"],
             factionColor: [[], [1], [0]],
             unlimited: true,
@@ -652,7 +652,7 @@ export namespace Prototype {
             Type: "Chained",
             Model: CuffLink.ModelName.AnkleLink,
             factionFilters: {
-                BaseMetal: { color: "DarkNeutral", override: true },
+                Link: { color: "Highlight", override: true },
             },
             Color: ["#499ed6", "#499ed6", "#b927a8", "#000000"],
             factionColor: [[], [2], [0, 1]],

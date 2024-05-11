@@ -83,9 +83,9 @@ KDPerkStart["StartDrone"] = () => {
                 minfloor: 1,
                 powerBonus: 0,
             },
-            faction: 'Dollsmith'
+            // faction: 'Dollsmith'
             // faction: 'AncientRobot'
-            // faction: 'Curse'
+            faction: 'Curse'
         })
     });
     ["TrapPlug3", "RearVibe1", "TrapVibeProto", "NippleClamps3"].forEach(r =>{
@@ -102,9 +102,9 @@ KDPerkStart["StartDrone"] = () => {
             //     minfloor: 1,
             //     powerBonus: 0,
             // },
-            faction: 'Dollsmith'
+            // faction: 'Dollsmith'
             // faction: 'AncientRobot'
-            // faction: 'Curse'
+            faction: 'Curse'
         })
     })
 }
@@ -113,7 +113,7 @@ KinkyDungeonStatsPresets["StartDrone"] = {
     startPriority: 10,
     category: "Start",
     id: "StartDrone",
-    cost: -2,
+    cost: -3,
     tags: ["start"]
 }
 
