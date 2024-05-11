@@ -1,11 +1,12 @@
-import { List, Stack } from "immutable"
+import { Seq, Stack } from "immutable"
 import { DEFAULT, RestraintDefinitionManager, RootNamespace } from '../Common'
-import { Property, Template } from "../Common/Restraint"
+import { Definition, Property, Template } from "../Common/Restraint"
+import { CuffLink } from "../Model"
 
 declare let KDMaskLink: string[]
 
-const RestraintPrototypes: List<Template> = List([
-    Template.Create({
+export namespace Prototype {
+    export const Visor = Template.Create({
         QualifiedName: Stack.of('Visor'),
         Property: Property.Create({
             renderWhenLinked: ['TransparentMask'],
@@ -33,8 +34,8 @@ const RestraintPrototypes: List<Template> = List([
             allFloors: true,
             shrine: ["Visors"]
         })
-    }),
-    Template.Create({
+    })
+    export const Mask = Template.Create({
         QualifiedName: Stack.of('Mask'),
         Property: Property.Create({
             inventory: true,
@@ -64,8 +65,8 @@ const RestraintPrototypes: List<Template> = List([
             allFloors: true,
             shrine: ["Masks", "Block_ItemMouth", 'TransparentMask'],
         })
-    }),
-    Template.Create({
+    })
+    export const BallGag = Template.Create({
         QualifiedName: Stack.of('BallGag'),
         Property: Property.Create({
             inventory: true,
@@ -107,9 +108,9 @@ const RestraintPrototypes: List<Template> = List([
             minLevel: 0,
             allFloors: true,
             shrine: ["BallGags", "Gags", "Metal"]
-        }),
-    }),
-    Template.Create({
+        })
+    })
+    export const Muzzle = Template.Create({
         QualifiedName: Stack.of('Muzzle'),
         Property: Property.Create({
             inventory: true,
@@ -150,8 +151,8 @@ const RestraintPrototypes: List<Template> = List([
             allFloors: true,
             shrine: ["FlatGags", "Gags", "Metal"]
         })
-    }),
-    Template.Create({
+    })
+    export const Catsuit = Template.Create({
         QualifiedName: Stack.of('Catsuit'),
         Property: Property.Create({
             renderWhenLinked: ["Corsets", "Harnesses", ...KDBindable, "Latex", "Leather", "Metal", "Rope"],
@@ -195,8 +196,8 @@ const RestraintPrototypes: List<Template> = List([
                 { trigger: "beforeStruggleCalc", type: "latexDebuff", power: 0.25, inheritLinked: true }
             ]
         })
-    }),
-    Template.Create({
+    })
+    export const Collar = Template.Create({
         QualifiedName: Stack.of('Collar'),
         Property: Property.Create({
             inventory: true,
@@ -229,8 +230,8 @@ const RestraintPrototypes: List<Template> = List([
             allFloors: true,
             shrine: ["Metal", "Collars", "Cyber"],
         })
-    }),
-    Template.Create({
+    })
+    export const Glove = Template.Create({
         QualifiedName: Stack.of('Glove'),
         Property: Property.Create({
             inventory: true,
@@ -262,8 +263,8 @@ const RestraintPrototypes: List<Template> = List([
             allFloors: true,
             shrine: ["Metal", "Mittens"]
         })
-    }),
-    Template.Create({
+    })
+    export const Heel = Template.Create({
         QualifiedName: Stack.of('Heel'),
         Property: Property.Create({
             inventory: true,
@@ -293,8 +294,8 @@ const RestraintPrototypes: List<Template> = List([
             allFloors: true,
             shrine: ["Metal", "Boots"]
         })
-    }),
-    Template.Create({
+    })
+    export const Harness = Template.Create({
         QualifiedName: Stack.of('Harness'),
         Property: Property.Create({
             alwaysRender: true, sfx: "FutureLock",
@@ -330,8 +331,8 @@ const RestraintPrototypes: List<Template> = List([
             events: [
             ]
         })
-    }),
-    Template.Create({
+    })
+    export const ChastityBra = Template.Create({
         QualifiedName: Stack.of('ChastityBra'),
         Property: Property.Create({
             inventory: true,
@@ -368,8 +369,8 @@ const RestraintPrototypes: List<Template> = List([
             allFloors: true,
             shrine: ["ChastityBras", "Chastity", "Metal"]
         })
-    }),
-    Template.Create({
+    })
+    export const ChastityBelt = Template.Create({
         QualifiedName: Stack.of('ChastityBelt'),
         Property: Property.Create({
             inventory: true,
@@ -410,8 +411,8 @@ const RestraintPrototypes: List<Template> = List([
             allFloors: true,
             shrine: ["Chastity", "Metal", "ChastityBelts"]
         })
-    }),
-    Template.Create({
+    })
+    export const TorsoBelt = Template.Create({
         QualifiedName: Stack.of('TorsoBelt'),
         Property: Property.Create({
             alwaysRender: true,
@@ -447,8 +448,8 @@ const RestraintPrototypes: List<Template> = List([
             events: [
             ]
         })
-    }),
-    Template.Create({
+    })
+    export const ArmCuff = Template.Create({
         QualifiedName: Stack.of('ArmCuff'),
         Property: Property.Create({
             renderWhenLinked: ["Ties"],
@@ -472,6 +473,7 @@ const RestraintPrototypes: List<Template> = List([
             linkCategory: "Cuffs",
             linkSize: 0.55,
             LinkableBy: [...KDDevices, ...KDBindable],
+            Link: 'KDMod.DroneSet.ArmLink',
             Color: ["#499ed6", "#b927a8", "#000000"],
             factionColor: [[], [1], [0]],
             unlimited: true,
@@ -487,8 +489,8 @@ const RestraintPrototypes: List<Template> = List([
             shrine: ["Cuffs", "Metal", "ArmCuffsBase"],
             maxwill: 0.8
         })
-    }),
-    Template.Create({
+    })
+    export const TightCuff = Template.Create({
         QualifiedName: Stack.of('TightCuff'),
         Property: Property.Create({
             inventory: true,
@@ -518,8 +520,8 @@ const RestraintPrototypes: List<Template> = List([
             allFloors: true,
             shrine: ["Metal", "Cuffs", "LegCuffsBase"],
         })
-    }),
-    Template.Create({
+    })
+    export const AnkleCuff = Template.Create({
         QualifiedName: Stack.of('AnkleCuff'),
         Property: Property.Create({
             inventory: true,
@@ -555,16 +557,62 @@ const RestraintPrototypes: List<Template> = List([
             shrine: ["Cuffs", "Metal", "AnkleCuffsBase", "HogtieLower"],
         })
     })
-])
+    export const ArmLink = Template.Create({
+        QualifiedName: Stack.of('ArmLink'),
+        Property: Property.Create({
+            name: DEFAULT,
+            sfx: "FutureLock",
+            debris: "Chains",
+            DefaultLock: "Red",
+            accessible: true,
+            Asset: "FuturisticCuffs",
+            Type: "Wrist",
+            LinkableBy: [...KDElbowBind, ...KDBoxBind, ...KDBindable],
+            // Link: "CyberArmCuffs3",
+            UnLink: "KDMod.DroneSet.ArmCuff",
+            Model: CuffLink.ModelName.ArmLink,
+            factionFilters: {
+                Link: { color: "Highlight", override: true },
+            },
+            Color: ["#499ed6", "#b927a8", "#000000"],
+            factionColor: [[], [1], [0]],
+            linkSize: 0.6,
+            linkCategory: "ArmLink",
+            Group: "ItemArms",
+            bindarms: false,
+            power: 3,
+            weight: 0,
+            escapeChance: { "Remove": 0.2, "Pick": 0.1 },
+            helpChance: { "Remove": 0.4 },
+            enemyTags: {},
+            playerTags: {},
+            minLevel: 0,
+            floors: KDMapInit([]),
+            shrine: ["Metal", "Cuffs"],
+            events: [
+                { trigger: "postUnlock", type: "RequireLocked", inheritLinked: true },
+                { trigger: "remove", type: "unlinkItem" },
+                // { trigger: "hit", type: "linkItem", sfx: "FutureLock", chance: 0, tags: ["lowwill"] },
+                { trigger: "postRemoval", type: "RequireBaseArmCuffs" },
+                { trigger: "beforeStruggleCalc", type: "wristCuffsBlock", power: 0.08, inheritLinked: true }
+            ],
+            inventory: false
+        })
+    })
+}
+
+console.log('Prototype', Object.values<Template>(Prototype))
 
 export const DroneSet =
-    RestraintPrototypes
+    Seq(Object.values<Template>(Prototype))
         .map(t => t.set('QualifiedName', t.QualifiedName.push(RootNamespace, 'DroneSet')))
         .map(Template.ToDefinition)
+        .groupBy(def => def.Property.name)
+        .map(seq => seq.first() as Definition)
 
 export function Register(manager: RestraintDefinitionManager) {
-    console.log('RestraintPrototypes', RestraintPrototypes.toJS())
+    console.log('RestraintPrototypes', [...Object.entries(Prototype).map(([k,v])=> [k, (v as Definition).toJS()])])
     console.log('DroneSet', DroneSet.toJS())
-    manager.Add(DroneSet)
+    manager.Add(DroneSet.valueSeq())
     manager.Commit()
 }

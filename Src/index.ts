@@ -58,8 +58,9 @@ import * as DroneSet from './DroneSet'
 // }
 
 import { Register as RegisterLockedGlove } from './Model/LockedGlove'
-
+import { Register as RegisterCuffLink } from './Model/CuffLink'
 RegisterLockedGlove()
+RegisterCuffLink()
 
 const manager = new RestraintDefinitionManager()
 DroneSet.RestraintDefinition.Register(manager)
@@ -82,9 +83,9 @@ KDPerkStart["StartDrone"] = () => {
                 minfloor: 1,
                 powerBonus: 0,
             },
-            // faction: 'Dollsmith'
+            faction: 'Dollsmith'
             // faction: 'AncientRobot'
-            faction: 'Curse'
+            // faction: 'Curse'
         })
     });
     ["TrapPlug3", "RearVibe1", "TrapVibeProto", "NippleClamps3"].forEach(r =>{
@@ -101,9 +102,9 @@ KDPerkStart["StartDrone"] = () => {
             //     minfloor: 1,
             //     powerBonus: 0,
             // },
-            // faction: 'Dollsmith'
+            faction: 'Dollsmith'
             // faction: 'AncientRobot'
-            faction: 'Curse'
+            // faction: 'Curse'
         })
     })
 }
