@@ -28,7 +28,7 @@ export function Register() {
                 Name: "ForeArmLeft", Layer: "MittenLeft", Pri: 100.1,
                 Poses: ToMap(FOREARMPOSES),
                 GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
-                SwapLayerPose: { Crossed: "CrossArmLeft" },
+                SwapLayerPose: { Crossed: "CrossMittenLeft", Front: "ForeMittenLeft" },
                 InheritColor: 'GloveBody'
             },
             {
@@ -43,6 +43,7 @@ export function Register() {
                 Sprite: "HandLeft",
                 Poses: ToMap(FOREHANDLEFTPOSES),
                 GlobalDefaultOverride: ToMap(["Front"]),
+                SwapLayerPose: { Crossed: "CrossMittenLeft", Front: "ForeMittenLeft" },
                 HidePoses: ToMap(["HideHands", "EncaseHandLeft"]),
                 InheritColor: 'GloveBody'
             },
@@ -96,7 +97,7 @@ export function Register() {
                 Name: "ForeArmRight", Layer: "MittenRight", Pri: 100.1,
                 Poses: ToMap(FOREARMPOSES),
                 GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
-                SwapLayerPose: { Crossed: "CrossArmRight" },
+                SwapLayerPose: { Crossed: "CrossMittenRight", Front: "ForeMittenRight" },
                 InheritColor: 'GloveBody'
             },
             {
@@ -111,6 +112,7 @@ export function Register() {
                 Sprite: "HandRight",
                 Poses: ToMap(FOREHANDRIGHTPOSES),
                 GlobalDefaultOverride: ToMap(["Front"]),
+                SwapLayerPose: { Crossed: "CrossMittenRight", Front: "ForeMittenRight" },
                 HidePoses: ToMap(["HideHands", "EncaseHandRight"]),
                 InheritColor: 'GloveBody'
             },
