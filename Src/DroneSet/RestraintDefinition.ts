@@ -1,7 +1,7 @@
 import { Seq, Stack } from "immutable"
 import { DEFAULT, RestraintDefinitionManager, RootNamespace } from '../Common'
 import { Definition, Property, Template } from "../Common/Restraint"
-import { CuffLink } from "../Model"
+import { CuffLink, CuffLink as DroneCuff } from "../Model"
 
 declare let KDMaskLink: string[]
 
@@ -424,7 +424,7 @@ export namespace Prototype {
             Asset: "",
             LinkableBy: [...KDHarnessLink],
             strictness: 0.1,
-            Model: "NeoCyberBelt",
+            Model: DroneCuff.ModelName.Belt,
             tightType: "Secure",
             harness: true,
             factionFilters: {
@@ -500,7 +500,7 @@ export namespace Prototype {
             accessible: true,
             Asset: "FuturisticLegCuffs",
             LinkableBy: [...KDBindable, ...KDDevices],
-            Model: "CyberCuffsThigh",
+            Model: DroneCuff.ModelName.TighCuff,
             DefaultLock: "Red",
             factionFilters: {
                 Display: { color: "Highlight", override: false },
@@ -569,8 +569,8 @@ export namespace Prototype {
             Type: "Wrist",
             LinkableBy: [...KDElbowBind, ...KDBoxBind, ...KDBindable],
             // Link: "CyberArmCuffs3",
-            UnLink: "KDMod.DroneSet.ArmCuff",
-            Model: CuffLink.ModelName.ArmLink,
+            // UnLink: "KDMod.DroneSet.ArmCuff",
+            Model: DroneCuff.ModelName.ArmLink,
             factionFilters: {
                 Link: { color: "Highlight", override: true },
             },
@@ -582,7 +582,7 @@ export namespace Prototype {
             bindarms: false,
             power: 3,
             weight: 0,
-            escapeChance: { "Remove": 0.2, "Pick": 0.1 },
+            escapeChance: { "Struggle": -0.2, "Remove": 0.2, "Pick": 0.1 },
             helpChance: { "Remove": 0.4 },
             enemyTags: {},
             playerTags: {},
@@ -599,6 +599,83 @@ export namespace Prototype {
             inventory: false
         })
     })
+    export const ThighLink = Template.Create({
+        QualifiedName: Stack.of('ThighLink'),
+        Property: Property.Create({
+            name: DEFAULT,
+            sfx: "FutureLock",
+            accessible: true,
+            Asset: "FuturisticLegCuffs",
+            debris: "Chains",
+            DefaultLock: "Red",
+            // UnLink: "CyberLegCuffs",
+            LinkableBy: [...KDBindable, ...KDDevices],
+            Type: "Chained",
+            Model: DroneCuff.ModelName.ThighLink,
+            factionFilters: {
+                Link: { color: "Highlight", override: true },
+            },
+            Color: ["#499ed6", "#499ed6", "#b927a8", "#000000"],
+            linkSize: 0.6,
+            linkCategory: "LegLink",
+            factionColor: [[], [2], [0, 1]],
+            Group: "ItemLegs",
+            hobble: 0.4,
+            power: 6,
+            weight: 0,
+            escapeChance: { "Struggle": -0.2, "Remove": -0.15, "Pick": 0 },
+            enemyTags: {},
+            playerTags: {},
+            minLevel: 0,
+            allFloors: true,
+            shrine: ["Metal", "Cuffs"],
+            events: [
+                { trigger: "postUnlock", type: "RequireLocked", inheritLinked: true },
+                { trigger: "remove", type: "unlinkItem" },
+                { trigger: "postRemoval", type: "RequireBaseLegCuffs" }
+            ],
+            inventory: false
+        })
+    })
+    export const AnkleLink = Template.Create({
+        QualifiedName: Stack.of('AnkleLink'),
+        Property: Property.Create({
+            name: DEFAULT,
+            sfx: "FutureLock",
+            accessible: true,
+            Asset: "FuturisticAnkleCuffs",
+            debris: "Chains",
+            DefaultLock: "Red",
+            // Link: "CyberAnkleCuffs3",
+            // UnLink: "CyberAnkleCuffs",
+            LinkableBy: [...KDBindable, ...KDDevices],
+            Type: "Chained",
+            Model: CuffLink.ModelName.AnkleLink,
+            factionFilters: {
+                BaseMetal: { color: "DarkNeutral", override: true },
+            },
+            Color: ["#499ed6", "#499ed6", "#b927a8", "#000000"],
+            factionColor: [[], [2], [0, 1]],
+            linkSize: 0.6,
+            linkCategory: "AnkleLink",
+            Group: "ItemFeet",
+            hobble: 0.6,
+            power: 6,
+            weight: 0,
+            escapeChance: { "Struggle": -0.2, "Remove": -0.15, "Pick": 0 },
+            enemyTags: {},
+            playerTags: {},
+            minLevel: 0,
+            allFloors: true,
+            shrine: ["Metal", "Cuffs"],
+            events: [
+                { trigger: "remove", type: "unlinkItem" },
+                { trigger: "postRemoval", type: "RequireBaseAnkleCuffs" },
+                // { trigger: "hit", type: "linkItem", sfx: "FutureLock", chance: 0.0, subMult: 0.0, tags: ["lowwill"], noLeash: true }
+            ],
+            inventory: false
+        })
+    })
 }
 
 console.log('Prototype', Object.values<Template>(Prototype))
@@ -611,7 +688,7 @@ export const DroneSet =
         .map(seq => seq.first() as Definition)
 
 export function Register(manager: RestraintDefinitionManager) {
-    console.log('RestraintPrototypes', [...Object.entries(Prototype).map(([k,v])=> [k, (v as Definition).toJS()])])
+    console.log('RestraintPrototypes', [...Object.entries(Prototype).map(([k, v]) => [k, (v as Definition).toJS()])])
     console.log('DroneSet', DroneSet.toJS())
     manager.Add(DroneSet.valueSeq())
     manager.Commit()
