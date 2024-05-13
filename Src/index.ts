@@ -54,16 +54,16 @@ import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
 // }
 
 import { Register as RegisterLockedGlove } from './Model/LockedGlove'
-import { Register as RegisterCuffLink } from './Model/CuffLink'
+import { Register as RegisterCuffLink } from './Model/DroneCuffs'
 RegisterLockedGlove()
 RegisterCuffLink()
 
-import * as DroneSet from './DroneSet'
-DroneSet.RestraintDefinition.Register()
+import * as Template from './Template'
+Template.SciFiSet.Register()
 
 declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
-    DroneSet.RestraintDefinition.DroneSet
+    Object.values(Template.SciFiSet.SciFiSet)
         .forEach(def => {
             KD.AddRestraintIfWeaker_({
                 restraint: def.Data.name,

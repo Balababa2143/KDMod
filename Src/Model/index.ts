@@ -1,2 +1,2 @@
-export * as CuffLink from './CuffLink'
+export * as DroneCuff from './DroneCuffs'
 export * as LockedGlove from './LockedGlove'
