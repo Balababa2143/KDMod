@@ -1,8 +1,4 @@
-export * as Common from './Common'
-
 import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
-import { RestraintDefinitionManager } from './Common'
-import * as DroneSet from './DroneSet'
 
 // KDPrereqs["DroneSetComplete"] = (enemy, e, data) => {
 //     return true
@@ -62,33 +58,32 @@ import { Register as RegisterCuffLink } from './Model/CuffLink'
 RegisterLockedGlove()
 RegisterCuffLink()
 
-const manager = new RestraintDefinitionManager()
-DroneSet.RestraintDefinition.Register(manager)
+import * as DroneSet from './DroneSet'
+DroneSet.RestraintDefinition.Register()
 
 declare let KDPerkStart: Record<string, () => void>
-
 KDPerkStart["StartDrone"] = () => {
     DroneSet.RestraintDefinition.DroneSet
-    .forEach(def => {
-        KD.AddRestraintIfWeaker_({
-            restraint: def.Property.name,
-            Bypass: true,
-            // Curse: "CompletedDroneSet",
-            variant: {
-                hexes: [
-                    // "DroneSetComplete"
-                ],
-                enchants: [],
-                level: 0,
-                minfloor: 1,
-                powerBonus: 0,
-            },
-            // faction: 'Dollsmith'
-            // faction: 'AncientRobot'
-            faction: 'Curse'
-        })
-    });
-    ["TrapPlug3", "RearVibe1", "TrapVibeProto", "NippleClamps3"].forEach(r =>{
+        .forEach(def => {
+            KD.AddRestraintIfWeaker_({
+                restraint: def.Data.name,
+                Bypass: true,
+                // Curse: "CompletedDroneSet",
+                variant: {
+                    hexes: [
+                        // "DroneSetComplete"
+                    ],
+                    enchants: [],
+                    level: 0,
+                    minfloor: 1,
+                    powerBonus: 0,
+                },
+                // faction: 'Dollsmith'
+                // faction: 'AncientRobot'
+                faction: 'Curse'
+            })
+        });
+    ["TrapPlug3", "RearVibe1", "TrapVibeProto", "NippleClamps3"].forEach(r => {
         KD.AddRestraintIfWeaker_({
             restraint: r,
             Bypass: true,

@@ -35,3 +35,7 @@ export function DeepFreezeClone<T>(obj: T): Readonly<T> {
 export function Throw(message?: string, options?: ErrorOptions): never {
     throw new Error(message, options)
 }
+
+export function NameOf<T>(nameLambda: () => T){
+    return nameLambda.toString().replace(/[ |\(\)=>]/g,'')
+}
