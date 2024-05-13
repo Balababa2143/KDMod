@@ -501,7 +501,6 @@ export namespace SciFiSet {
             linkCategory: "Cuffs",
             linkSize: 0.55,
             LinkableBy: [...KDDevices, ...KDBindable],
-            // Link: 'KDMod.DroneSet.ArmLink',
             Color: ["#499ed6", "#b927a8", "#000000"],
             factionColor: [[], [1], [0]],
             unlimited: true,
@@ -519,12 +518,79 @@ export namespace SciFiSet {
         })
     })
     //#endregion
+    //#region ArmCuffLinked
+    export const ArmCuffLinked: Definition = ArmCuff.merge({
+        Data: ArmCuff.Data.merge({
+            name: FullNameOf(() => ArmCuffLinked),
+            alwaysDressModel: [
+                {
+                    Model: Model.DroneCuff.ModelName.ArmLink,
+                    factionFilters: {
+                        Link: { color: "Highlight", override: true },
+                    }
+                }
+            ]
+        })
+    })
+    //#endregion
+    //#region ArmCuffHandsUp
+    export const ArmCuffHandsUp: Definition = ArmCuff.merge({
+        Data: ArmCuff.Data.merge({
+            name: FullNameOf(() => ArmCuffHandsUp),
+            alwaysDressModel: [
+                {
+                    Model: Model.DroneCuff.ModelName.ArmLink,
+                    factionFilters: {
+                        Link: { color: "Highlight", override: true },
+                    }
+                }
+            ],
+            bindarms: true,
+            shrine: [...ArmCuff.Data.shrine, "HandsUp"],
+        })
+    })
+    //#endregion
+    //#region ArmCuffHandFront
+    export const ArmCuffHandsFront: Definition = ArmCuff.merge({
+        Data: ArmCuff.Data.merge({
+            name: FullNameOf(() => ArmCuffHandsFront),
+            alwaysDressModel: [
+                {
+                    Model: Model.DroneCuff.ModelName.ArmLink,
+                    factionFilters: {
+                        Link: { color: "Highlight", override: true },
+                    }
+                }
+            ],
+            bindarms: true,
+            shrine: [...ArmCuff.Data.shrine, "HandsFront"],
+        })
+    })
+    //#endregion
+    //#region ArmCuffYoked
+    export const ArmCuffYoked: Definition = ArmCuff.merge({
+        Data: ArmCuff.Data.merge({
+            name: FullNameOf(() => ArmCuffYoked),
+            alwaysDressModel: [
+                {
+                    Model: Model.DroneCuff.ModelName.ArmLink,
+                    factionFilters: {
+                        Link: { color: "Highlight", override: true },
+                    }
+                }
+            ],
+            bindarms: true,
+            shrine: ["ArmCuffsBase", "Metal", "Yokes", "Yoked"],
+            LinkableBy: undefined
+        })
+    })
+    //#endregion
     //#region TighCuff
-    export const TighCuff: Definition = new Definition({
+    export const ThighCuff: Definition = new Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
-            name: FullNameOf(() => TighCuff),
+            name: FullNameOf(() => ThighCuff),
             debris: "Chains",
             accessible: true,
             Asset: "FuturisticLegCuffs",
@@ -548,6 +614,21 @@ export namespace SciFiSet {
             minLevel: 4,
             allFloors: true,
             shrine: ["Metal", "Cuffs", "LegCuffsBase"],
+        })
+    })
+    //#endregion
+    //#region ThighCuffLinked
+    export const ThighCuffLinked: Definition = ThighCuff.merge({
+        Data: ThighCuff.Data.merge({
+            name: FullNameOf(() => ThighCuffLinked),
+            alwaysDressModel: [
+                {
+                    Model: Model.DroneCuff.ModelName.ThighLink,
+                    factionFilters: {
+                        Link: { color: "Highlight", override: true },
+                    }
+                }
+            ]
         })
     })
     //#endregion
@@ -588,125 +669,18 @@ export namespace SciFiSet {
         })
     })
     //#endregion
-    //#endregion ArmLink
-    export const ArmLink: Definition = new Definition({
-        Data: new Restraint({
-            name: NameOf(() => ArmLink),
-            sfx: "FutureLock",
-            debris: "Chains",
-            DefaultLock: "Red",
-            accessible: true,
-            Asset: "FuturisticCuffs",
-            Type: "Wrist",
-            LinkableBy: [...KDElbowBind, ...KDBoxBind, ...KDBindable],
-            // Link: "CyberArmCuffs3",
-            // UnLink: "KDMod.DroneSet.ArmCuff",
-            Model: Model.DroneCuff.ModelName.ArmLink,
-            factionFilters: {
-                Link: { color: "Highlight", override: true },
-            },
-            Color: ["#499ed6", "#b927a8", "#000000"],
-            factionColor: [[], [1], [0]],
-            linkSize: 0.6,
-            linkCategory: "ArmLink",
-            Group: "ItemArms",
-            bindarms: false,
-            power: 3,
-            weight: 0,
-            escapeChance: { "Struggle": -0.2, "Remove": 0.2, "Pick": 0.1 },
-            helpChance: { "Remove": 0.4 },
-            enemyTags: {},
-            playerTags: {},
-            minLevel: 0,
-            floors: KDMapInit([]),
-            shrine: ["Metal", "Cuffs"],
-            events: [
-                { trigger: "postUnlock", type: "RequireLocked", inheritLinked: true },
-                { trigger: "remove", type: "unlinkItem" },
-                // { trigger: "hit", type: "linkItem", sfx: "FutureLock", chance: 0, tags: ["lowwill"] },
-                { trigger: "postRemoval", type: "RequireBaseArmCuffs" },
-                { trigger: "beforeStruggleCalc", type: "wristCuffsBlock", power: 0.08, inheritLinked: true }
-            ],
-            inventory: false
-        })
-    })
-    //#endregion
-    //#region  ThighLink
-    export const ThighLink: Definition = new Definition({
-        Data: new Restraint({
-            name: FullNameOf(() => ThighLink),
-            sfx: "FutureLock",
-            accessible: true,
-            Asset: "FuturisticLegCuffs",
-            debris: "Chains",
-            DefaultLock: "Red",
-            // UnLink: "CyberLegCuffs",
-            LinkableBy: [...KDBindable, ...KDDevices],
-            Type: "Chained",
-            Model: Model.DroneCuff.ModelName.ThighLink,
-            factionFilters: {
-                Link: { color: "Highlight", override: true },
-            },
-            Color: ["#499ed6", "#499ed6", "#b927a8", "#000000"],
-            linkSize: 0.6,
-            linkCategory: "LegLink",
-            factionColor: [[], [2], [0, 1]],
-            Group: "ItemLegs",
-            hobble: 0.4,
-            power: 6,
-            weight: 0,
-            escapeChance: { "Struggle": -0.2, "Remove": -0.15, "Pick": 0 },
-            enemyTags: {},
-            playerTags: {},
-            minLevel: 0,
-            allFloors: true,
-            shrine: ["Metal", "Cuffs"],
-            events: [
-                { trigger: "postUnlock", type: "RequireLocked", inheritLinked: true },
-                { trigger: "remove", type: "unlinkItem" },
-                { trigger: "postRemoval", type: "RequireBaseLegCuffs" }
-            ],
-            inventory: false
-        })
-    })
-    //#endregion
-    //#region AnkleLink
-    export const AnkleLink: Definition = new Definition({
-        Data: new Restraint({
-            name: FullNameOf(() => AnkleLink),
-            sfx: "FutureLock",
-            accessible: true,
-            Asset: "FuturisticAnkleCuffs",
-            debris: "Chains",
-            DefaultLock: "Red",
-            // Link: "CyberAnkleCuffs3",
-            // UnLink: "CyberAnkleCuffs",
-            LinkableBy: [...KDBindable, ...KDDevices],
-            Type: "Chained",
-            Model: Model.DroneCuff.ModelName.AnkleLink,
-            factionFilters: {
-                Link: { color: "Highlight", override: true },
-            },
-            Color: ["#499ed6", "#499ed6", "#b927a8", "#000000"],
-            factionColor: [[], [2], [0, 1]],
-            linkSize: 0.6,
-            linkCategory: "AnkleLink",
-            Group: "ItemFeet",
-            hobble: 0.6,
-            power: 6,
-            weight: 0,
-            escapeChance: { "Struggle": -0.2, "Remove": -0.15, "Pick": 0 },
-            enemyTags: {},
-            playerTags: {},
-            minLevel: 0,
-            allFloors: true,
-            shrine: ["Metal", "Cuffs"],
-            events: [
-                { trigger: "remove", type: "unlinkItem" },
-                { trigger: "postRemoval", type: "RequireBaseAnkleCuffs" },
-                // { trigger: "hit", type: "linkItem", sfx: "FutureLock", chance: 0.0, subMult: 0.0, tags: ["lowwill"], noLeash: true }
-            ],
-            inventory: false
+    //#region AnkleCuffLinked
+    export const AnkleCuffLinked: Definition = AnkleCuff.merge({
+        Data: AnkleCuff.Data.merge({
+            name: FullNameOf(() => AnkleCuffLinked),
+            alwaysDressModel: [
+                {
+                    Model: Model.DroneCuff.ModelName.AnkleLink,
+                    factionFilters: {
+                        Link: { color: "Highlight", override: true },
+                    }
+                }
+            ]
         })
     })
     //#endregion
@@ -719,7 +693,7 @@ export function Register() {
         KD.Restraints.push(def.Data.toJS() as restraint)
         KD.AddRestraintText(
             def.Data.name,
-            def.InfoText.DisplayName,
+            def.Data.name,
             def.InfoText.FlavorText,
             def.InfoText.FunctionText
         )
