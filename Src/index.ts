@@ -55,8 +55,10 @@ import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
 
 import { Register as RegisterLockedGlove } from './Model/LockedGlove'
 import { Register as RegisterCuffLink } from './Model/DroneCuffs'
+import { Register as RegiserEarPlug } from './Model/EarPlug'
 RegisterLockedGlove()
 RegisterCuffLink()
+RegiserEarPlug()
 
 import * as Template from './Template'
 Template.SciFiSet.Register()
@@ -69,6 +71,7 @@ KDPerkStart["StartDrone"] = () => {
         SF.Visor,
         SF.BallGag,
         SF.Muzzle,
+        SF.EarPlug,
         SF.Mask,
         SF.Catsuit,
         SF.Heel,
@@ -77,7 +80,7 @@ KDPerkStart["StartDrone"] = () => {
         SF.ChastityBelt,
         SF.ChastityBra,
         SF.Harness,
-        SF.ArmCuffHandsFront,
+        SF.ArmCuffLinked,
         SF.ThighCuff,
         SF.AnkleCuff,
         SF.TorsoBelt

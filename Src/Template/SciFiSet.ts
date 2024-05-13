@@ -25,7 +25,7 @@ export namespace SciFiSet {
             DefaultLock: "Blue",
             Color: ['#91023a'],
             factionFilters: {
-                Goggles: { color: "Highlight", override: true }
+                Goggles: { color: "LightNeutral", override: true }
             },
             Group: "ItemHead",
             LinkableBy: [...KDVisorLink, ...KDMaskLink],
@@ -163,6 +163,20 @@ export namespace SciFiSet {
         })
     })
     //#endregion
+    export const EarPlug: Definition = new Definition({
+        Data: new Restraint({
+            inventory: true,
+            name: FullNameOf(() => EarPlug),
+            escapeChance: { "Struggle": -0.25, "Cut": -0.8, "Remove": 0.05, "Pick": -0.25 },
+            Group: "ItemEars",
+            shrine: ["Metal"],
+            Model: Model.EarPlug.ModelName.EarPlug,
+            factionFilters:{
+                BaseMetal: { color: "DarkNeutral", override: true },
+            },
+            alwaysRender: true
+        })
+    })
     //#endregion
 
     //#region Body
