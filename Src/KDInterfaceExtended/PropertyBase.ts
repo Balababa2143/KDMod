@@ -146,6 +146,9 @@ export class PropertyBase extends Record<KDRestraintPropsBase>({
     displayPower: undefined,
 })
 {
+    constructor(prop?: KDRestraintPropsBase){
+        super(prop)
+    }
     static #Default = new PropertyBase()
     static get Default() { return this.#Default }
 }

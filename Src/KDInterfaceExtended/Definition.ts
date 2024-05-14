@@ -12,6 +12,14 @@ export class Definition extends IM.Record<DefinitionProp>({
     InfoText: InfoText.Default
 })
 {
+    constructor(prop?: Omit<DefinitionProp, 'InfoText'> & {InfoText?: InfoText}){
+        if(prop != null && !prop.InfoText){
+            prop.InfoText = new InfoText({
+                DisplayName: prop?.Data.name
+            })
+        }
+        super(prop)
+    }
     static #Default = new Definition()
     static get Default() { return this.#Default }
 }

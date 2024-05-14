@@ -1,6 +1,5 @@
-import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
-import { Definition, Restraint } from "../../RestraintProperty"
-import { Helpers, RootNamespace } from '../../Common'
+import { Definition, Restraint } from "../../KDInterfaceExtended"
+import { Helpers, Mod, RootNamespace } from '../../Common'
 import NameOf = Helpers.NameOf
 import * as Model from '../Model'
 
@@ -38,7 +37,9 @@ export namespace SciFiSet {
             maxwill: 0.1,
             minLevel: 0,
             allFloors: true,
-            shrine: ["Visors"]
+            shrine: ["Visors"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -68,6 +69,8 @@ export namespace SciFiSet {
             minLevel: 0,
             allFloors: true,
             shrine: ["Masks", "Block_ItemMouth", 'TransparentMask'],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -107,7 +110,9 @@ export namespace SciFiSet {
             escapeChance: { "Struggle": -0.4, "Cut": -0.2, "Remove": 0.05, "Pick": -0.1 },
             minLevel: 0,
             allFloors: true,
-            shrine: ["BallGags", "Gags", "Metal"]
+            shrine: ["BallGags", "Gags", "Metal"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -147,7 +152,9 @@ export namespace SciFiSet {
             escapeChance: { "Struggle": -0.25, "Cut": -0.8, "Remove": 0.05, "Pick": -0.25 },
             minLevel: 9,
             allFloors: true,
-            shrine: ["FlatGags", "Gags", "Metal"]
+            shrine: ["FlatGags", "Gags", "Metal"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -165,7 +172,13 @@ export namespace SciFiSet {
             factionFilters: {
                 BaseMetal: { color: "DarkNeutral", override: true },
             },
-            alwaysRender: true
+            alwaysRender: true,
+            enemyTags: {},
+            playerTags: {},
+            Color:[],
+            minLevel: 0,
+            power: 10,
+            weight: 0
         })
     })
     //#endregion
@@ -204,6 +217,8 @@ export namespace SciFiSet {
             minLevel: 0,
             allFloors: true,
             shrine: ["Metal", "Collars", "Cyber"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -245,7 +260,10 @@ export namespace SciFiSet {
             alwaysDress: [
                 { Item: "SeamlessCatsuit", Group: "Suit", Color: ['#3873C3'], override: true, factionColor: [[0]] },
                 { Item: "SeamlessCatsuit", Group: "SuitLower", Color: ['#3873C3'], override: true, factionColor: [[0]] },
-                { Item: "Catsuit", Group: "Gloves", Color: ['#3873C3'], override: true, factionColor: [[0]] }],
+                { Item: "Catsuit", Group: "Gloves", Color: ['#3873C3'], override: true, factionColor: [[0]] }
+            ],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -278,7 +296,9 @@ export namespace SciFiSet {
             maxwill: 0.4,
             minLevel: 0,
             allFloors: true,
-            shrine: ["Metal", "Mittens"]
+            shrine: ["Metal", "Mittens"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -308,7 +328,9 @@ export namespace SciFiSet {
             maxwill: 0.25,
             minLevel: 0,
             allFloors: true,
-            shrine: ["Metal", "Boots"]
+            shrine: ["Metal", "Boots"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -348,6 +370,8 @@ export namespace SciFiSet {
             minLevel: 7,
             allFloors: true,
             shrine: ["Metal", "Harnesses"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -380,7 +404,9 @@ export namespace SciFiSet {
             escapeChance: { "Struggle": -1.1, "Cut": -0.8, "Remove": 1.0, "Pick": -0.35 },
             minLevel: 4,
             allFloors: true,
-            shrine: ["ChastityBras", "Chastity", "Metal"]
+            shrine: ["ChastityBras", "Chastity", "Metal"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -416,7 +442,9 @@ export namespace SciFiSet {
             escapeChance: { "Struggle": -1.3, "Cut": -0.8, "Remove": 1.0, "Pick": -0.35 },
             minLevel: 7,
             allFloors: true,
-            shrine: ["Chastity", "Metal", "ChastityBelts"]
+            shrine: ["Chastity", "Metal", "ChastityBelts"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -458,6 +486,8 @@ export namespace SciFiSet {
             minLevel: 7,
             allFloors: true,
             shrine: ["Metal", "Cuffs"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -497,7 +527,9 @@ export namespace SciFiSet {
             minLevel: 4,
             allFloors: true,
             shrine: ["Cuffs", "Metal", "ArmCuffsBase"],
-            maxwill: 0.8
+            maxwill: 0.8,
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -600,6 +632,8 @@ export namespace SciFiSet {
             minLevel: 4,
             allFloors: true,
             shrine: ["Metal", "Cuffs", "LegCuffsBase"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -652,6 +686,8 @@ export namespace SciFiSet {
             minLevel: 4,
             allFloors: true,
             shrine: ["Cuffs", "Metal", "AnkleCuffsBase", "HogtieLower"],
+            enemyTags: {},
+            playerTags: {},
         })
     })
     //#endregion
@@ -677,13 +713,17 @@ export namespace SciFiSet {
 //#endregion
 
 export function Register() {
-    for (const def of Object.values(SciFiSet)) {
-        KD.Restraints.push(def.Data.toJS() as restraint)
-        KD.AddRestraintText(
-            def.Data.name,
-            def.Data.name,
-            def.InfoText.FlavorText,
-            def.InfoText.FunctionText
-        )
+    const defs = Object.values(SciFiSet)
+    if(defs.every(Mod.CheckNoDuplicateRestraint)){
+        defs.forEach(Mod.RegisterNewRestraint)
+    }
+    else{
+        throw new Error(`${RootNamespace} register: restraint name duplicated`, {
+            cause: {
+                DuplicatedRestraints: [
+                    ...defs.filter(x => !Mod.CheckNoDuplicateRestraint(x))
+                ]
+            }
+        })
     }
 }

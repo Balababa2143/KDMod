@@ -8,6 +8,9 @@ export class Property extends Record<KDRestraintProps>({
     Group: DEFAULT,
 })
 {
+    constructor(prop?: KDRestraintProps){
+        super(prop)
+    }
     static #Default = new Property()
     static get Default() { return this.#Default }
 }

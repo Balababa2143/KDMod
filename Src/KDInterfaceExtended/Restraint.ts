@@ -20,6 +20,9 @@ export class Restraint extends Record<restraint>({
     ApplyVariants: undefined,
 })
 {
+    constructor(prop?: restraint){
+        super(prop)
+    }
     static #Default = new Restraint()
     static get Default() { return this.#Default }
 }
