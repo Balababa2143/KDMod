@@ -64,27 +64,27 @@ import { Helpers } from './Common'
 declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
     [
-        SF.Visor,
+        // SF.Visor,
         SF.MuzzleStuffedBall,
         SF.EarPlug,
         SF.Mask,
-        SF.Catsuit,
-        SF.Heel,
-        SF.Glove,
-        SF.Collar,
-        SF.ChastityBelt,
-        SF.ChastityBra,
-        SF.Harness,
-        SF.ArmCuffLinked,
-        SF.ThighCuff,
-        SF.AnkleCuff,
-        SF.TorsoBelt
+        // SF.Catsuit,
+        // SF.Heel,
+        // SF.Glove,
+        // SF.Collar,
+        // SF.ChastityBelt,
+        // SF.ChastityBra,
+        // SF.Harness,
+        // SF.ArmCuffLinked,
+        // SF.ThighCuff,
+        // SF.AnkleCuff,
+        // SF.TorsoBelt
     ]
         .forEach(def => {
             KD.AddRestraintIfWeaker_({
                 restraint: def.Data.name,
                 Bypass: true,
-                // Curse: "CompletedDroneSet",
+                Curse: Module.DroneSet.Sensory.SensoryControlCurse.Name,
                 variant: {
                     hexes: [
                         // "DroneSetComplete"
@@ -118,26 +118,26 @@ KDPerkStart["StartDrone"] = () => {
             faction: 'Curse'
         })
     })
-    let cuff = KD.AllRestraint().find(r => r.name === SF.ThighCuff.Data.name) ?? Helpers.Throw('Cuff not found')
-    KDMorphToInventoryVariant(
-        cuff,
-        {
-            template: SF.ThighCuffLinked.Data.name,
-            events: []
-        },
-        '',
-        ''
-    )
-    cuff = KD.AllRestraint().find(r => r.name === SF.AnkleCuff.Data.name) ?? Helpers.Throw('Cuff not found')
-    KDMorphToInventoryVariant(
-        cuff,
-        {
-            template: SF.AnkleCuffLinked.Data.name,
-            events: []
-        },
-        '',
-        ''
-    )
+    // let cuff = KD.AllRestraint().find(r => r.name === SF.ThighCuff.Data.name) ?? Helpers.Throw('Cuff not found')
+    // KDMorphToInventoryVariant(
+    //     cuff,
+    //     {
+    //         template: SF.ThighCuffLinked.Data.name,
+    //         events: []
+    //     },
+    //     '',
+    //     ''
+    // )
+    // cuff = KD.AllRestraint().find(r => r.name === SF.AnkleCuff.Data.name) ?? Helpers.Throw('Cuff not found')
+    // KDMorphToInventoryVariant(
+    //     cuff,
+    //     {
+    //         template: SF.AnkleCuffLinked.Data.name,
+    //         events: []
+    //     },
+    //     '',
+    //     ''
+    // )
 }
 
 KinkyDungeonStatsPresets["StartDrone"] = {
