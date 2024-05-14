@@ -1,4 +1,4 @@
-export * as Sensory from './Sensory'
+export { Sensory } from './Sensory'
 
 import { Register as RegisterSensory } from "./Sensory";
 

@@ -52,7 +52,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => Mask),
             inaccessible: true,
             Model: "FullVisorRim",
-            DefaultLock: "Red",
+            DefaultLock: "Blue",
             factionColor: [[2]],
             Color: ["#ff5277"],
             factionFilters: {

@@ -1,143 +1,14 @@
 import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
 
-// KDPrereqs["DroneSetComplete"] = (enemy, e, data) => {
-//     return true
-// }
-
-// KDEventHexModular["DroneSetComplete"] = {
-//     level: 1,
-//     weight: (item, allHex, data) => {
-//         return 0;
-//     },
-//     events: (data) => [
-//         { trigger: "drawSGTooltip", type: "curseInfo", prereq: "DroneSetComplete", msg: "DroneSetComplete", color: "#ff5555", inheritLinked: true, original: "CompletedDroneSet" },
-//         { trigger: "drawBuffIcons", type: "curseInfo", prereq: "DroneSetComplete", buffSprite: "curse/Blocked", inheritLinked: true, original: "CompletedDroneSet" },
-//     ]
-// }
-
-// KDCurses["CompletedDroneSet"] = {
-//     powerMult: 4,
-//     lock: true,
-//     level: 15,
-//     activatecurse: true,
-//     customIcon_hud: "Locks/Blocked",
-//     weight: (item) => {
-//         return 0
-//     },
-//     condition: (item) => 
-//         KD
-//         .AllRestraint()
-//         .filter(r => KDGetCurse(r) === 'CompletedDroneSet')
-//         .length === 2
-//     ,
-//     events: [
-//         { type: "DroneRemove", trigger: "postUnlock", kind: "CompletedDroneSet" }
-//     ],
-//     remove: (item, host) => {
-//     }
-// }
-
-// declare let KDMaskLink: string[]
-
-// KDEventMapInventory["postUnlock"]["DroneRemove"] = (e, item, data) => {
-//     if (item && e.kind && KDCurses[e.kind].condition(item)) {
-//         const r = KDRestraint(item)
-//         let inventoryAs = item.inventoryVariant || item.name || (r.inventoryAs);
-//         item.curse = undefined;
-//         if (inventoryAs && KinkyDungeonRestraintVariants[inventoryAs]) {
-//             KinkyDungeonRestraintVariants[inventoryAs].curse = undefined;
-//             KinkyDungeonSendTextMessage(1, 'KinkyDungeonRestraintVariants[inventoryAs].curse = undefined', "#88ff88", 1, false, true);
-//         }
-//         KinkyDungeonLock(item, r.DefaultLock ?? 'Red');
-//         KinkyDungeonSendTextMessage(1, 'KDEventMapInventory["postUnlock"]["DroneRemove"]', "#88ff88", 1, false, true);
-//     }
-// }
-
-
 
 import * as Module from './Module'
-import SF = Module.Template.SciFiSet
 Module.Register()
-
-import { Helpers } from './Common'
 
 declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
-    [
-        // SF.Visor,
-        SF.MuzzleStuffedBall,
-        SF.EarPlug,
-        SF.Mask,
-        // SF.Catsuit,
-        // SF.Heel,
-        // SF.Glove,
-        // SF.Collar,
-        // SF.ChastityBelt,
-        // SF.ChastityBra,
-        // SF.Harness,
-        // SF.ArmCuffLinked,
-        // SF.ThighCuff,
-        // SF.AnkleCuff,
-        // SF.TorsoBelt
-    ]
-        .forEach(def => {
-            KD.AddRestraintIfWeaker_({
-                restraint: def.Data.name,
-                Bypass: true,
-                Curse: Module.DroneSet.Sensory.SensoryControlCurse.Name,
-                variant: {
-                    hexes: [
-                        // "DroneSetComplete"
-                    ],
-                    enchants: [],
-                    level: 0,
-                    minfloor: 1,
-                    powerBonus: 0,
-                },
-                // faction: 'Dollsmith'
-                // faction: 'AncientRobot'
-                faction: 'Curse'
-            })
-        });
-    ["TrapPlug3", "RearVibe1", "TrapVibeProto", "NippleClamps3"].forEach(r => {
-        KD.AddRestraintIfWeaker_({
-            restraint: r,
-            Bypass: true,
-            // Curse: "CompletedDroneSet",
-            // variant: {
-            //     hexes: [
-            //         // "DroneSetComplete"
-            //     ],
-            //     enchants: [],
-            //     level: 0,
-            //     minfloor: 1,
-            //     powerBonus: 0,
-            // },
-            // faction: 'Dollsmith'
-            // faction: 'AncientRobot'
-            faction: 'Curse'
-        })
-    })
-    // let cuff = KD.AllRestraint().find(r => r.name === SF.ThighCuff.Data.name) ?? Helpers.Throw('Cuff not found')
-    // KDMorphToInventoryVariant(
-    //     cuff,
-    //     {
-    //         template: SF.ThighCuffLinked.Data.name,
-    //         events: []
-    //     },
-    //     '',
-    //     ''
-    // )
-    // cuff = KD.AllRestraint().find(r => r.name === SF.AnkleCuff.Data.name) ?? Helpers.Throw('Cuff not found')
-    // KDMorphToInventoryVariant(
-    //     cuff,
-    //     {
-    //         template: SF.AnkleCuffLinked.Data.name,
-    //         events: []
-    //     },
-    //     '',
-    //     ''
-    // )
+    Object
+    .values(Module.DroneSet.Sensory)
+    .forEach(def => KD.InventoryAddLoose(def.Data.name, undefined, 'Curse'))
 }
 
 KinkyDungeonStatsPresets["StartDrone"] = {

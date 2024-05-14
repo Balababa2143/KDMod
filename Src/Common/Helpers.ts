@@ -36,6 +36,16 @@ export function Throw(message?: string, options?: ErrorOptions): never {
     throw new Error(message, options)
 }
 
-export function NameOf<T>(nameLambda: () => T){
-    return nameLambda.toString().replace(/[ |\(\)=>]/g,'')
+export function ThrowIfNull<T>(
+    obj: T | undefined | null,
+    message: string = 'NullReference',
+    options: ErrorOptions = { cause: { errorType: 'NullReferenceError' } }
+): asserts obj is T {
+    if (null == obj) {
+        throw new Error(message, options)
+    }
+}
+
+export function NameOf<T>(nameLambda: () => T) {
+    return nameLambda.toString().replace(/[ |\(\)=>]/g, '')
 }
