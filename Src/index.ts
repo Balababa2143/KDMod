@@ -53,16 +53,12 @@ import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
 //     }
 // }
 
-import { Register as RegisterLockedGlove } from './Model/LockedGlove'
-import { Register as RegisterCuffLink } from './Model/DroneCuffs'
-import { Register as RegiserEarPlug } from './Model/EarPlug'
-RegisterLockedGlove()
-RegisterCuffLink()
-RegiserEarPlug()
 
-import * as Template from './Template'
-Template.SciFiSet.Register()
-import SF = Template.SciFiSet.SciFiSet
+
+import * as Module from './Module'
+import SF = Module.Template.SciFiSet
+Module.Register()
+
 import { Helpers } from './Common'
 
 declare let KDPerkStart: Record<string, () => void>

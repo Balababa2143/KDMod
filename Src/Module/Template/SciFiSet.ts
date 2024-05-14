@@ -1,17 +1,20 @@
 import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
-import { Definition, Restraint } from "../RestraintProperty"
-import { Helpers, RootNamespace } from '../Common'
+import { Definition, Restraint } from "../../RestraintProperty"
+import { Helpers, RootNamespace } from '../../Common'
 import NameOf = Helpers.NameOf
 import * as Model from '../Model'
 
 declare let KDMaskLink: string[]
+
 //#region  SciFiSet
 export namespace SciFiSet {
+
     function FullNameOf<T>(nameLambda: () => T) {
         return `${RootNamespace}.${NameOf(() => SciFiSet)}.${NameOf(nameLambda)}`
     }
 
     //#region Sensory
+
     //#region Visor
     export const Visor: Definition = new Definition({
         Data: new Restraint({
@@ -33,16 +36,13 @@ export namespace SciFiSet {
             weight: 0,
             escapeChance: { "Struggle": -0.6, "Cut": -1.0, "Remove": 0.5, "Pick": -0.5 },
             maxwill: 0.1,
-            enemyTags: {},
-            playerTags: {},
-            events: [
-            ],
             minLevel: 0,
             allFloors: true,
             shrine: ["Visors"]
         })
     })
     //#endregion
+
     //#region Mask
     export const Mask: Definition = new Definition({
         Data: new Restraint({
@@ -65,16 +65,13 @@ export namespace SciFiSet {
             weight: 0,
             escapeChance: { "Struggle": -0.6, "Cut": -1.0, "Remove": 0.5, "Pick": -0.5 },
             maxwill: 0.1,
-            enemyTags: {},
-            playerTags: {},
-            events: [
-            ],
             minLevel: 0,
             allFloors: true,
             shrine: ["Masks", "Block_ItemMouth", 'TransparentMask'],
         })
     })
     //#endregion
+
     //#region BallGag
     export const BallGag: Definition = new Definition({
         Data: new Restraint({
@@ -108,18 +105,13 @@ export namespace SciFiSet {
             factionColor: [[2], [1], [0]],
             maxwill: 0.75,
             escapeChance: { "Struggle": -0.4, "Cut": -0.2, "Remove": 0.05, "Pick": -0.1 },
-            enemyTags: { "cyberdollrestraints": 10 },
-            events: [
-                { trigger: "beforeStruggleCalc", type: "struggleDebuff", msg: "KDHarnessGagRemoveBlindfold", inheritLinked: true, StruggleType: "Remove", power: 0.35, requiredTag: "Blindfolds" },
-                { trigger: "beforeStruggleCalc", type: "struggleDebuff", msg: "KDHarnessGagStruggleBlindfold", inheritLinked: true, StruggleType: "Struggle", power: 0.25, requiredTag: "Blindfolds" },
-            ],
-            playerTags: {},
             minLevel: 0,
             allFloors: true,
             shrine: ["BallGags", "Gags", "Metal"]
         })
     })
     //#endregion
+
     //#region Muzzle
     export const Muzzle: Definition = new Definition({
         Data: new Restraint({
@@ -153,25 +145,24 @@ export namespace SciFiSet {
             factionColor: [[], [], [0]],
             maxwill: 0.25,
             escapeChance: { "Struggle": -0.25, "Cut": -0.8, "Remove": 0.05, "Pick": -0.25 },
-            enemyTags: {},
-            events: [
-            ],
-            playerTags: {},
             minLevel: 9,
             allFloors: true,
             shrine: ["FlatGags", "Gags", "Metal"]
         })
     })
     //#endregion
+
+    //#region EarPlug
     export const EarPlug: Definition = new Definition({
         Data: new Restraint({
             inventory: true,
             name: FullNameOf(() => EarPlug),
             escapeChance: { "Struggle": -0.25, "Cut": -0.8, "Remove": 0.05, "Pick": -0.25 },
+            DefaultLock: "Red",
             Group: "ItemEars",
             shrine: ["Metal"],
             Model: Model.EarPlug.ModelName.EarPlug,
-            factionFilters:{
+            factionFilters: {
                 BaseMetal: { color: "DarkNeutral", override: true },
             },
             alwaysRender: true
@@ -179,7 +170,10 @@ export namespace SciFiSet {
     })
     //#endregion
 
+    //#endregion
+
     //#region Body
+
     //#region Collar
     export const Collar: Definition = new Definition({
         Data: new Restraint({
@@ -207,14 +201,13 @@ export namespace SciFiSet {
             weight: 0,
             escapeChance: { "Struggle": -0.5, "Cut": -0.25, "Remove": 0.33, "Pick": -0.15 },
             maxwill: 0.5,
-            enemyTags: {},
-            playerTags: { "ItemNeckEmpty": 10 },
             minLevel: 0,
             allFloors: true,
             shrine: ["Metal", "Collars", "Cyber"],
         })
     })
     //#endregion
+
     //#region Catsuit
     export const Catsuit: Definition = new Definition({
         Data: new Restraint({
@@ -246,8 +239,6 @@ export namespace SciFiSet {
             weight: 0,
             escapeChance: { "Struggle": -1.4, "Cut": -0.1, "Remove": 0.025, "Pick": 0.08 },
             DefaultLock: "Red",
-            enemyTags: {},
-            playerTags: {},
             minLevel: 7,
             allFloors: true,
             shrine: ["Latex", "Suits"],
@@ -255,12 +246,10 @@ export namespace SciFiSet {
                 { Item: "SeamlessCatsuit", Group: "Suit", Color: ['#3873C3'], override: true, factionColor: [[0]] },
                 { Item: "SeamlessCatsuit", Group: "SuitLower", Color: ['#3873C3'], override: true, factionColor: [[0]] },
                 { Item: "Catsuit", Group: "Gloves", Color: ['#3873C3'], override: true, factionColor: [[0]] }],
-            events: [
-                { trigger: "beforeStruggleCalc", type: "latexDebuff", power: 0.25, inheritLinked: true }
-            ]
         })
     })
     //#endregion
+
     //#region Glove
     export const Glove: Definition = new Definition({
         Data: new Restraint({
@@ -287,14 +276,13 @@ export namespace SciFiSet {
             weight: 0,
             escapeChance: { "Struggle": -0.4, "Cut": -0.2, "Remove": 0.05, "Pick": -0.1 },
             maxwill: 0.4,
-            enemyTags: {},
-            playerTags: { "ItemHandsFull": -2 },
             minLevel: 0,
             allFloors: true,
             shrine: ["Metal", "Mittens"]
         })
     })
     //#endregion
+
     //#region Heel
     export const Heel: Definition = new Definition({
         Data: new Restraint({
@@ -317,19 +305,18 @@ export namespace SciFiSet {
             power: 10,
             weight: 0,
             escapeChance: { "Struggle": -0.4, "Cut": -0.35, "Remove": 0.2, "Pick": -0.25 },
-            maxwill: 0.25, enemyTags: {},
-            events: [
-            ],
-            playerTags: {},
+            maxwill: 0.25,
             minLevel: 0,
             allFloors: true,
             shrine: ["Metal", "Boots"]
         })
     })
     //#endregion
+
     //#endregion
 
     //#region Chastity
+
     //#region Harness
     export const Harness: Definition = new Definition({
         Data: new Restraint({
@@ -358,16 +345,13 @@ export namespace SciFiSet {
             weight: 0,
             escapeChance: { "Struggle": -0.4, "Cut": -0.2, "Remove": 0.4, "Pick": 0.1 },
             maxwill: 0.5,
-            enemyTags: {},
-            playerTags: {},
             minLevel: 7,
             allFloors: true,
             shrine: ["Metal", "Harnesses"],
-            events: [
-            ]
         })
     })
     //#endregion
+
     //#region ChastityBra
     export const ChastityBra: Definition = new Definition({
         Data: new Restraint({
@@ -392,21 +376,15 @@ export namespace SciFiSet {
                 Lining: { color: "LightNeutral", override: true },
                 Metal: { color: "DarkNeutral", override: true },
             },
-            Security: {
-                level_tech: 2,
-            },
-            events: [
-            ],
             maxwill: 0.6,
             escapeChance: { "Struggle": -1.1, "Cut": -0.8, "Remove": 1.0, "Pick": -0.35 },
-            enemyTags: {},
-            playerTags: {},
             minLevel: 4,
             allFloors: true,
             shrine: ["ChastityBras", "Chastity", "Metal"]
         })
     })
     //#endregion
+
     //#region ChastityBelt
     export const ChastityBelt: Definition = new Definition({
         Data: new Restraint({
@@ -426,12 +404,6 @@ export namespace SciFiSet {
             weight: 0,
             DefaultLock: "Red",
             tightType: "Secure",
-            Security: {
-                level_tech: 2,
-            },
-            events: [
-
-            ],
             Model: "CyberBelt",
             factionFilters: {
                 Lining: { color: "LightNeutral", override: true },
@@ -442,17 +414,17 @@ export namespace SciFiSet {
             maxwill: 0.4,
             LinkableBy: ["Wrapping"],
             escapeChance: { "Struggle": -1.3, "Cut": -0.8, "Remove": 1.0, "Pick": -0.35 },
-            enemyTags: {},
-            playerTags: { "ItemVulvaEmpty": -5, "ItemVulvaPiercingsEmpty": -5 },
             minLevel: 7,
             allFloors: true,
             shrine: ["Chastity", "Metal", "ChastityBelts"]
         })
     })
     //#endregion
+
     //#endregion
 
     //#region Cuffs
+
     //#region TorsoBelt
     export const TorsoBelt: Definition = new Definition({
         Data: new Restraint({
@@ -477,20 +449,19 @@ export namespace SciFiSet {
             Color: ['#499ed6', '#555555', '#555555', '#000000'],
             factionColor: [[], [], [0]],
             restriction: 3,
-            Group: "ItemTorso", power: 10, weight: 0,
+            Group: "ItemTorso",
+            power: 10,
+            weight: 0,
             escapeChance: { "Struggle": -0.4, "Cut": -0.2, "Remove": 0.4, "Pick": 0.1 },
             DefaultLock: "Blue",
             maxwill: 0.5,
-            enemyTags: {},
-            playerTags: {},
             minLevel: 7,
             allFloors: true,
             shrine: ["Metal", "Cuffs"],
-            events: [
-            ]
         })
     })
     //#endregion
+
     //#region ArmCuff
     export const ArmCuff: Definition = new Definition({
         Data: new Restraint({
@@ -523,8 +494,6 @@ export namespace SciFiSet {
             power: 12,
             weight: 0,
             escapeChance: { "Struggle": -0.8, "Cut": -0.65, "Remove": 0.25, "Pick": -0.15 },
-            enemyTags: {},
-            playerTags: { "ItemArmsFull": -2 },
             minLevel: 4,
             allFloors: true,
             shrine: ["Cuffs", "Metal", "ArmCuffsBase"],
@@ -532,6 +501,7 @@ export namespace SciFiSet {
         })
     })
     //#endregion
+
     //#region ArmCuffLinked
     export const ArmCuffLinked: Definition = ArmCuff.merge({
         Data: ArmCuff.Data.merge({
@@ -547,6 +517,7 @@ export namespace SciFiSet {
         })
     })
     //#endregion
+
     //#region ArmCuffHandsUp
     export const ArmCuffHandsUp: Definition = ArmCuff.merge({
         Data: ArmCuff.Data.merge({
@@ -564,6 +535,7 @@ export namespace SciFiSet {
         })
     })
     //#endregion
+
     //#region ArmCuffHandFront
     export const ArmCuffHandsFront: Definition = ArmCuff.merge({
         Data: ArmCuff.Data.merge({
@@ -581,6 +553,7 @@ export namespace SciFiSet {
         })
     })
     //#endregion
+
     //#region ArmCuffYoked
     export const ArmCuffYoked: Definition = ArmCuff.merge({
         Data: ArmCuff.Data.merge({
@@ -599,6 +572,7 @@ export namespace SciFiSet {
         })
     })
     //#endregion
+
     //#region TighCuff
     export const ThighCuff: Definition = new Definition({
         Data: new Restraint({
@@ -623,14 +597,13 @@ export namespace SciFiSet {
             factionColor: [[], [2], [0, 1]],
             Group: "ItemLegs", power: 12, weight: 0,
             escapeChance: { "Struggle": -0.8, "Cut": -0.65, "Remove": 0.6, "Pick": -0.15 },
-            enemyTags: {},
-            playerTags: { "ItemFeetFull": -2 },
             minLevel: 4,
             allFloors: true,
             shrine: ["Metal", "Cuffs", "LegCuffsBase"],
         })
     })
     //#endregion
+
     //#region ThighCuffLinked
     export const ThighCuffLinked: Definition = ThighCuff.merge({
         Data: ThighCuff.Data.merge({
@@ -646,6 +619,7 @@ export namespace SciFiSet {
         })
     })
     //#endregion
+
     //#region AnkleCuff
     export const AnkleCuff: Definition = new Definition({
         Data: new Restraint({
@@ -675,14 +649,13 @@ export namespace SciFiSet {
             power: 12,
             weight: 0,
             escapeChance: { "Struggle": -0.8, "Cut": -0.65, "Remove": 0.6, "Pick": -0.15 },
-            enemyTags: {},
-            playerTags: { "ItemFeetFull": -2 },
             minLevel: 4,
             allFloors: true,
             shrine: ["Cuffs", "Metal", "AnkleCuffsBase", "HogtieLower"],
         })
     })
     //#endregion
+
     //#region AnkleCuffLinked
     export const AnkleCuffLinked: Definition = AnkleCuff.merge({
         Data: AnkleCuff.Data.merge({
@@ -698,6 +671,7 @@ export namespace SciFiSet {
         })
     })
     //#endregion
+
     //#endregion
 }
 //#endregion
