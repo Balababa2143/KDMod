@@ -96,7 +96,7 @@ export namespace SciFiSet {
                 Muzzle: { color: "LightNeutral", override: true },
                 Ball: { color: "LightNeutral", override: true },
             },
-            Model: "SciFiBallGag",
+            Model: "AdvancedSciFiBallGag",
             DefaultLock: "Red",
             Asset: "FuturisticHarnessBallGag",
             strictness: 0.35,
@@ -126,7 +126,7 @@ export namespace SciFiSet {
             debris: "Belts",
             LinkableBy: [...KDFlatGagLink],
             renderWhenLinked: [...KDFlatGagLink],
-            Model: "AdvancedSciFiMuzzle",
+            Model: Model.DroneSet.Muzzle,
             DefaultLock: "Red",
             factionFilters: {
                 Display: { color: "Highlight", override: false },
@@ -138,6 +138,8 @@ export namespace SciFiSet {
                 HarnessDisplay: { color: "Highlight", override: false },
                 HarnessRim: { color: "LightNeutral", override: true },
                 Muzzle: { color: "LightNeutral", override: true },
+                Ball: { color: "LightNeutral", override: true },
+                Plug: { color: "DarkNeutral", override: true },
             },
             inaccessible: true,
             Asset: "FuturisticMuzzle",
@@ -159,6 +161,34 @@ export namespace SciFiSet {
     })
     //#endregion
 
+    //#region MuzzleStuffedBall
+    export const MuzzleStuffedBall: Definition = Muzzle.merge({
+        Data: Muzzle.Data.merge({
+            name: FullNameOf(() => MuzzleStuffedBall),
+            gag: 0.7,
+            alwaysDressModel: [
+                {
+                    Model: 'SegmentedLargeBallGag',
+                    factionFilters: {
+                        Ball: { color: "LightNeutral", override: true },
+                        Strap: { color: "DarkNeutral", override: true },
+                    },
+                }
+            ],
+        })
+    })
+    //#endregion
+
+        //#region MuzzlePluged
+        export const MuzzlePluged: Definition = Muzzle.merge({
+            Data: Muzzle.Data.merge({
+                name: FullNameOf(() => MuzzlePluged),
+                Model: Model.DroneSet.MuzzlePlug,
+                gag: 1.0
+            })
+        })
+        //#endregion
+
     //#region EarPlug
     export const EarPlug: Definition = new Definition({
         Data: new Restraint({
@@ -168,14 +198,14 @@ export namespace SciFiSet {
             DefaultLock: "Red",
             Group: "ItemEars",
             shrine: ["Metal"],
-            Model: Model.EarPlug.ModelName.EarPlug,
+            Model: Model.DroneSet.EarPlug,
             factionFilters: {
                 BaseMetal: { color: "DarkNeutral", override: true },
             },
             alwaysRender: true,
             enemyTags: {},
             playerTags: {},
-            Color:[],
+            Color: [],
             minLevel: 0,
             power: 10,
             weight: 0
@@ -465,7 +495,7 @@ export namespace SciFiSet {
             Asset: "",
             LinkableBy: [...KDHarnessLink],
             strictness: 0.1,
-            Model: Model.DroneCuff.ModelName.Belt,
+            Model: Model.DroneSet.Belt,
             tightType: "Secure",
             harness: true,
             factionFilters: {
@@ -540,7 +570,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => ArmCuffLinked),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneCuff.ModelName.ArmLink,
+                    Model: Model.DroneSet.ArmLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -556,7 +586,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => ArmCuffHandsUp),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneCuff.ModelName.ArmLink,
+                    Model: Model.DroneSet.ArmLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -574,7 +604,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => ArmCuffHandsFront),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneCuff.ModelName.ArmLink,
+                    Model: Model.DroneSet.ArmLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -592,7 +622,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => ArmCuffYoked),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneCuff.ModelName.ArmLink,
+                    Model: Model.DroneSet.ArmLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -615,7 +645,7 @@ export namespace SciFiSet {
             accessible: true,
             Asset: "FuturisticLegCuffs",
             LinkableBy: [...KDBindable, ...KDDevices],
-            Model: Model.DroneCuff.ModelName.TighCuff,
+            Model: Model.DroneSet.TighCuff,
             DefaultLock: "Red",
             factionFilters: {
                 Display: { color: "Highlight", override: false },
@@ -644,7 +674,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => ThighCuffLinked),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneCuff.ModelName.ThighLink,
+                    Model: Model.DroneSet.ThighLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -698,7 +728,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => AnkleCuffLinked),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneCuff.ModelName.AnkleLink,
+                    Model: Model.DroneSet.AnkleLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -714,10 +744,10 @@ export namespace SciFiSet {
 
 export function Register() {
     const defs = Object.values(SciFiSet)
-    if(defs.every(Mod.CheckNoDuplicateRestraint)){
+    if (defs.every(Mod.CheckNoDuplicateRestraint)) {
         defs.forEach(Mod.RegisterNewRestraint)
     }
-    else{
+    else {
         throw new Error(`${RootNamespace} register: restraint name duplicated`, {
             cause: {
                 DuplicatedRestraints: [

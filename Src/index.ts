@@ -65,8 +65,7 @@ declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
     [
         SF.Visor,
-        SF.BallGag,
-        SF.Muzzle,
+        SF.MuzzleStuffedBall,
         SF.EarPlug,
         SF.Mask,
         SF.Catsuit,
