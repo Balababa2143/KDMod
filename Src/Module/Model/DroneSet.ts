@@ -1,4 +1,4 @@
-import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
+import { KD } from '../../Common'
 import { RootNamespace } from '../../Common'
 import { NameOf } from '../../Common/Helpers'
 

@@ -1,4 +1,4 @@
-import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
+import { KD } from './Common'
 
 import * as Module from './Module'
 Module.Register()

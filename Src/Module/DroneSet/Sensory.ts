@@ -1,5 +1,5 @@
+import { KD } from "../../Common"
 import { Mod, RootNamespace } from "../../Common"
-import { KDInterface as KD } from "kinkydungeoninterfacewrapper"
 import { NameOf } from "../../Common/Helpers"
 import { CurseData, Curse, HandlerDefinition, ModularEvent, ModularEventData, InfoText } from "../../KDInterfaceExtended"
 import { SciFiSet } from "../Template"
@@ -44,7 +44,9 @@ namespace EventHandler {
                 color: '#e5311a',
                 noPush: true,
                 text: 'Sensory control protocal activated',
-                time: 1
+                time: 1,
+                entity: undefined,
+                noDupe: undefined
             })
             if(item.curse == null || item.curse !== SensoryControlCurse.Name){
                 KDMorphToInventoryVariant(item, {
@@ -60,14 +62,16 @@ namespace EventHandler {
     export const ProtocalController: HandlerDefinition = HandlerDefinition.Create_({
         eventMap: KDEventMapInventory,
         trigger: 'tick',
-        type: 'ProtocalActivation',
+        type: GetFullNameOf(() => ProtocalController),
         handler: (e, item, data) => {
             KD.SendTextMessage_({
                 priority: 6,
                 color: '#e5311a',
                 noPush: true,
                 text: 'Sensory control protocal',
-                time: 1
+                time: 1,
+                entity: undefined,
+                noDupe: undefined
             })
             if (Object.values(SensoryItemTags).every(tag => KinkyDungeonPlayerTags.get(tag))) {
                 KD.SendTextMessage_({
@@ -75,7 +79,9 @@ namespace EventHandler {
                     color: '#e5311a',
                     noPush: true,
                     text: 'Sensory control protocal Activated',
-                    time: 1
+                    time: 1,
+                    entity: undefined,
+                    noDupe: undefined
                 })
                 KD.SendEvent(ProtocalActivation.Trigger, data)
             }

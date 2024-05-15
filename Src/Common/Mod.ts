@@ -1,5 +1,5 @@
 import { Definition } from "../KDInterfaceExtended"
-import { KDInterface as KD } from 'kinkydungeoninterfacewrapper'
+import { KD } from "."
 
 export function CheckNoDuplicateRestraint(def: Definition){
     return KD.GetRestraintByName(def.Data.name) == null

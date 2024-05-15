@@ -16,7 +16,6 @@
         "typescript": "^5.4.5"
     },
     "dependencies": {
-        "immutable": "^5.0.0-beta.5",
-        "kinkydungeoninterfacewrapper": "file:kinkydungeoninterfacewrapper"
+        "immutable": "^5.0.0-beta.5"
     }
 }
