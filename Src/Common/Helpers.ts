@@ -33,7 +33,9 @@ export function DeepFreezeClone<T>(obj: T): Readonly<T> {
 }
 
 export function Throw(message?: string, options?: ErrorOptions): never {
-    throw new Error(message, options)
+    const err = new Error(message, options)
+    console.error(err)
+    throw err
 }
 
 export function ThrowIfNull<T>(
@@ -42,7 +44,7 @@ export function ThrowIfNull<T>(
     options: ErrorOptions = { cause: { errorType: 'NullReferenceError' } }
 ): asserts obj is T {
     if (null == obj) {
-        throw new Error(message, options)
+        Throw(message, options)
     }
 }
 

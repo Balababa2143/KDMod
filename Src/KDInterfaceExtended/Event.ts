@@ -31,6 +31,15 @@ export class HandlerDefinition extends IM.Record<HandlerDefinitionProp>({
     ) {
         Helpers.ThrowIfNull(handler)
         Helpers.ThrowIfNull(eventMap)
+        if(!(trigger in eventMap)){
+            Object.defineProperty(
+                eventMap,
+                trigger,
+                {
+                    value: {}
+                }
+            )
+        }
         const eventSet = eventMap[trigger]
         Helpers.ThrowIfNull(eventSet)
         if (type in eventSet) {

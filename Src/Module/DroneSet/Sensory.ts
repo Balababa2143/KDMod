@@ -33,30 +33,52 @@ export const SensoryControlCurse: Curse = new Curse({
 })
 
 namespace EventHandler {
+    const ProtocalTrigger = GetFullNameOf(() => ProtocalTrigger)
     export const ProtocalActivation: HandlerDefinition = HandlerDefinition.Create_({
         eventMap: KDEventMapInventory,
-        trigger: 'postApply',
+        trigger: ProtocalTrigger,
+        type: GetFullNameOf(() => ProtocalActivation),
+        handler: (e, item, data) => {
+            KD.SendTextMessage_({
+                priority: 6,
+                color: '#e5311a',
+                noPush: true,
+                text: 'Sensory control protocal activated',
+                time: 1
+            })
+            if(item.curse == null || item.curse !== SensoryControlCurse.Name){
+                KDMorphToInventoryVariant(item, {
+                    template: item.name,
+                    events: [],
+                },
+                    undefined,
+                    SensoryControlCurse.Name
+                )
+            }
+        }
+    })
+    export const ProtocalController: HandlerDefinition = HandlerDefinition.Create_({
+        eventMap: KDEventMapInventory,
+        trigger: 'tick',
         type: 'ProtocalActivation',
         handler: (e, item, data) => {
-            // KD.SendTextMessage_({
-            //     priority: 10,
-            //     color: '#e5311a',
-            //     noPush: true,
-            //     text: 'Sensory control protocal',
-            //     time: 5
-            // })
-            // console.log('tags', Object.values(SensoryItemTags))
-            // console.log('activetags', Object.values(SensoryItemTags).filter(t => KinkyDungeonPlayerTags.get(t)))
-            // if (Object.values(SensoryItemTags).every(tag => KinkyDungeonPlayerTags.get(tag))) {
-
-            // }
-            KDMorphToInventoryVariant(item, {
-                template: item.name,
-                events: []
-            },
-                undefined,
-                SensoryControlCurse.Name
-            )
+            KD.SendTextMessage_({
+                priority: 6,
+                color: '#e5311a',
+                noPush: true,
+                text: 'Sensory control protocal',
+                time: 1
+            })
+            if (Object.values(SensoryItemTags).every(tag => KinkyDungeonPlayerTags.get(tag))) {
+                KD.SendTextMessage_({
+                    priority: 10,
+                    color: '#e5311a',
+                    noPush: true,
+                    text: 'Sensory control protocal Activated',
+                    time: 1
+                })
+                KD.SendEvent(ProtocalActivation.Trigger, data)
+            }
         }
     })
 }
@@ -70,7 +92,12 @@ namespace Event {
                     trigger: EventHandler.ProtocalActivation.Trigger,
                     type: EventHandler.ProtocalActivation.Type,
                     inheritLinked: true
-                }
+                },
+                {
+                    trigger: EventHandler.ProtocalController.Trigger,
+                    type: EventHandler.ProtocalController.Type,
+                    inheritLinked: true
+                },
             ]
         })
     })
