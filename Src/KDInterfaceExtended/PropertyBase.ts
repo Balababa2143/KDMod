@@ -1,6 +1,11 @@
-import { Record } from "immutable"
+import * as IM from "immutable"
+import { TypeUtil } from "../Common"
 
-export class PropertyBase extends Record<KDRestraintPropsBase>({
+export type PropertyBaseData =
+KDRestraintPropsBase &
+    TypeUtil.RequireExactlyOne<KDRestraintPropsBase, 'floors' | 'allFloors'>
+
+export class PropertyBase extends IM.Record<KDRestraintPropsBase>({
     Filters: undefined,
     factionFilters: undefined,
     noShrine: undefined,
@@ -146,7 +151,7 @@ export class PropertyBase extends Record<KDRestraintPropsBase>({
     displayPower: undefined,
 })
 {
-    constructor(prop?: KDRestraintPropsBase){
+    constructor(prop?: PropertyBaseData){
         super(prop)
     }
     static #Default = new PropertyBase()

@@ -208,7 +208,8 @@ export namespace SciFiSet {
             Color: [],
             minLevel: 0,
             power: 10,
-            weight: 0
+            weight: 0,
+            allFloors: true,
         })
     })
     //#endregion

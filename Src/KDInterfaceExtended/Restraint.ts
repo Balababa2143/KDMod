@@ -1,5 +1,10 @@
 import { Record } from "immutable"
 import { Property } from "."
+import { PropertyData } from "./Property"
+
+export type RestraintData =
+    Omit<restraint, keyof PropertyData> &
+    PropertyData
 
 export class Restraint extends Record<restraint>({
     ...(Property.Default.toJS() as KDRestraintProps),
@@ -20,7 +25,7 @@ export class Restraint extends Record<restraint>({
     ApplyVariants: undefined,
 })
 {
-    constructor(prop?: restraint){
+    constructor(prop?: RestraintData){
         super(prop)
     }
     static #Default = new Restraint()

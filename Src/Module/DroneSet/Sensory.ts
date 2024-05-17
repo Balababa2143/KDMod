@@ -34,10 +34,10 @@ export const SensoryControlCurse: Curse = new Curse({
 
 namespace EventHandler {
     const ProtocalTrigger = GetFullNameOf(() => ProtocalTrigger)
-    export const ProtocalActivation: HandlerDefinition = HandlerDefinition.Create_({
+    export const ProtocolActivation: HandlerDefinition = HandlerDefinition.Create_({
         eventMap: KDEventMapInventory,
         trigger: ProtocalTrigger,
-        type: GetFullNameOf(() => ProtocalActivation),
+        type: GetFullNameOf(() => ProtocolActivation),
         handler: (e, item, data) => {
             KD.SendTextMessage_({
                 priority: 6,
@@ -59,10 +59,10 @@ namespace EventHandler {
             }
         }
     })
-    export const ProtocalController: HandlerDefinition = HandlerDefinition.Create_({
+    export const ProtocolController: HandlerDefinition = HandlerDefinition.Create_({
         eventMap: KDEventMapInventory,
         trigger: 'tick',
-        type: GetFullNameOf(() => ProtocalController),
+        type: GetFullNameOf(() => ProtocolController),
         handler: (e, item, data) => {
             KD.SendTextMessage_({
                 priority: 6,
@@ -83,7 +83,7 @@ namespace EventHandler {
                     entity: undefined,
                     noDupe: undefined
                 })
-                KD.SendEvent(ProtocalActivation.Trigger, data)
+                KD.SendEvent(ProtocolActivation.Trigger, data)
             }
         }
     })
@@ -95,13 +95,13 @@ namespace Event {
         Data: new ModularEventData({
             events: (data) => [
                 {
-                    trigger: EventHandler.ProtocalActivation.Trigger,
-                    type: EventHandler.ProtocalActivation.Type,
+                    trigger: EventHandler.ProtocolActivation.Trigger,
+                    type: EventHandler.ProtocolActivation.Type,
                     inheritLinked: true
                 },
                 {
-                    trigger: EventHandler.ProtocalController.Trigger,
-                    type: EventHandler.ProtocalController.Type,
+                    trigger: EventHandler.ProtocolController.Trigger,
+                    type: EventHandler.ProtocolController.Type,
                     inheritLinked: true
                 },
             ]
