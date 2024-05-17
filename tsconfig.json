@@ -12,6 +12,7 @@
         "checkJs": true,
         "isolatedModules": true,
         "outDir": "Build",
+        "inlineSourceMap": true,
         "declarationDir": "Include",
         "declaration": true,
         "lib": [
