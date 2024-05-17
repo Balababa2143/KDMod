@@ -29,6 +29,9 @@ import archiver from 'archiver'
         tsconfig: 'tsconfig.json',
         outdir: 'Build',
         logLevel: 'info',
+        outExtension:{
+            ".js": '.ks'
+        },
         plugins: [
             clean({
                 patterns: ['./Build/*']
@@ -86,6 +89,7 @@ import archiver from 'archiver'
         await esbuild.build(BuildConfig)
         fs.cpSync('Asset', BuildConfig.outdir, {recursive: true})
     }
+    const MODFileName = 'DroneMod.zip'
     switch (BuildMode) {
         case '--Watch':
             const context = await esbuild.context(BuildConfig)
@@ -100,11 +104,11 @@ import archiver from 'archiver'
             if (!fs.existsSync(archiveOutputDir)) {
                 fs.mkdirSync(archiveOutputDir, { recursive: true });
             }
-            const archiveFilePath = `${archiveOutputDir}/KDMod.zip`
+            const archiveFilePath = `${archiveOutputDir}/${MODFileName}`
             if (fs.existsSync(archiveFilePath)) {
                 fs.unlinkSync(archiveFilePath)
             }
-            const stream = fs.createWriteStream(`${archiveOutputDir}/KDMod.zip`)
+            const stream = fs.createWriteStream(archiveFilePath)
             const zipArchiver = archiver('zip', {
                 zlib: {
                     level: 9
