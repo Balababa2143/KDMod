@@ -89,6 +89,3 @@ KinkyDungeonStatsPresets["StartScifi"] = {
     cost: -3,
     tags: ["start"]
 }
-
-KinkyDungeonLoad()
-KinkyDungeonLoadStats()

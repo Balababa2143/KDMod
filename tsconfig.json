@@ -20,8 +20,8 @@
             "ESNext"
         ]
     },
-    "files": [
-        "Src/index.ts"
+    "include": [
+        "Src/**/*"
     ],
     "references": [
         {

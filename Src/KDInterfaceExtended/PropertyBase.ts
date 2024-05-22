@@ -2,8 +2,9 @@ import * as IM from "immutable"
 import { TypeUtil } from "../Common"
 
 export type PropertyBaseData =
-KDRestraintPropsBase &
-    TypeUtil.RequireExactlyOne<KDRestraintPropsBase, 'floors' | 'allFloors'>
+    KDRestraintPropsBase &
+    TypeUtil.RequireExactlyOne<KDRestraintPropsBase, 'floors' | 'allFloors'> &
+    TypeUtil.RequireExactlyOne<KDRestraintPropsBase, 'shrine' | 'noShrine'>
 
 export class PropertyBase extends IM.Record<KDRestraintPropsBase>({
     Filters: undefined,
