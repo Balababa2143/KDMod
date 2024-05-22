@@ -66,7 +66,7 @@ export function RecordProxy<T extends object, R extends RecordOf<T>>(record: R):
                 return target.get(p)
             }
             else{
-                Throw('Property is not defined')
+                return undefined
             }
         },
         set(target, p, newValue, receiver) {

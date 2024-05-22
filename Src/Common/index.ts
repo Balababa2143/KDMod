@@ -1,5 +1,6 @@
 export * as KDInterface from '../../KDInterface/Generated/KDInterface'
 export * as KD from '../../KDInterface/Generated/KDInterface'
+export { Variables as KDVar } from '../../KDInterface/Generated/KDInterface'
 export * as Helpers from './Helpers'
 export * as TypeUtil from './TypeUtil'
 export * as Mod from './Mod'
