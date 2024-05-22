@@ -3,9 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "debug:watch": "node esbuild.config.mjs --Debug --Watch",
-        "debug:build": "node esbuild.config.mjs --Debug --Build",
-        "debug:Deploy": "node esbuild.config.mjs --Debug --Deploy"
+        "debug:build": "node esbuild.mjs"
     },
     "author": "Balababa2143@gmail.com",
     "license": "MIT",
