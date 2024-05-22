@@ -442,6 +442,16 @@ export namespace SciFiSet {
     })
     //#endregion
 
+    //#region ChastityBraBig
+    export const ChastityBraBig: Definition = ChastityBra.merge({
+        Data: ChastityBra.Data.merge({
+            name: FullNameOf(() => ChastityBraBig),
+            Model: "BraProto",
+            Asset: "FuturisticBra"
+        })
+    })
+    //#endregion
+
     //#region ChastityBelt
     export const ChastityBelt: Definition = new Definition({
         Data: new Restraint({
@@ -476,6 +486,17 @@ export namespace SciFiSet {
             shrine: ["Chastity", "Metal", "ChastityBelts"],
             enemyTags: {},
             playerTags: {},
+        })
+    })
+    //#endregion
+
+    //#region ChastityBeltBig
+    export const ChastityBeltBig: Definition = ChastityBelt.merge({
+        Data: ChastityBelt.Data.merge({
+            name: FullNameOf(() => ChastityBeltBig),
+            Model: "ProtoBelt",
+            Asset: "FuturisticChastityBelt",
+            Modules: [1, 1, 1, 1, 1]
         })
     })
     //#endregion

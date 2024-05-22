@@ -23,7 +23,7 @@ KDPerkStart["StartScifi"] = () => {
         SF.Glove,
         SF.Collar,
         SF.ChastityBelt,
-        SF.ChastityBra,
+        SF.ChastityBraBig,
         SF.Harness,
         SF.ArmCuffLinked,
         SF.ThighCuff,
