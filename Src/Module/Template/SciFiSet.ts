@@ -179,15 +179,15 @@ export namespace SciFiSet {
     })
     //#endregion
 
-        //#region MuzzlePluged
-        export const MuzzlePluged: Definition = Muzzle.merge({
-            Data: Muzzle.Data.merge({
-                name: FullNameOf(() => MuzzlePluged),
-                Model: Model.DroneSet.MuzzlePlug,
-                gag: 1.0
-            })
+    //#region MuzzlePluged
+    export const MuzzlePluged: Definition = Muzzle.merge({
+        Data: Muzzle.Data.merge({
+            name: FullNameOf(() => MuzzlePluged),
+            Model: Model.DroneSet.MuzzlePlug,
+            gag: 1.0
         })
-        //#endregion
+    })
+    //#endregion
 
     //#region EarPlug
     export const EarPlug: Definition = new Definition({
@@ -309,8 +309,7 @@ export namespace SciFiSet {
             DefaultLock: "Red",
             tightType: "Secure",
             factionFilters: {
-                GloveBody: { color: "DarkNeutral", override: true },
-                Mitten: { color: "LightNeutral", override: true },
+                GloveBody: { color: "LightNeutral", override: true },
                 Band: { color: "Highlight", override: true },
                 Lock: { color: "DarkNeutral", override: true },
             },
@@ -362,6 +361,59 @@ export namespace SciFiSet {
             shrine: ["Metal", "Boots"],
             enemyTags: {},
             playerTags: {},
+        })
+    })
+    //#endregion
+
+    //#region Straight Jacket
+    export const StraightJacket: Definition = new Definition({
+        Data: new Restraint({
+            inventory: true,
+            sfx: "FutureLock",
+            name: FullNameOf(() => StraightJacket),
+            inaccessible: true,
+            remove: ["Bra", "Tops"],
+            Asset: "FuturisticStraitjacket",
+            LinkableBy: [...KDJacketLink],
+            renderWhenLinked: [...KDJacketRender],
+            Model: "JacketHeavy",
+            Filters: {
+                "BeltsLower": { "gamma": 1, "saturation": 0, "contrast": 1.2, "brightness": 1.6166666666666665, "red": 1.9333333333333333, "green": 1, "blue": 2.183333333333333, "alpha": 1 },
+                "BeltsChest": { "gamma": 1, "saturation": 0, "contrast": 1.2, "brightness": 1.6166666666666665, "red": 1.9333333333333333, "green": 1, "blue": 2.183333333333333, "alpha": 1 },
+                "BeltsArms": { "gamma": 1, "saturation": 0, "contrast": 1.2, "brightness": 1.6166666666666665, "red": 1.9333333333333333, "green": 1, "blue": 2.183333333333333, "alpha": 1 },
+                "Arms": { "gamma": 1, "saturation": 1, "contrast": 1.3666666666666667, "brightness": 0.8500000000000001, "red": 1, "green": 1, "blue": 1, "alpha": 1 },
+                "Chest": { "gamma": 1, "saturation": 1, "contrast": 1.3666666666666667, "brightness": 0.8500000000000001, "red": 1, "green": 1, "blue": 1, "alpha": 1 },
+                "Lower": { "gamma": 1, "saturation": 1, "contrast": 1.3666666666666667, "brightness": 0.8500000000000001, "red": 1, "green": 1, "blue": 1, "alpha": 1 }
+            },
+            Modules: [1, 1, 1, 1],
+            factionColor: [[0], [1], [3]],
+            factionFilters: {
+                Arms: { color: "DarkNeutral", override: false },
+                BeltsArms: { color: "LightNeutral", override: false },
+                BeltsChest: { color: "LightNeutral", override: false },
+                BeltsLower: { color: "LightNeutral", override: false },
+                Chest: { color: "DarkNeutral", override: false },
+                Lower: { color: "DarkNeutral", override: false },
+            },
+            Color: ["#222222", "#b927a8", "#000000", "#499ed6", "#222222", "#000000"],
+            Group: "ItemArms",
+            bindarms: true,
+            bindhands: 1.0,
+            power: 15,
+            weight: 0,
+            strictness: 0.2,
+            escapeChance: { "Struggle": -0.2, "Cut": -.3, "Remove": -0.3, "Pick": -0.1 },
+            limitChance: { "Struggle": 0.3, "Cut": 0.3, "Remove": 0.1, "Unlock": 0.75 }, // Hard to escape the arms box by struggling
+            maxwill: 0.1,
+            DefaultLock: "Red_Hi",
+            enemyTags: {},
+            events: [
+
+            ],
+            playerTags: {},
+            minLevel: 0,
+            allFloors: true,
+            shrine: ["Latex", "Straitjackets", "Block_ItemHands"]
         })
     })
     //#endregion

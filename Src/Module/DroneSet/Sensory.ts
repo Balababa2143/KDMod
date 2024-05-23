@@ -53,13 +53,15 @@ namespace SensoryProtocol {
                     noDupe: undefined
                 })
                 if (item.curse == null || item.curse !== SensoryControlCurse.Name) {
-                    KDMorphToInventoryVariant(item, {
-                        template: item.name,
-                        events: [],
-                    },
-                        undefined,
-                        SensoryControlCurse.Name
-                    )
+                    KD.MorphToInventoryVariant_({
+                        item,
+                        variant: {
+                            template: item.name,
+                            events: [],
+                        },
+                        prefix: '',
+                        curse: SensoryControlCurse.Name
+                    })
                 }
             }
         })
@@ -179,6 +181,26 @@ export namespace Sensory {
 
     export const DroneMuzzle = SciFiSet.Muzzle.merge({
         Data: SciFiSet.Muzzle.Data.merge({
+            name: GetFullNameOf(() => DroneMuzzle),
+            events: [
+                ...EventModule.SensoryControlProtocal.Data.events({
+                    variant: {
+                        template: SciFiSet.Muzzle.Data.name,
+                        events: SciFiSet.Muzzle.Data.events ?? []
+                    }
+                })
+            ],
+            addTag: [...SciFiSet.Muzzle.Data.addTag ?? [], SensoryItemTags.Gag]
+        }),
+        InfoText: new InfoText({
+            DisplayName: 'Drone Muzzle',
+            FlavorText: '',
+            FunctionText: ''
+        })
+    })
+
+    export const MuzzleStuffedBall = SciFiSet.Muzzle.merge({
+        Data: SciFiSet.MuzzleStuffedBall.Data.merge({
             name: GetFullNameOf(() => DroneMuzzle),
             events: [
                 ...EventModule.SensoryControlProtocal.Data.events({

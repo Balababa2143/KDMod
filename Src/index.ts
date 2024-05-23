@@ -15,7 +15,7 @@ KDPerkStart["StartDrone"] = () => {
 KDPerkStart["StartScifi"] = () => {
     [
         SF.Visor,
-        SF.MuzzlePluged,
+        SF.MuzzleStuffedBall,
         SF.EarPlug,
         SF.Mask,
         SF.Catsuit,
@@ -23,17 +23,19 @@ KDPerkStart["StartScifi"] = () => {
         SF.Glove,
         SF.Collar,
         SF.ChastityBelt,
-        SF.ChastityBraBig,
+        SF.ChastityBra,
         SF.Harness,
         SF.ArmCuffLinked,
         SF.ThighCuff,
         SF.AnkleCuff,
-        SF.TorsoBelt
+        SF.TorsoBelt,
+        SF.StraightJacket,
     ]
         .forEach(def => {
             KD.AddRestraintIfWeaker_({
                 restraint: def.Data.name,
                 Bypass: true,
+                Deep: true,
                 variant: {
                     hexes: [],
                     enchants: [],
@@ -44,6 +46,7 @@ KDPerkStart["StartScifi"] = () => {
                 // faction: 'Dollsmith'
                 // faction: 'AncientRobot'
                 faction: 'Curse'
+                // faction: 'Goddess'
             })
         });
     ["TrapPlug3", "RearVibe1", "TrapVibeProto", "NippleClamps3"].forEach(r => {

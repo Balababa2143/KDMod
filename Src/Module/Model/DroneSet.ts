@@ -136,13 +136,20 @@ export function Register() {
         Folder: Folder.EarPlug,
         Layers: ToLayerMap([
             {
-                Name: "EarPlugFront", Layer: "Head", Pri: 10,
+                Name: "EarPlugFront", Layer: "Head", Pri: 0.3,
                 Invariant: true,
                 InheritColor: 'BaseMetal',
                 HidePoses: ToMap(["Cosplay", "AnimalEars"]),
             },
             {
-                Name: "ElfEarPlugFront", Layer: "Head", Pri: 10,
+                Name: "ElfEarPlugFront", Layer: "Head", Pri: 0.3,
+                Invariant: true,
+                InheritColor: 'BaseMetal',
+                RequirePoses: ToMap(["Cosplay"]),
+                HidePoses: ToMap(["AnimalEars"]),
+            },
+            {
+                Name: "ElfEarPlugBack", Layer: "Head", Pri: -0.09,
                 Invariant: true,
                 InheritColor: 'BaseMetal',
                 RequirePoses: ToMap(["Cosplay"]),
