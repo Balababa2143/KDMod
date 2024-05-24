@@ -4,6 +4,8 @@ import * as Module from './Module'
 Module.Register()
 import SF = Module.Template.SciFiSet
 import { Helpers } from './Common'
+import { Button } from './KDInterfaceExtended/UI/Button'
+import { Layout } from '@pixi/layout'
 
 declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
@@ -91,4 +93,31 @@ KinkyDungeonStatsPresets["StartScifi"] = {
     id: "StartScifi",
     cost: -3,
     tags: ["start"]
-}
+};
+
+// (() =>{
+//     const DrawNavBar = globalThis.KDDrawNavBar
+//     globalThis.KDDrawNavBar = function(skip, quit = false){
+//         DrawNavBar(skip, quit)
+
+//     }
+// })()
+
+(() =>{
+    let by = 440;
+	let bwidth = 140;
+	let bx = 2000 - 10 - bwidth;
+	let bspacing = 5;
+	let bindex = 0;
+	let bheight = 60;
+    const newBtn = new Button({
+        Label: 'Test',
+        Width: bwidth,
+        Height: bheight,
+    })
+    kdcanvas.addChild(newBtn)
+    newBtn.button.view.position = {
+        x: bx,
+        y: by + bheight * 4 + bspacing * 4
+    }
+})()

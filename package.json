@@ -14,6 +14,10 @@
         "typescript": "^5.4.5"
     },
     "dependencies": {
-        "immutable": "^5.0.0-beta.5"
+        "immutable": "^5.0.0-beta.5",
+        "pixi.js": "^7.2.1",
+        "pixi.js-legacy": "^7.2.1",
+        "@pixi/ui": "^1.1.1",
+        "@pixi/layout": "^1.0.1"
     }
 }
