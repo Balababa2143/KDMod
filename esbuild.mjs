@@ -4,7 +4,7 @@ import * as fs from 'fs'
 import archiver from 'archiver'
 
 const DefaultEntryDir = 'src'
-const DefaultEntryFile = 'index.ts'
+const DefaultEntryFile = 'index.tsx'
 const DefaultBundleDir = 'Build'
 const DefaultArchiveDir = 'Deploy'
 const DefaultArchiveFile = 'DroneMod.zip'
@@ -141,9 +141,10 @@ async function bundle(opts) {
         sourcemap: productionMode ? false : 'inline',
         // Folder to put all generated files
         outdir: bundleDir,
-        outExtension: {
-            ".js": '.ks'
-        },
+        // outExtension: {
+        //     ".js": '.ks'
+        // },
+        // external:['pixi'],
         plugins: [
             clean({
                 patterns: [

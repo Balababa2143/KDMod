@@ -1,6 +1,4 @@
-import * as UI from '@pixi/ui'
 import * as Pixi from 'pixi.js'
-import * as Layout from '@pixi/layout'
 
 export interface IButtonProperty {
     Width: number
