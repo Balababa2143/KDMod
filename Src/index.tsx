@@ -101,27 +101,29 @@ KinkyDungeonStatsPresets["StartScifi"] = {
     let bindex = 0;
     let bheight = 60;
     const modUIRoot = CreateModUIRoot()
-    function MouseOver(){
-        console.log('mouse over')
+    function GetRelativeLength(relativeTo: number){
+        return (length: number) =>{
+            const relLen = length / relativeTo * 100
+            return `${relLen.toFixed(5)}%`
+        }
     }
-    function Click(){
-        console.log('click')
-    }
+    const GetRelHorizontal = GetRelativeLength(PIXIWidth)
+    const GetRelVertical = GetRelativeLength(PIXIHeight)
     modUIRoot.render(
         <GUI>
             <div
                 className={InteractiveElementClass}
                 style={{
-                    width: `${bwidth / PIXIWidth * 100}%`,
-                    height: `${bheight / PIXIHeight * 100}%`,
+                    width: GetRelHorizontal(bwidth),
+                    height: GetRelVertical(bheight),
                     border: 'solid',
                     color: KDBorderColor,
                     position: 'absolute',
-                    right: `${10 / PIXIHeight * 100}%`,
-                    top: `${by / PIXIHeight * 100}%`
+                    right: GetRelHorizontal(10),
+                    top: GetRelVertical(by)
                 }}
-                onMouseOver={MouseOver}
-                onClick={Click}
+                onMouseOver={e => console.log('mouse over')}
+                onClick={e => console.log('click')}
             >
             </div>
         </GUI>
