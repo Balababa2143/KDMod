@@ -144,7 +144,7 @@ async function bundle(opts) {
         // outExtension: {
         //     ".js": '.ks'
         // },
-        // external:['pixi'],
+        // external:['pixi.js'],
         plugins: [
             clean({
                 patterns: [
