@@ -4,7 +4,7 @@ import * as Module from './Module'
 Module.Register()
 import SF = Module.Template.SciFiSet
 import { Helpers } from './Common'
-import { CreateModUIRoot, GUI } from './KDInterfaceExtended/GUI'
+import { CreateModUIRoot, GUI, InteractiveElementClass } from './KDInterfaceExtended/GUI'
 
 declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
@@ -101,9 +101,16 @@ KinkyDungeonStatsPresets["StartScifi"] = {
     let bindex = 0;
     let bheight = 60;
     const modUIRoot = CreateModUIRoot()
+    function MouseOver(){
+        console.log('mouse over')
+    }
+    function Click(){
+        console.log('click')
+    }
     modUIRoot.render(
         <GUI>
             <div
+                className={InteractiveElementClass}
                 style={{
                     width: `${bwidth / PIXIWidth * 100}%`,
                     height: `${bheight / PIXIHeight * 100}%`,
@@ -112,8 +119,10 @@ KinkyDungeonStatsPresets["StartScifi"] = {
                     position: 'absolute',
                     right: `${10 / PIXIHeight * 100}%`,
                     top: `${by / PIXIHeight * 100}%`
-                }}>
-
+                }}
+                onMouseOver={MouseOver}
+                onClick={Click}
+            >
             </div>
         </GUI>
     )

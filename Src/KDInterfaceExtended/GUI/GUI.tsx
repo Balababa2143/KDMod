@@ -5,6 +5,7 @@ import { Pixi } from './Pixi'
 import { Html } from './Html'
 
 const GUIRootClass = 'KDInterfaceExtendedGUIRoot' as const
+export const InteractiveElementClass = 'KDInterfaceInteractiveElement' as const
 
 export function GUI({ children }: PropsWithChildren) {
     return (
@@ -71,6 +72,10 @@ export function CreateModUIRoot() {
                     height: 100%;
                     aspect-ratio: 2/1;
             }
+        }
+        div.${InteractiveElementClass}{
+            pointer-events: auto;
+            z-index: 50;
         }
     ` as const
     const style = document.createElement('style')
