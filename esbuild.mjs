@@ -134,6 +134,7 @@ async function bundle(opts) {
         ],
         bundle: true,
         tsconfig: 'tsconfig.json',
+        jsx: 'automatic',
         logLevel: 'info',
         // Only minify in production, leads to faster build time on dev
         minify: productionMode,
