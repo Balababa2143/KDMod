@@ -94,33 +94,22 @@ KinkyDungeonStatsPresets["StartScifi"] = {
     tags: ["start"]
 };
 (() => {
-    let by = 440;
-    let bwidth = 140;
-    let bx = 2000 - 10 - bwidth;
-    let bspacing = 5;
-    let bindex = 0;
-    let bheight = 60;
     const modUIRoot = CreateModUIRoot()
-    function GetRelativeLength(relativeTo: number){
-        return (length: number) =>{
-            const relLen = length / relativeTo * 100
-            return `${relLen.toFixed(5)}%`
-        }
-    }
-    const GetRelHorizontal = GetRelativeLength(PIXIWidth)
-    const GetRelVertical = GetRelativeLength(PIXIHeight)
     modUIRoot.render(
         <GUI>
             <div
                 className={InteractiveElementClass}
                 style={{
-                    width: GetRelHorizontal(bwidth),
-                    height: GetRelVertical(bheight),
-                    border: 'solid',
-                    color: KDBorderColor,
+                    width: '13%',
+                    height: '33%',
                     position: 'absolute',
-                    right: GetRelHorizontal(10),
-                    top: GetRelVertical(by)
+                    right: '0.2%',
+                    top: '40%',
+                    border: 'solid',
+                    borderWidth: 'thin',
+                    borderColor: KDBorderColor,
+                    display: 'block',
+                    backgroundColor: 'black'
                 }}
                 onMouseOver={e => console.log('mouse over')}
                 onClick={e => console.log('click')}
