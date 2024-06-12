@@ -3,8 +3,9 @@ import { RootNamespace } from '../../Common'
 import { NameOf } from '../../Common/Helpers'
 
 namespace Folder {
-    export const CuffLink = 'KDMod/CuffLink' as const
-    export const EarPlug = 'KDMod/EarPlug' as const
+    export const CuffLink = `${RootNamespace}/CuffLink` as const
+    export const EarPlug = `${RootNamespace}/EarPlug` as const
+    export const Visor = `${RootNamespace}/Visor`
 }
 
 export namespace DroneSet {
@@ -17,6 +18,10 @@ export namespace DroneSet {
     export const ArmLinkYoke: string = `${RootNamespace}.${NameOf(() => DroneSet)}.${NameOf(() => ArmLinkYoke)}`
     export const ThighLink: string = `${RootNamespace}.${NameOf(() => DroneSet)}.${NameOf(() => ThighLink)}`
     export const AnkleLink: string = `${RootNamespace}.${NameOf(() => DroneSet)}.${NameOf(() => AnkleLink)}`
+    export const Visor: string = `${RootNamespace}.${NameOf(() => DroneSet)}.${NameOf(() => Visor)}`
+    export const Mask: string = `${RootNamespace}.${NameOf(() => DroneSet)}.${NameOf(() => Mask)}`
+    export const VisorOpaque: string = `${RootNamespace}.${NameOf(() => DroneSet)}.${NameOf(() => VisorOpaque)}`
+    export const MaskOpaque: string = `${RootNamespace}.${NameOf(() => DroneSet)}.${NameOf(() => MaskOpaque)}`
 }
 
 export function Register() {
@@ -210,4 +215,106 @@ export function Register() {
         ]
     }))
     AddModel(GetModelFashionVersion(DroneSet.MuzzlePlug, true))
+
+    AddModel({
+        Name: DroneSet.Visor,
+        Folder: Folder.Visor,
+        TopLevel: true,
+        Categories: ["Accessories", "Face"],
+        Layers: ToLayerMap([
+            {
+                Name: "VisorGlass", Layer: "Goggles", Pri: 14,
+                InheritColor: "Goggles",
+                Invariant: true,
+                HideWhenOverridden: true,
+            },
+        ])
+    })
+    AddModel(GetModelFashionVersion(DroneSet.Visor, true))
+
+    AddModel({
+        Name: DroneSet.VisorOpaque,
+        Folder: Folder.Visor,
+        TopLevel: true,
+        Categories: ["Accessories", "Face"],
+        Layers: ToLayerMap([
+            {
+                Name: "VisorOpaque", Layer: "Blindfold", Pri: 14,
+                InheritColor: "Goggles",
+                Invariant: true,
+                HideWhenOverridden: true,
+            },
+        ])
+    })
+    AddModel(GetModelFashionVersion(DroneSet.Visor, true))
+
+    AddModel({
+        Name: DroneSet.Mask,
+        Folder: Folder.Visor,
+        TopLevel: true,
+        Categories: ["Accessories", "Face"],
+        AddPoseConditional: {
+            Xray: ["HoodMask",],
+        },
+        Layers: ToLayerMap([
+            {
+                Name: "FullMaskGlass", Layer: "Hood", Pri: -10,
+                InheritColor: "FullVisor",
+                Invariant: true,
+                HideWhenOverridden: true,
+                SwapLayerPose: {
+                    Xray: "MaskOver"
+                }
+            },
+            {
+                Name: "DollmakerFullRim", Layer: "Hood", Pri: -10 + 0.1,
+                InheritColor: "Rim",
+                Invariant: true,
+                NoOverride: true,
+                TieToLayer: "FullMaskGlass",
+                Folder: 'Visors',
+                SwapLayerPose: { 
+                    Xray: "GagStraps"
+                 },
+            },
+        ])
+    })
+    AddModel(GetModelFashionVersion(DroneSet.Mask, true))
+
+    AddModel({
+        Name: DroneSet.MaskOpaque,
+        Folder: Folder.Visor,
+        TopLevel: true,
+        Categories: ["Accessories", "Face"],
+        HideLayers: [
+            "Brows", // Brows should get hidden with mask
+        ],
+        AddPoseConditional: {
+            Xray: ["HoodMask",],
+        },
+        Layers: ToLayerMap([
+            {
+                Name: "FullMaskOpaque", Layer: "Hood", Pri: -10,
+                InheritColor: "FullVisor",
+                Invariant: true,
+                HideWhenOverridden: true,
+                SwapLayerPose: {
+                    Xray: "MaskOver"
+                }
+            },
+            {
+                Name: "DollmakerFullRim", Layer: "Hood", Pri: -10 + 0.1,
+                InheritColor: "Rim",
+                Invariant: true,
+                NoOverride: true,
+                TieToLayer: "FullMaskOpaque",
+                Folder: 'Visors',
+                SwapLayerPose: { 
+                    Xray: "GagStraps"
+                 },
+            },
+        ])
+    })
+    AddModel(GetModelFashionVersion(DroneSet.MaskOpaque, true))
+
 }

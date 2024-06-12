@@ -5,25 +5,27 @@ import * as Model from '../Model'
 
 declare let KDMaskLink: string[]
 
+
 //#region  SciFiSet
 export namespace SciFiSet {
 
     function FullNameOf<T>(nameLambda: () => T) {
         return `${RootNamespace}.${NameOf(() => SciFiSet)}.${NameOf(nameLambda)}`
     }
+    const TransparentMask = FullNameOf(() => TransparentMask) as string
 
     //#region Sensory
 
     //#region Visor
     export const Visor: Definition = new Definition({
         Data: new Restraint({
-            renderWhenLinked: ['TransparentMask'],
+            renderWhenLinked: [TransparentMask],
             name: FullNameOf(() => Visor),
             inventory: true,
             sfx: "FutureLock",
             accessible: true,
             Asset: "InteractiveVisor",
-            Model: "Goggles",
+            Model: Model.DroneSet.Visor,
             DefaultLock: "Blue",
             Color: ['#91023a'],
             factionFilters: {
@@ -44,6 +46,16 @@ export namespace SciFiSet {
     })
     //#endregion
 
+    //#region Visor
+    export const VisorOpaque: Definition = Visor.merge({
+        Data: Visor.Data.merge({
+            name: FullNameOf(() => VisorOpaque),
+            Model: Model.DroneSet.VisorOpaque,
+            blindfold: 5
+        })
+    })
+    //#endregion
+
     //#region Mask
     export const Mask: Definition = new Definition({
         Data: new Restraint({
@@ -51,7 +63,7 @@ export namespace SciFiSet {
             sfx: "FutureLock",
             name: FullNameOf(() => Mask),
             inaccessible: true,
-            Model: "FullVisorRim",
+            Model: Model.DroneSet.Mask,
             DefaultLock: "Blue",
             factionColor: [[2]],
             Color: ["#ff5277"],
@@ -68,9 +80,19 @@ export namespace SciFiSet {
             maxwill: 0.1,
             minLevel: 0,
             allFloors: true,
-            shrine: ["Masks", "Block_ItemMouth", 'TransparentMask'],
+            shrine: ["Masks", "Block_ItemMouth", TransparentMask],
             enemyTags: {},
             playerTags: {},
+        })
+    })
+    //#endregion
+
+    //#region Mask
+    export const MaskOpaque: Definition = Mask.merge({
+        Data: Mask.Data.merge({
+            name: FullNameOf(() => MaskOpaque),
+            Model: Model.DroneSet.MaskOpaque,
+            blindfold: 5
         })
     })
     //#endregion

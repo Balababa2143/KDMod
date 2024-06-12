@@ -54,17 +54,13 @@ export function ControlPanel() {
                             flexDirection: 'row-reverse'
                         }}>
                             <KDButton
-                                onClick={e => {
-                                    SetState({
-                                        ...State,
-                                        Show: false
-                                        })
+                                onClick={e => {SetState({...State,Show: false})
                                 }}            
                             >
                                 <span
                                     style={{
                                         pointerEvents: 'none',
-                                        color: 'greenyellow'
+                                        color: 'aqua'
                                     }}
                                     dangerouslySetInnerHTML={{
                                         __html: '&cross;'

@@ -18,9 +18,9 @@ KDPerkStart["StartDrone"] = () => {
 KDPerkStart["StartScifi"] = () => {
     [
         SF.Visor,
-        SF.MuzzlePluged,
+        SF.Muzzle,
         SF.EarPlug,
-        SF.Mask,
+        SF.MaskOpaque,
         SF.Catsuit,
         SF.Heel,
         SF.Glove,
@@ -29,8 +29,8 @@ KDPerkStart["StartScifi"] = () => {
         SF.ChastityBra,
         SF.Harness,
         SF.ArmCuffLinked,
-        SF.ThighCuff,
-        SF.AnkleCuff,
+        SF.ThighCuffLinked,
+        SF.AnkleCuffLinked,
         SF.TorsoBelt,
         // SF.StraightJacket,
     ]
@@ -58,26 +58,26 @@ KDPerkStart["StartScifi"] = () => {
             Bypass: true,
         })
     })
-    let cuff = KD.AllRestraint().find(r => r.name === SF.ThighCuff.Data.name) ?? Helpers.Throw('Cuff not found')
-    KDMorphToInventoryVariant(
-        cuff,
-        {
-            template: SF.ThighCuffLinked.Data.name,
-            events: []
-        },
-        '',
-        ''
-    )
-    cuff = KD.AllRestraint().find(r => r.name === SF.AnkleCuff.Data.name) ?? Helpers.Throw('Cuff not found')
-    KDMorphToInventoryVariant(
-        cuff,
-        {
-            template: SF.AnkleCuffLinked.Data.name,
-            events: []
-        },
-        '',
-        ''
-    )
+    // let cuff = KD.AllRestraint().find(r => r.name === SF.ThighCuff.Data.name) ?? Helpers.Throw('Cuff not found')
+    // KDMorphToInventoryVariant(
+    //     cuff,
+    //     {
+    //         template: SF.ThighCuffLinked.Data.name,
+    //         events: []
+    //     },
+    //     '',
+    //     ''
+    // )
+    // cuff = KD.AllRestraint().find(r => r.name === SF.AnkleCuff.Data.name) ?? Helpers.Throw('Cuff not found')
+    // KDMorphToInventoryVariant(
+    //     cuff,
+    //     {
+    //         template: SF.AnkleCuffLinked.Data.name,
+    //         events: []
+    //     },
+    //     '',
+    //     ''
+    // )
 }
 
 KinkyDungeonStatsPresets["StartDrone"] = {
