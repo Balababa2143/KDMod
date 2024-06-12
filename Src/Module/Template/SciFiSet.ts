@@ -816,8 +816,10 @@ export namespace SciFiSet {
 }
 //#endregion
 
+export const SciFiTag = `${RootNamespace}.${NameOf(() => SciFiSet)}`
+
 export function Register() {
-    const defs = Object.values(SciFiSet)
+    const defs = Object.values(SciFiSet).map(r => r.updateIn(['Data', 'shrine'], shrines => [...shrines as string[], SciFiTag]))
     if (defs.every(Mod.CheckNoDuplicateRestraint)) {
         defs.forEach(Mod.RegisterNewRestraint)
     }
