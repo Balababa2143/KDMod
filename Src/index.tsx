@@ -5,6 +5,8 @@ Module.Register()
 import SF = Module.Template.SciFiSet
 import { Helpers } from './Common'
 import { CreateModUIRoot, GUI, InteractiveElementClass } from './KDInterfaceExtended/GUI'
+import React, { createContext, useContext, useState } from 'react'
+import { ControlPanel } from './Module/DroneSet/UI'
 
 declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
@@ -16,7 +18,7 @@ KDPerkStart["StartDrone"] = () => {
 KDPerkStart["StartScifi"] = () => {
     [
         SF.Visor,
-        SF.MuzzleStuffedBall,
+        SF.MuzzlePluged,
         SF.EarPlug,
         SF.Mask,
         SF.Catsuit,
@@ -30,7 +32,7 @@ KDPerkStart["StartScifi"] = () => {
         SF.ThighCuff,
         SF.AnkleCuff,
         SF.TorsoBelt,
-        SF.StraightJacket,
+        // SF.StraightJacket,
     ]
         .forEach(def => {
             KD.AddRestraintIfWeaker_({
@@ -93,28 +95,12 @@ KinkyDungeonStatsPresets["StartScifi"] = {
     cost: -3,
     tags: ["start"]
 };
+
 (() => {
     const modUIRoot = CreateModUIRoot()
     modUIRoot.render(
         <GUI>
-            <div
-                className={InteractiveElementClass}
-                style={{
-                    width: '13%',
-                    height: '33%',
-                    position: 'absolute',
-                    right: '0.2%',
-                    top: '40%',
-                    border: 'solid',
-                    borderWidth: 'thin',
-                    borderColor: KDBorderColor,
-                    display: 'block',
-                    backgroundColor: 'black'
-                }}
-                onMouseOver={e => console.log('mouse over')}
-                onClick={e => console.log('click')}
-            >
-            </div>
+            <ControlPanel />
         </GUI>
     )
 })()
