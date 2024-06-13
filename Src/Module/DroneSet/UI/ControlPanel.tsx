@@ -78,7 +78,7 @@ export function ControlPanel() {
                             <KDButton
                                 onClick={e => {
                                     KD.SendInventoryEvent(
-                                        Sensory.SensoryProtocol.Event.MorphEquipment.Trigger,
+                                        Sensory.SensoryProtocol.Event.MorphEquipment.EventName,
                                         {
                                             targetEquipment: Sensory.SensoryItemTags.Mask
                                         }

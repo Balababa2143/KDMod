@@ -50,6 +50,28 @@ export function ThrowIfNull<T>(
     }
 }
 
+export function ThrowIfNullOrEmpty<T extends string>(
+    str: T | undefined | null,
+    message: string = 'EmptyString',
+    options: ErrorOptions = { cause: { errorType: 'EmptyStringError' } }
+): asserts str is T {
+    ThrowIfNull(str)
+    if('' === str){
+        Throw(message, options)
+    }
+}
+
+export function ThrowIfNullOrEmptyOrWhiteSpace<T extends string>(
+    str: T | undefined | null,
+    message: string = 'EmptyString',
+    options: ErrorOptions = { cause: { errorType: 'EmptyStringError' } }
+): asserts str is T {
+    ThrowIfNullOrEmpty(str)
+    if('' === str.trim()){
+        Throw(message, options)
+    }
+}
+
 export function NameOf<T>(nameLambda: () => T) {
     return nameLambda.toString().replace(/[ |\(\)=>]/g, '')
 }

@@ -1,7 +1,7 @@
 import { KD } from "../../Common"
 import { Mod, RootNamespace } from "../../Common"
 import { NameOf, RecordProxy } from "../../Common/Helpers"
-import { CurseData, Curse, HandlerDefinition, ModularEvent, ModularEventData, InfoText, InventoryActionEntry, Definition } from "../../KDInterfaceExtended"
+import { CurseData, Curse, InventoryEventHandlerDefinition, ModularEvent, ModularEventData, InfoText, Definition, EventHandlerDefinition, Event } from "../../KDInterfaceExtended"
 import { SciFiSet } from "../Template"
 import * as IM from "immutable"
 import { DroneEquipment } from "./DroneEquipment"
@@ -43,11 +43,10 @@ export namespace SensoryProtocol {
     const ProtocalDataKey = GetFullNameOf(() => ProtocalDataKey)
 
     export namespace Event {
-        export const ProtocolActivation: HandlerDefinition = HandlerDefinition.Create_({
-            eventMap: KDEventMapInventory,
-            trigger: ActivationTrigger,
-            type: GetFullNameOf(() => ProtocolActivation),
-            handler: (e, item, data) => {
+        export const ProtocolActivation: InventoryEventHandlerDefinition = InventoryEventHandlerDefinition({
+            EventName: ActivationTrigger,
+            HandlerId: GetFullNameOf(() => ProtocolActivation),
+            Handler: (e, item, data) => {
                 KD.SendTextMessage_({
                     priority: 6,
                     color: '#e5311a',
@@ -71,11 +70,10 @@ export namespace SensoryProtocol {
             }
         })
 
-        export const ProtocolController: HandlerDefinition = HandlerDefinition.Create_({
-            eventMap: KDEventMapInventory,
-            trigger: 'tick',
-            type: GetFullNameOf(() => ProtocolController),
-            handler: (e, item, data) => {
+        export const ProtocolController: InventoryEventHandlerDefinition = InventoryEventHandlerDefinition({
+            EventName: 'tick',
+            HandlerId: GetFullNameOf(() => ProtocolController),
+            Handler: (e, item, data) => {
                 KD.SendTextMessage_({
                     priority: 6,
                     color: '#e5311a',
@@ -95,16 +93,15 @@ export namespace SensoryProtocol {
                         entity: undefined,
                         noDupe: undefined
                     })
-                    KD.SendEvent(ProtocolActivation.Trigger, data)
+                    KD.SendEvent(ProtocolActivation.EventName, data)
                 }
             }
         })
 
-        export const DataInitializer: HandlerDefinition = HandlerDefinition.Create_({
-            eventMap: KDEventMapInventory,
-            trigger: 'postApply',
-            type: GetFullNameOf(() => DataInitializer),
-            handler: (function () {
+        export const DataInitializer: InventoryEventHandlerDefinition = InventoryEventHandlerDefinition({
+            EventName: 'postApply',
+            HandlerId: GetFullNameOf(() => DataInitializer),
+            Handler: (function () {
                 const defaultData = {}
                 return (e, item, data) => {
                     const itemData = item.data ?? {}
@@ -126,11 +123,10 @@ export namespace SensoryProtocol {
             })()
         })
 
-        export const MorphEquipment: HandlerDefinition = HandlerDefinition.Create_({
-            eventMap: KDEventMapInventory,
-            trigger: MorphTrigger,
-            type: GetFullNameOf(() => MorphEquipment),
-            handler: (function () {
+        export const MorphEquipment: InventoryEventHandlerDefinition = InventoryEventHandlerDefinition({
+            EventName: MorphTrigger,
+            HandlerId: GetFullNameOf(() => MorphEquipment),
+            Handler: (function () {
                 const defaultData = {}
                 return (e, item, data) => {
                     console.log('MorphEquipment', e, item ,data)
@@ -163,6 +159,8 @@ export namespace SensoryProtocol {
             })()
         })
     }
+
+    export type Event = Iterable<EventHandlerDefinition<any>>
 }
 
 namespace EventModule {
@@ -171,22 +169,22 @@ namespace EventModule {
         Data: new ModularEventData({
             events: (data) => [
                 {
-                    trigger: SensoryProtocol.Event.ProtocolActivation.Trigger,
-                    type: SensoryProtocol.Event.ProtocolActivation.Type,
+                    trigger: SensoryProtocol.Event.ProtocolActivation.EventName,
+                    type: SensoryProtocol.Event.ProtocolActivation.HandlerId,
                     inheritLinked: true
                 },
                 {
-                    trigger: SensoryProtocol.Event.ProtocolController.Trigger,
-                    type: SensoryProtocol.Event.ProtocolController.Type,
+                    trigger: SensoryProtocol.Event.ProtocolController.EventName,
+                    type: SensoryProtocol.Event.ProtocolController.HandlerId,
                     inheritLinked: true
                 },
                 {
-                    trigger: SensoryProtocol.Event.DataInitializer.Trigger,
-                    type: SensoryProtocol.Event.DataInitializer.Type,
+                    trigger: SensoryProtocol.Event.DataInitializer.EventName,
+                    type: SensoryProtocol.Event.DataInitializer.HandlerId,
                 },
                 {
-                    trigger: SensoryProtocol.Event.MorphEquipment.Trigger,
-                    type: SensoryProtocol.Event.MorphEquipment.Type,
+                    trigger: SensoryProtocol.Event.MorphEquipment.EventName,
+                    type: SensoryProtocol.Event.MorphEquipment.HandlerId,
                 },
             ]
         })
@@ -288,6 +286,10 @@ export namespace Sensory {
         .setIn(['Data', 'blindfold'], 2)
 }
 
+//#region Register
+Object.values(SensoryProtocol.Event).forEach(Event.Register)
+//#endregion
+
 export function Register() {
     if (SensoryControlCurse.Name in KDCurses) {
         throw new Error('Sensory Register: SensoryControlCurse already exists')
@@ -295,7 +297,7 @@ export function Register() {
     else {
         KDCurses[SensoryControlCurse.Name] = RecordProxy(SensoryControlCurse.Data)
     }
-    Object.values(SensoryProtocol.Event).forEach(HandlerDefinition.Register)
+    // Object.values(SensoryProtocol.Event).forEach(InventoryEventHandlerDefinition.Register)
     Object.values(EventModule).forEach(ModularEvent.Register)
     const restraints = 
         (Object.values(Sensory).map(d => d.updateIn(['Data', 'addTag'], tags => [...tags ?? [], DroneSetControlled])) as unknown as Definition[])
