@@ -17,7 +17,7 @@ export namespace SciFiSet {
     //#region Sensory
 
     //#region Visor
-    export const Visor: Definition = new Definition({
+    export const Visor: Definition = Definition({
         Data: new Restraint({
             renderWhenLinked: [TransparentMask],
             name: FullNameOf(() => Visor),
@@ -51,13 +51,12 @@ export namespace SciFiSet {
         Data: Visor.Data.merge({
             name: FullNameOf(() => VisorOpaque),
             Model: Model.DroneSet.VisorOpaque,
-            blindfold: 5
         })
     })
     //#endregion
 
     //#region Mask
-    export const Mask: Definition = new Definition({
+    export const Mask: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
@@ -92,13 +91,12 @@ export namespace SciFiSet {
         Data: Mask.Data.merge({
             name: FullNameOf(() => MaskOpaque),
             Model: Model.DroneSet.MaskOpaque,
-            blindfold: 5
         })
     })
     //#endregion
 
     //#region BallGag
-    export const BallGag: Definition = new Definition({
+    export const BallGag: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
@@ -140,7 +138,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region Muzzle
-    export const Muzzle: Definition = new Definition({
+    export const Muzzle: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
@@ -212,7 +210,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region EarPlug
-    export const EarPlug: Definition = new Definition({
+    export const EarPlug: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             name: FullNameOf(() => EarPlug),
@@ -241,7 +239,7 @@ export namespace SciFiSet {
     //#region Body
 
     //#region Collar
-    export const Collar: Definition = new Definition({
+    export const Collar: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
@@ -277,7 +275,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region Catsuit
-    export const Catsuit: Definition = new Definition({
+    export const Catsuit: Definition = Definition({
         Data: new Restraint({
             renderWhenLinked: ["Corsets", "Harnesses", ...KDBindable, "Latex", "Leather", "Metal", "Rope"],
             inventory: true,
@@ -322,7 +320,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region Glove
-    export const Glove: Definition = new Definition({
+    export const Glove: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             unlimited: true,
@@ -356,7 +354,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region Heel
-    export const Heel: Definition = new Definition({
+    export const Heel: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
@@ -388,7 +386,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region Straight Jacket
-    export const StraightJacket: Definition = new Definition({
+    export const StraightJacket: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
@@ -445,7 +443,7 @@ export namespace SciFiSet {
     //#region Chastity
 
     //#region Harness
-    export const Harness: Definition = new Definition({
+    export const Harness: Definition = Definition({
         Data: new Restraint({
             alwaysRender: true, sfx: "FutureLock",
             inventory: true,
@@ -482,7 +480,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region ChastityBra
-    export const ChastityBra: Definition = new Definition({
+    export const ChastityBra: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
@@ -527,7 +525,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region ChastityBelt
-    export const ChastityBelt: Definition = new Definition({
+    export const ChastityBelt: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
@@ -580,7 +578,7 @@ export namespace SciFiSet {
     //#region Cuffs
 
     //#region TorsoBelt
-    export const TorsoBelt: Definition = new Definition({
+    export const TorsoBelt: Definition = Definition({
         Data: new Restraint({
             alwaysRender: true,
             sfx: "FutureLock",
@@ -619,7 +617,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region ArmCuff
-    export const ArmCuff: Definition = new Definition({
+    export const ArmCuff: Definition = Definition({
         Data: new Restraint({
             renderWhenLinked: ["Ties"],
             sfx: "FutureLock",
@@ -732,7 +730,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region TighCuff
-    export const ThighCuff: Definition = new Definition({
+    export const ThighCuff: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
@@ -781,7 +779,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region AnkleCuff
-    export const AnkleCuff: Definition = new Definition({
+    export const AnkleCuff: Definition = Definition({
         Data: new Restraint({
             inventory: true,
             sfx: "FutureLock",
@@ -838,10 +836,8 @@ export namespace SciFiSet {
 }
 //#endregion
 
-export const SciFiTag = `${RootNamespace}.${NameOf(() => SciFiSet)}`
-
 export function Register() {
-    const defs = Object.values(SciFiSet).map(r => r.updateIn(['Data', 'shrine'], shrines => [...shrines as string[], SciFiTag]))
+    const defs = Object.values(SciFiSet)
     if (defs.every(Mod.CheckNoDuplicateRestraint)) {
         defs.forEach(Mod.RegisterNewRestraint)
     }

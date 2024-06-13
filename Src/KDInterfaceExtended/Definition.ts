@@ -10,19 +10,25 @@ export type DefinitionData = {
 export type DefinitionCtorParams =
     Omit<DefinitionData, 'InfoText'> & Partial<Pick<DefinitionData, 'InfoText'>>
 
-export class Definition extends IM.Record<DefinitionData>({
+const _DefaultData: DefinitionData = {
     Data: Restraint.Default,
     InfoText: InfoText.Default
-})
-{
-    constructor(prop?: DefinitionCtorParams){
-        if(prop != null && !prop.InfoText){
-            prop.InfoText = new InfoText({
-                DisplayName: prop?.Data.name
-            })
-        }
-        super(prop)
-    }
-    static #Default = new Definition()
-    static get Default() { return this.#Default }
 }
+
+const _Definition = IM.Record(_DefaultData)
+
+export function Definition(prop?: DefinitionCtorParams){
+    if(prop != null && !prop.InfoText){
+        prop.InfoText = new InfoText({
+            DisplayName: prop?.Data.name
+        })
+    }
+    return _Definition(prop)
+}
+
+export namespace Definition {
+    export const Default = Definition()
+    export const DefaultData = _DefaultData
+}
+
+export type Definition = ReturnType<typeof Definition>

@@ -14,15 +14,18 @@
         "isolatedModules": true,
         "outDir": "Build",
         "inlineSourceMap": true,
-        "declarationDir": "Include",
-        "declaration": true,
         "lib": [
             "DOM",
             "ESNext"
+        ],
+        "typeRoots": [
+            "./node_modules/@types",
+            "./Types"
         ]
     },
     "include": [
-        "Src/**/*"
+        "Src/**/*",
+        "Types/**/*"
     ],
     "references": [
         {

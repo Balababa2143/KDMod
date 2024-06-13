@@ -1,7 +1,8 @@
 import *  as React from 'react'
 import { KDButton } from '../../../KDInterfaceExtended/GUI'
 import { KD, RootNamespace } from '../../../Common'
-import { SciFiTag } from '../../Template/SciFiSet'
+import { DroneSetControlled } from '../Constants'
+import * as Sensory from '../Sensory'
 
 export interface IControlPanelState {
     Show: boolean
@@ -16,6 +17,8 @@ const Context = React.createContext<IControlPanelContext>(null!)
 
 let DoShow = () => {}
 let isShowing = false
+
+// TODO: Fix mask swap logic
 
 export function ControlPanel() {
     const [State, SetState] = React.useState({
@@ -68,6 +71,23 @@ export function ControlPanel() {
                                 />
                             </KDButton>
                         </div>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'row'
+                        }}>
+                            <KDButton
+                                onClick={e => {
+                                    KD.SendInventoryEvent(
+                                        Sensory.SensoryProtocol.Event.MorphEquipment.Trigger,
+                                        {
+                                            targetEquipment: Sensory.SensoryItemTags.Mask
+                                        }
+                                    )
+                                }}
+                            >
+                                <span style={{pointerEvents: 'none', color: 'aqua'}}>Toggle mask</span>
+                            </KDButton>
+                        </div>
                     </div>
                 </Context.Provider>
             </div>
@@ -112,7 +132,7 @@ globalThis.KDDrawNavBar = function(skip: number, quit = false){
         const bx = (2000 - 10 - bwidth)
         const bspacing = 5
         const bheight = 60
-        if(KD.Variables.PlayerTags.get(SciFiTag)){
+        if(KD.Variables.PlayerTags.get(DroneSetControlled)){
             KD.DrawButtonKDEx_({
                 name: `${RootNamespace}.UI.ControlPanelButton`,
                 Left: bx,
