@@ -11,5 +11,4 @@ export type {
 } from './Event'
 export { InventoryEventHandlerDefinition } from './Event'
 export * as Event from './Event'
-export * from './InventoryActionEntry'
 export * as GUI from './GUI'

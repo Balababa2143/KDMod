@@ -1,16 +1,18 @@
-import { Wearable, WearableBase} from '../../KDInterfaceExtended'
-import { Helpers, Mod, RootNamespace } from '../../Common'
+import { Wearable, WearableBase } from '../../KDInterfaceExtended'
+import { Helpers, RootNamespace } from '../../Common'
 import NameOf = Helpers.NameOf
 import * as Model from '../Model'
 import { TypeWithText } from '../../KDInterfaceExtended/Wearable/Wearable'
 
 declare let KDMaskLink: string[]
 
+const Namespace: string = `${RootNamespace}.Template.${NameOf(() => SciFiSet)}`
+
 //#region  SciFiSet
 export namespace SciFiSet {
 
     function FullNameOf<T>(nameLambda: () => T) {
-        return `${RootNamespace}.${NameOf(() => SciFiSet)}.${NameOf(nameLambda)}`
+        return `${Namespace}.${NameOf(nameLambda)}`
     }
     const TransparentMask = FullNameOf(() => TransparentMask) as string
 
@@ -25,7 +27,7 @@ export namespace SciFiSet {
             sfx: "FutureLock",
             accessible: true,
             Asset: "InteractiveVisor",
-            Model: Model.DroneSet.Visor,
+            Model: Model.SciFiSet.Visor,
             DefaultLock: "Blue",
             Color: ['#91023a'],
             factionFilters: {
@@ -50,7 +52,7 @@ export namespace SciFiSet {
     export const VisorOpaque: TypeWithText = Visor.merge({
         Data: Visor.Data.merge({
             name: FullNameOf(() => VisorOpaque),
-            Model: Model.DroneSet.VisorOpaque,
+            Model: Model.SciFiSet.VisorOpaque,
         })
     })
     //#endregion
@@ -62,7 +64,7 @@ export namespace SciFiSet {
             sfx: "FutureLock",
             name: FullNameOf(() => Mask),
             inaccessible: true,
-            Model: Model.DroneSet.Mask,
+            Model: Model.SciFiSet.Mask,
             DefaultLock: "Blue",
             factionColor: [[2]],
             Color: ["#ff5277"],
@@ -90,7 +92,7 @@ export namespace SciFiSet {
     export const MaskOpaque: TypeWithText = Mask.merge({
         Data: Mask.Data.merge({
             name: FullNameOf(() => MaskOpaque),
-            Model: Model.DroneSet.MaskOpaque,
+            Model: Model.SciFiSet.MaskOpaque,
         })
     })
     //#endregion
@@ -146,7 +148,7 @@ export namespace SciFiSet {
             debris: "Belts",
             LinkableBy: [...KDFlatGagLink],
             renderWhenLinked: [...KDFlatGagLink],
-            Model: Model.DroneSet.Muzzle,
+            Model: Model.SciFiSet.Muzzle,
             DefaultLock: "Red",
             factionFilters: {
                 Display: { color: "Highlight", override: false },
@@ -203,7 +205,7 @@ export namespace SciFiSet {
     export const MuzzlePluged: TypeWithText = Muzzle.merge({
         Data: Muzzle.Data.merge({
             name: FullNameOf(() => MuzzlePluged),
-            Model: Model.DroneSet.MuzzlePlug,
+            Model: Model.SciFiSet.MuzzlePlug,
             gag: 1.0
         })
     })
@@ -218,7 +220,7 @@ export namespace SciFiSet {
             DefaultLock: "Red",
             Group: "ItemEars",
             shrine: ["Metal"],
-            Model: Model.DroneSet.EarPlug,
+            Model: Model.SciFiSet.EarPlug,
             factionFilters: {
                 BaseMetal: { color: "DarkNeutral", override: true },
             },
@@ -325,7 +327,7 @@ export namespace SciFiSet {
             inventory: true,
             unlimited: true,
             name: FullNameOf(() => Glove),
-            Model: "LockedGlove",
+            Model: Model.LockedGlove.Glove,
             DefaultLock: "Red",
             tightType: "Secure",
             factionFilters: {
@@ -589,7 +591,7 @@ export namespace SciFiSet {
             Asset: "",
             LinkableBy: [...KDHarnessLink],
             strictness: 0.1,
-            Model: Model.DroneSet.Belt,
+            Model: Model.SciFiSet.Belt,
             tightType: "Secure",
             harness: true,
             factionFilters: {
@@ -664,7 +666,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => ArmCuffLinked),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneSet.ArmLink,
+                    Model: Model.SciFiSet.ArmLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -680,7 +682,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => ArmCuffHandsUp),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneSet.ArmLink,
+                    Model: Model.SciFiSet.ArmLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -698,7 +700,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => ArmCuffHandsFront),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneSet.ArmLink,
+                    Model: Model.SciFiSet.ArmLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -716,7 +718,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => ArmCuffYoked),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneSet.ArmLink,
+                    Model: Model.SciFiSet.ArmLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -739,7 +741,7 @@ export namespace SciFiSet {
             accessible: true,
             Asset: "FuturisticLegCuffs",
             LinkableBy: [...KDBindable, ...KDDevices],
-            Model: Model.DroneSet.TighCuff,
+            Model: Model.SciFiSet.TighCuff,
             DefaultLock: "Red",
             factionFilters: {
                 Display: { color: "Highlight", override: false },
@@ -768,7 +770,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => ThighCuffLinked),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneSet.ThighLink,
+                    Model: Model.SciFiSet.ThighLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -822,7 +824,7 @@ export namespace SciFiSet {
             name: FullNameOf(() => AnkleCuffLinked),
             alwaysDressModel: [
                 {
-                    Model: Model.DroneSet.AnkleLink,
+                    Model: Model.SciFiSet.AnkleLink,
                     factionFilters: {
                         Link: { color: "Highlight", override: true },
                     }
@@ -837,17 +839,22 @@ export namespace SciFiSet {
 //#endregion
 
 //#region Register
-const defs = Object.values(SciFiSet)
-if (defs.every(WearableBase.CheckNoDuplicate)) {
-    defs.forEach(WearableBase.PushToRestraints)
-}
-else {
-    Helpers.Throw(`${RootNamespace} register: restraint name duplicated`, {
-        cause: {
-            DuplicatedRestraints: [
-                ...defs.filter(x => !WearableBase.CheckNoDuplicate(x))
-            ]
+Helpers.RegisterModule(
+    `${Namespace}Registered`,
+    () => {
+        const defs = Object.values(SciFiSet)
+        if (defs.every(WearableBase.CheckNoDuplicate)) {
+            defs.forEach(WearableBase.PushToRestraints)
         }
-    })
-}
+        else {
+            Helpers.Throw(`${RootNamespace} register: restraint name duplicated`, {
+                cause: {
+                    DuplicatedRestraints: [
+                        ...defs.filter(x => !WearableBase.CheckNoDuplicate(x))
+                    ]
+                }
+            })
+        }
+    }
+)
 //#endregion

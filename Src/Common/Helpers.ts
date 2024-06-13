@@ -75,3 +75,15 @@ export function ThrowIfNullOrEmptyOrWhiteSpace<T extends string>(
 export function NameOf<T>(nameLambda: () => T) {
     return nameLambda.toString().replace(/[ |\(\)=>]/g, '')
 }
+
+export function RegisterModule(key: string, RegisterFunction: () => void){
+    if(!(key in globalThis)){
+        RegisterFunction()
+        Object.defineProperty(
+            globalThis, key, {
+                value: true,
+                writable: false
+            }
+        )
+    }
+}
