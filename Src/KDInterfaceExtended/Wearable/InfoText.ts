@@ -1,17 +1,17 @@
-import { Record } from "immutable"
+import { Record, RecordOf } from "immutable"
 
-type InfoTextProp = {
+export interface InfoTextData {
     DisplayName: string
     FlavorText: string
     FunctionText: string
 }
 
-export class InfoText extends Record<InfoTextProp>({
+export type Type = RecordOf<InfoTextData>
+
+export const DefaultValue: InfoTextData = {
     DisplayName: 'DisplayName',
     FlavorText: 'FlavorText',
     FunctionText: 'FunctionText'
-})
-{
-    static #Default = new InfoText()
-    static get Default() { return this.#Default }
 }
+
+export const Create = Record(DefaultValue)
