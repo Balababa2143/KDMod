@@ -1,7 +1,7 @@
 // import { KD } from "../../Common"
 // import { Mod, RootNamespace } from "../../Common"
 // import { NameOf, RecordProxy } from "../../Common/Helpers"
-// import { CurseData, Curse, InventoryEventHandlerDefinition, ModularEvent, ModularEventData, InfoText, Definition, EventHandlerDefinition, Event } from "../../KDInterfaceExtended"
+// import { CurseData, Curse, InventoryEventHandlerDefinition, ModularEvent, ModularEventData, InfoText, InventoryActionEntry, Definition, EventHandlerDefinition } from "../../KDInterfaceExtended"
 // import { SciFiSet } from "../Template"
 // import * as IM from "immutable"
 // import { DroneEquipment } from "./DroneEquipment"
@@ -287,7 +287,7 @@
 // }
 
 // //#region Register
-// Object.values(SensoryProtocol.Event).forEach(Event.Register)
+// Object.values(SensoryProtocol.Event).for
 // //#endregion
 
 // export function Register() {

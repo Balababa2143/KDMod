@@ -1,6 +1,6 @@
 import * as IM from "immutable"
 import * as InfoText from "./InfoText"
-import { WearableBaseData, WearableOf } from "./WearableBase"
+import { WearableBaseData, WearableInitializerBase, WearableOf } from "./WearableBase"
 
 export type WearableWithTextDataOf<TData extends WearableBaseData> = {
     Data: WearableOf<TData>,
@@ -10,12 +10,12 @@ export type WearableWithTextDataOf<TData extends WearableBaseData> = {
 export type WearableWithTextOf<TData extends WearableBaseData> =
     IM.RecordOf<WearableWithTextDataOf<TData>>
 
-export type WearableWithTextInitializer<TData extends WearableBaseData> = {
-    Data: Readonly<TData>,
+export type WearableWithTextInitializer<DataInitialzier extends WearableInitializerBase> = {
+    Data: Readonly<DataInitialzier>,
     InfoText?: Partial<InfoText.InfoTextData>
 }
 
-export function CreateFactory<TData extends WearableBaseData>(dataFactory: (props: Readonly<TData>) => IM.RecordOf<TData>) {
+export function CreateFactory<Initialzier extends WearableInitializerBase, TData extends WearableBaseData>(dataFactory: (props: Readonly<Initialzier>) => IM.RecordOf<TData>) {
     const Factory = IM.Record<WearableWithTextDataOf<TData>>({
         Data: undefined!,
         InfoText: InfoText.Create({
@@ -24,7 +24,7 @@ export function CreateFactory<TData extends WearableBaseData>(dataFactory: (prop
             FunctionText: undefined!
         })
     })
-    return (prop: WearableWithTextInitializer<TData>) => {
+    return (prop: WearableWithTextInitializer<Initialzier>) => {
         const infoText = InfoText.Create(
             prop.InfoText ?? {
                 DisplayName: prop.Data.name

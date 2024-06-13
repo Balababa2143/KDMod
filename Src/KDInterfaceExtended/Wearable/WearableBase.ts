@@ -3,7 +3,10 @@ import { KD, KDVar, RecordEx, TypeUtil } from "../../Common"
 import { WearableWithTextOf } from "./WearableWithText"
 
 export type WearableBaseData =
-    KDRestraintProps &
+    KDRestraintProps
+
+export type WearableInitializerBase =
+    WearableBaseData &
     TypeUtil.RequireExactlyOne<KDRestraintProps, 'floors' | 'allFloors'> &
     TypeUtil.RequireExactlyOne<KDRestraintProps, 'shrine' | 'noShrine'>
 
@@ -158,24 +161,27 @@ export const DefaultData: KDRestraintProps = {
     displayPower: undefined,
 }
 
-export function CreateFactory<TProps extends WearableBaseData = WearableBaseData>(defaultValue: Partial<TProps> = DefaultData as TProps){
-    const Factory = IM.Record<TProps>({
+export function CreateFactory<
+    Initialzier extends WearableInitializerBase = WearableInitializerBase,
+    TData extends WearableBaseData = WearableBaseData
+>(defaultValue: Partial<TData> = DefaultData as TData) {
+    const Factory = IM.Record<TData>({
         ...DefaultData,
         ...(defaultValue ?? {})
-    } as TProps)
-    return (props: Readonly<TProps>) =>
-        Factory(props)
+    } as TData)
+    return (props: Readonly<Initialzier>) =>
+        Factory(props as Partial<TData>)
 }
 
 export type Type = WearableOf<WearableBaseData>
 
 export const Create = CreateFactory()
 
-export function CheckNoDuplicate<TData extends WearableBaseData>(def: WearableWithTextOf<TData>){
+export function CheckNoDuplicate<TData extends WearableBaseData>(def: WearableWithTextOf<TData>) {
     return KD.GetRestraintByName(def.Data.get('name')) == null
 }
 
-export function PushToRestraints<TData extends WearableBaseData>(def: WearableWithTextOf<TData>){
+export function PushToRestraints<TData extends WearableBaseData>(def: WearableWithTextOf<TData>) {
     KDVar.Restraints.push(RecordEx.CreateProxy(def.Data) as Readonly<restraint>)
     KD.AddRestraintText(
         def.Data.name,

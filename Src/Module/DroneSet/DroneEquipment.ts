@@ -1,7 +1,7 @@
 // import * as IM from 'immutable'
-// import { Definition, DefinitionData } from "../../KDInterfaceExtended"
+// import { WearableBaseData } from '../../KDInterfaceExtended/Wearable/WearableBase'
 
-// interface DroneEquipmentData extends DefinitionData {
+// interface DroneEquipmentData extends WearableBaseData {
 //     StateMap: IM.Map<string, string>
 // }
 

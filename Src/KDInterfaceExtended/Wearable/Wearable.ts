@@ -1,12 +1,18 @@
-import { WearableBaseData, WearableOf, DefaultData as BaseDefaultData, CreateFactory } from "./WearableBase"
+import { WearableInitializerBase, WearableOf, DefaultData as BaseDefaultData, CreateFactory } from "./WearableBase"
 import { WearableWithTextInitializer, WearableWithTextOf, } from "./WearableWithText"
 import * as WearableWithText from './WearableWithText'
 
 export type WearableData =
-    Omit<restraint, keyof WearableBaseData> &
-    WearableBaseData
+    restraint
+
+export type WearableInitializer =
+    Omit<restraint, keyof WearableInitializerBase> &
+    WearableInitializerBase
 
 export type Type = WearableOf<WearableData>
+
+export type WearableWithTextData =
+    WearableWithTextOf<WearableData>
 
 export type TypeWithText = WearableWithTextOf<WearableData>
 
@@ -31,14 +37,14 @@ export const DefaultData: restraint ={
     ApplyVariants: undefined,
 }
 
-const Factory = CreateFactory<WearableData>(DefaultData as WearableData)
+const Factory = CreateFactory<WearableInitializer, WearableData>(DefaultData as WearableInitializer)
 
-export function Create(props: WearableData){
+export function Create(props: WearableInitializer){
     return Factory(props)
 }
 
-const FactoryWithText = WearableWithText.CreateFactory<WearableData>(Create)
+const FactoryWithText = WearableWithText.CreateFactory<WearableInitializer, WearableData>(Create)
 
-export function CreateWithText(props: WearableWithTextInitializer<WearableData>){
+export function CreateWithText(props: WearableWithTextInitializer<WearableInitializer>){
     return FactoryWithText(props)
 }

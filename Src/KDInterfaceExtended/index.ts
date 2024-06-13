@@ -2,7 +2,6 @@ export * from './Wearable'
 export * from './Wearable/InfoText'
 export * from './Wearable/WearableWithText'
 export * from './Curse'
-export * from './ModularEvent'
 export type {
     EventHandlerDefinitionData,
     EventHandlerDefinition,
@@ -11,4 +10,5 @@ export type {
 } from './Event'
 export { InventoryEventHandlerDefinition } from './Event'
 export * as Event from './Event'
+export * from './EventModule'
 export * as GUI from './GUI'
