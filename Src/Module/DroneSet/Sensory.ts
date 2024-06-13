@@ -36,14 +36,16 @@ export const SensoryControlCurse: Curse = new Curse({
 })
 
 export namespace SensoryProtocol {
-    const ProtocalTrigger = GetFullNameOf(() => ProtocalTrigger)
+    const ActivationTrigger = GetFullNameOf(() => ActivationTrigger)
+
+    const MorphTrigger = GetFullNameOf(() => MorphTrigger)
 
     const ProtocalDataKey = GetFullNameOf(() => ProtocalDataKey)
 
     export namespace Event {
         export const ProtocolActivation: HandlerDefinition = HandlerDefinition.Create_({
             eventMap: KDEventMapInventory,
-            trigger: ProtocalTrigger,
+            trigger: ActivationTrigger,
             type: GetFullNameOf(() => ProtocolActivation),
             handler: (e, item, data) => {
                 KD.SendTextMessage_({
@@ -110,10 +112,11 @@ export namespace SensoryProtocol {
                         itemData[ProtocalDataKey] = defaultData
                     }
                     const definition = KDRestraint(item)
-                    console.log('DroneEquipment', definition)
-                    if('StateMap' in definition){
-                        const de = definition as unknown as DroneEquipment
-                        itemData['StateMap'] = de.StateMap
+                    if(definition.StateMap){
+                        itemData['StateMap'] = definition.StateMap
+                    }
+                    else if(definition.name === Sensory.DroneMaskOpaque.Data.name){
+                        itemData['StateMap'] = Sensory.DroneMaskOpaque.StateMap
                     }
                     if('addTag' in definition){
                         itemData['addTag'] = definition.addTag
@@ -125,25 +128,31 @@ export namespace SensoryProtocol {
 
         export const MorphEquipment: HandlerDefinition = HandlerDefinition.Create_({
             eventMap: KDEventMapInventory,
-            trigger: 'ProtocalTrigger',
+            trigger: MorphTrigger,
             type: GetFullNameOf(() => MorphEquipment),
             handler: (function () {
                 const defaultData = {}
                 return (e, item, data) => {
+                    console.log('MorphEquipment', e, item ,data)
                     const targetEquipment = data?.targetEquipment as string
-                    const equipmentType = item?.data?.addTag as string
-                    if(null != targetEquipment && null != equipmentType && equipmentType === targetEquipment){
-                        const stateMap = item?.data?.stateMap as DroneEquipment['StateMap']
+                    const tags = item?.data?.addTag as string[]
+
+                    console.log('tatget', targetEquipment)
+                    console.log('equipped', tags)
+
+                    if(null != targetEquipment && null != tags && tags.some(tag => tag  === targetEquipment)){
+                        const stateMap = item?.data?.StateMap as DroneEquipment['StateMap']
                         if(null != stateMap){
                             KD.MorphToInventoryVariant_({
                                 item: item,
                                 curse: item.curse!,
                                 prefix: '',
                                 variant: {
-                                    template: stateMap.get(item.name)!,
+                                    template: stateMap.get('Next')!,
                                     events: []
                                 }
                             })
+                            item.data.StateMap = KDRestraint(item).StateMap
                         }
                         else{
                             console.error('null in stateMap')
@@ -270,14 +279,13 @@ export namespace Sensory {
         .set('StateMap', IM.Map({
             Next: GetFullNameOf(() => DroneMaskOpaque)
         }))
-        .setIn(['InfoText', 'DisplayName'], 'DroneMask')
 
     export const DroneMaskOpaque: DroneEquipment =
         SetMaskProps(SciFiSet.MaskOpaque, GetFullNameOf(() => DroneMaskOpaque))
         .set('StateMap', IM.Map({
             Next: GetFullNameOf(() => DroneMask)
         }))
-        .setIn(['InfoText', 'DisplayName'], 'MaskOpaque')
+        .setIn(['Data', 'blindfold'], 2)
 }
 
 export function Register() {
@@ -293,6 +301,8 @@ export function Register() {
         (Object.values(Sensory).map(d => d.updateIn(['Data', 'addTag'], tags => [...tags ?? [], DroneSetControlled])) as unknown as Definition[])
     if (restraints.every(Mod.CheckNoDuplicateRestraint)) {
         restraints.forEach(Mod.RegisterNewRestraint)
+        KD.Variables.Restraints.find(r => r.name === Sensory.DroneMask.Data.name)['StateMap'] = Sensory.DroneMask.StateMap
+        KD.Variables.Restraints.find(r => r.name === Sensory.DroneMaskOpaque.Data.name)['StateMap'] = Sensory.DroneMaskOpaque.StateMap
     }
     else {
         throw new Error(`${RootNamespace} register: restraint name duplicated`, {

@@ -83,6 +83,8 @@ export function ControlPanel() {
                                             targetEquipment: Sensory.SensoryItemTags.Mask
                                         }
                                     )
+                                    KinkyDungeonAdvanceTime(1, true)
+                                    KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
                                 }}
                             >
                                 <span style={{pointerEvents: 'none', color: 'aqua'}}>Toggle mask</span>

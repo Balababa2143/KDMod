@@ -11,6 +11,10 @@ const DefaultValue: DroneEquipmentData = {
     StateMap: IM.Map()
 }
 
-export const DroneEquipment = IM.Record(DefaultValue)
+const _DroneEquipment = IM.Record(DefaultValue)
+
+export function DroneEquipment(data: IM.TypeOrPartial<DroneEquipmentData>){
+    return _DroneEquipment(data)
+}
 
 export type DroneEquipment = IM.RecordOf<DroneEquipmentData>

@@ -6,7 +6,7 @@ export function CheckNoDuplicateRestraint(def: Definition){
 }
 
 export function RegisterNewRestraint(def: Definition){
-    KDVar.Restraints.push(Helpers.RecordProxy(def.Data))
+    KDVar.Restraints.push(def.Data.toJS() as restraint)
     KD.AddRestraintText(
         def.Data.name,
         def.InfoText.DisplayName,
