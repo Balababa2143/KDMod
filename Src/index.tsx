@@ -2,21 +2,21 @@ import { KD } from './Common'
 
 import * as Module from './Module'
 import SF = Module.Template.SciFiSet
-// import DS = Module.DroneSet.Sensory
+import DS = Module.DroneSet.Sensory.Equipments
 import { Helpers } from './Common'
 import { CreateModUIRoot, GUI, InteractiveElementClass } from './KDInterfaceExtended/GUI'
 import React, { createContext, useContext, useState } from 'react'
-import { ControlPanel } from './Module/DroneSet/UI'
+import { ControlPanel } from './Module/DroneEquipment/UI'
 
 declare let KDPerkStart: Record<string, () => void>
-// KDPerkStart["StartDrone"] = () => {
-//     [
-//         DS.DroneMask,
-//         DS.DroneEarPlug,
-//         DS.DroneMuzzle
-//     ]
-//     .forEach(def => KD.InventoryAddLoose(def.Data.name, undefined, 'Curse'))
-// }
+KDPerkStart["StartDrone"] = () => {
+    [
+        DS.DroneMask,
+        DS.DroneEarPlug,
+        DS.DroneMuzzle
+    ]
+    .forEach(def => KD.InventoryAddLoose(def.Data.name, undefined, 'Curse'))
+}
 
 KDPerkStart["StartScifi"] = () => {
     [

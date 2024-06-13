@@ -1,7 +1,7 @@
 import *  as React from 'react'
 import { KDButton } from '../../../KDInterfaceExtended/GUI'
 import { KD, RootNamespace } from '../../../Common'
-import { DroneSetControlled } from '../Constants'
+import { EquipmentCategory as Category } from '../Constants'
 // import * as Sensory from '../Sensory'
 
 export interface IControlPanelState {
@@ -134,7 +134,7 @@ globalThis.KDDrawNavBar = function(skip: number, quit = false){
         const bx = (2000 - 10 - bwidth)
         const bspacing = 5
         const bheight = 60
-        if(KD.Variables.PlayerTags.get(DroneSetControlled)){
+        if(KD.Variables.PlayerTags.get(Category.DroneEquipment)){
             KD.DrawButtonKDEx_({
                 name: `${RootNamespace}.UI.ControlPanelButton`,
                 Left: bx,
