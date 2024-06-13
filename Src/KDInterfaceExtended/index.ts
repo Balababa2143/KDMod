@@ -1,8 +1,6 @@
-export * from './PropertyBase'
-export * from './Property'
-export * from './InfoText'
-export * from './Restraint'
-export * from './Definition'
+export * from './Wearable'
+export * from './Wearable/InfoText'
+export * from './Wearable/WearableWithText'
 export * from './Curse'
 export * from './ModularEvent'
 export type {

@@ -1,12 +1,18 @@
 import * as IM from "immutable"
-import { TypeUtil } from "../Common"
+import { KD, KDVar, RecordEx, TypeUtil } from "../../Common"
+import { WearableWithTextOf } from "./WearableWithText"
 
-export type PropertyBaseData =
-    KDRestraintPropsBase &
-    TypeUtil.RequireExactlyOne<KDRestraintPropsBase, 'floors' | 'allFloors'> &
-    TypeUtil.RequireExactlyOne<KDRestraintPropsBase, 'shrine' | 'noShrine'>
+export type WearableBaseData =
+    KDRestraintProps &
+    TypeUtil.RequireExactlyOne<KDRestraintProps, 'floors' | 'allFloors'> &
+    TypeUtil.RequireExactlyOne<KDRestraintProps, 'shrine' | 'noShrine'>
 
-export class PropertyBase extends IM.Record<KDRestraintPropsBase>({
+export type WearableOf<Property extends WearableBaseData = WearableBaseData> =
+    IM.RecordOf<Property>
+
+export const DefaultData: KDRestraintProps = {
+    name: undefined!,
+    Group: undefined!,
     Filters: undefined,
     factionFilters: undefined,
     noShrine: undefined,
@@ -150,11 +156,31 @@ export class PropertyBase extends IM.Record<KDRestraintPropsBase>({
     UnderlinkedAlwaysRender: undefined,
     NoLinkOver: undefined,
     displayPower: undefined,
-})
-{
-    constructor(prop?: PropertyBaseData){
-        super(prop)
-    }
-    static #Default = new PropertyBase()
-    static get Default() { return this.#Default }
+}
+
+export function CreateFactory<TProps extends WearableBaseData = WearableBaseData>(defaultValue: Partial<TProps> = DefaultData as TProps){
+    const Factory = IM.Record<TProps>({
+        ...DefaultData,
+        ...(defaultValue ?? {})
+    } as TProps)
+    return (props: Readonly<TProps>) =>
+        Factory(props)
+}
+
+export type Type = WearableOf<WearableBaseData>
+
+export const Create = CreateFactory()
+
+export function CheckNoDuplicate<TData extends WearableBaseData>(def: WearableWithTextOf<TData>){
+    return KD.GetRestraintByName(def.Data.get('name')) == null
+}
+
+export function PushToRestraints<TData extends WearableBaseData>(def: WearableWithTextOf<TData>){
+    KDVar.Restraints.push(RecordEx.CreateProxy(def.Data) as Readonly<restraint>)
+    KD.AddRestraintText(
+        def.Data.name,
+        def.InfoText.DisplayName,
+        def.InfoText.FlavorText,
+        def.InfoText.FunctionText
+    )
 }

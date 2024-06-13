@@ -1,6 +1,6 @@
-import { Record } from "immutable";
-import { DEFAULT, Helpers } from "../Common";
-import { RecordProxy } from "../Common/Helpers";
+import { Record } from "immutable"
+import { DEFAULT, Helpers } from "../Common"
+import { RecordEx } from "../Common"
 
 interface ModularEventDataProp {
     level: number,
@@ -39,6 +39,6 @@ export class ModularEvent extends Record<ModularEventProp>({
         }
     }
     static Register(e: ModularEvent){
-        KDEventHexModular[e.Name] = RecordProxy(e.Data)
+        KDEventHexModular[e.Name] = RecordEx.CreateProxy(e.Data)
     }
 }

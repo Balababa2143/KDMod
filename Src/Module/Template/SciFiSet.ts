@@ -1,10 +1,10 @@
-import { Definition, Restraint } from "../../KDInterfaceExtended"
+import { Wearable, WearableBase} from '../../KDInterfaceExtended'
 import { Helpers, Mod, RootNamespace } from '../../Common'
 import NameOf = Helpers.NameOf
 import * as Model from '../Model'
+import { TypeWithText } from '../../KDInterfaceExtended/Wearable/Wearable'
 
 declare let KDMaskLink: string[]
-
 
 //#region  SciFiSet
 export namespace SciFiSet {
@@ -17,8 +17,8 @@ export namespace SciFiSet {
     //#region Sensory
 
     //#region Visor
-    export const Visor: Definition = Definition({
-        Data: new Restraint({
+    export const Visor: TypeWithText = Wearable.CreateWithText({
+        Data: {
             renderWhenLinked: [TransparentMask],
             name: FullNameOf(() => Visor),
             inventory: true,
@@ -42,12 +42,12 @@ export namespace SciFiSet {
             shrine: ["Visors"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region Visor
-    export const VisorOpaque: Definition = Visor.merge({
+    export const VisorOpaque: TypeWithText = Visor.merge({
         Data: Visor.Data.merge({
             name: FullNameOf(() => VisorOpaque),
             Model: Model.DroneSet.VisorOpaque,
@@ -56,8 +56,8 @@ export namespace SciFiSet {
     //#endregion
 
     //#region Mask
-    export const Mask: Definition = Definition({
-        Data: new Restraint({
+    export const Mask: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             sfx: "FutureLock",
             name: FullNameOf(() => Mask),
@@ -82,12 +82,12 @@ export namespace SciFiSet {
             shrine: ["Masks", "Block_ItemMouth", TransparentMask],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region Mask
-    export const MaskOpaque: Definition = Mask.merge({
+    export const MaskOpaque: TypeWithText = Mask.merge({
         Data: Mask.Data.merge({
             name: FullNameOf(() => MaskOpaque),
             Model: Model.DroneSet.MaskOpaque,
@@ -96,8 +96,8 @@ export namespace SciFiSet {
     //#endregion
 
     //#region BallGag
-    export const BallGag: Definition = Definition({
-        Data: new Restraint({
+    export const BallGag: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             sfx: "FutureLock",
             name: FullNameOf(() => BallGag),
@@ -133,13 +133,13 @@ export namespace SciFiSet {
             shrine: ["BallGags", "Gags", "Metal"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region Muzzle
-    export const Muzzle: Definition = Definition({
-        Data: new Restraint({
+    export const Muzzle: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             sfx: "FutureLock",
             name: FullNameOf(() => Muzzle),
@@ -177,12 +177,12 @@ export namespace SciFiSet {
             shrine: ["FlatGags", "Gags", "Metal"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region MuzzleStuffedBall
-    export const MuzzleStuffedBall: Definition = Muzzle.merge({
+    export const MuzzleStuffedBall: TypeWithText = Muzzle.merge({
         Data: Muzzle.Data.merge({
             name: FullNameOf(() => MuzzleStuffedBall),
             gag: 0.7,
@@ -200,7 +200,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region MuzzlePluged
-    export const MuzzlePluged: Definition = Muzzle.merge({
+    export const MuzzlePluged: TypeWithText = Muzzle.merge({
         Data: Muzzle.Data.merge({
             name: FullNameOf(() => MuzzlePluged),
             Model: Model.DroneSet.MuzzlePlug,
@@ -210,8 +210,8 @@ export namespace SciFiSet {
     //#endregion
 
     //#region EarPlug
-    export const EarPlug: Definition = Definition({
-        Data: new Restraint({
+    export const EarPlug: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             name: FullNameOf(() => EarPlug),
             escapeChance: { "Struggle": -0.25, "Cut": -0.8, "Remove": 0.05, "Pick": -0.25 },
@@ -230,7 +230,7 @@ export namespace SciFiSet {
             power: 10,
             weight: 0,
             allFloors: true,
-        })
+        }
     })
     //#endregion
 
@@ -239,8 +239,8 @@ export namespace SciFiSet {
     //#region Body
 
     //#region Collar
-    export const Collar: Definition = Definition({
-        Data: new Restraint({
+    export const Collar: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             sfx: "FutureLock",
             name: FullNameOf(() => Collar),
@@ -270,13 +270,13 @@ export namespace SciFiSet {
             shrine: ["Metal", "Collars", "Cyber"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region Catsuit
-    export const Catsuit: Definition = Definition({
-        Data: new Restraint({
+    export const Catsuit: TypeWithText = Wearable.CreateWithText({
+        Data: {
             renderWhenLinked: ["Corsets", "Harnesses", ...KDBindable, "Latex", "Leather", "Metal", "Rope"],
             inventory: true,
             name: FullNameOf(() => Catsuit),
@@ -315,13 +315,13 @@ export namespace SciFiSet {
             ],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region Glove
-    export const Glove: Definition = Definition({
-        Data: new Restraint({
+    export const Glove: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             unlimited: true,
             name: FullNameOf(() => Glove),
@@ -349,13 +349,13 @@ export namespace SciFiSet {
             shrine: ["Metal", "Mittens"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region Heel
-    export const Heel: Definition = Definition({
-        Data: new Restraint({
+    export const Heel: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             sfx: "FutureLock",
             name: FullNameOf(() => Heel),
@@ -381,13 +381,13 @@ export namespace SciFiSet {
             shrine: ["Metal", "Boots"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region Straight Jacket
-    export const StraightJacket: Definition = Definition({
-        Data: new Restraint({
+    export const StraightJacket: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             sfx: "FutureLock",
             name: FullNameOf(() => StraightJacket),
@@ -434,7 +434,7 @@ export namespace SciFiSet {
             minLevel: 0,
             allFloors: true,
             shrine: ["Latex", "Straitjackets", "Block_ItemHands"]
-        })
+        }
     })
     //#endregion
 
@@ -443,8 +443,8 @@ export namespace SciFiSet {
     //#region Chastity
 
     //#region Harness
-    export const Harness: Definition = Definition({
-        Data: new Restraint({
+    export const Harness: TypeWithText = Wearable.CreateWithText({
+        Data: {
             alwaysRender: true, sfx: "FutureLock",
             inventory: true,
             name: FullNameOf(() => Harness),
@@ -475,13 +475,13 @@ export namespace SciFiSet {
             shrine: ["Metal", "Harnesses"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region ChastityBra
-    export const ChastityBra: Definition = Definition({
-        Data: new Restraint({
+    export const ChastityBra: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             sfx: "FutureLock",
             arousalMode: true,
@@ -510,12 +510,12 @@ export namespace SciFiSet {
             shrine: ["ChastityBras", "Chastity", "Metal"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region ChastityBraBig
-    export const ChastityBraBig: Definition = ChastityBra.merge({
+    export const ChastityBraBig: TypeWithText = ChastityBra.merge({
         Data: ChastityBra.Data.merge({
             name: FullNameOf(() => ChastityBraBig),
             Model: "BraProto",
@@ -525,8 +525,8 @@ export namespace SciFiSet {
     //#endregion
 
     //#region ChastityBelt
-    export const ChastityBelt: Definition = Definition({
-        Data: new Restraint({
+    export const ChastityBelt: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             sfx: "FutureLock",
             arousalMode: true,
@@ -558,12 +558,12 @@ export namespace SciFiSet {
             shrine: ["Chastity", "Metal", "ChastityBelts"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region ChastityBeltBig
-    export const ChastityBeltBig: Definition = ChastityBelt.merge({
+    export const ChastityBeltBig: TypeWithText = ChastityBelt.merge({
         Data: ChastityBelt.Data.merge({
             name: FullNameOf(() => ChastityBeltBig),
             Model: "ProtoBelt",
@@ -578,8 +578,8 @@ export namespace SciFiSet {
     //#region Cuffs
 
     //#region TorsoBelt
-    export const TorsoBelt: Definition = Definition({
-        Data: new Restraint({
+    export const TorsoBelt: TypeWithText = Wearable.CreateWithText({
+        Data: {
             alwaysRender: true,
             sfx: "FutureLock",
             inventory: true,
@@ -612,13 +612,13 @@ export namespace SciFiSet {
             shrine: ["Metal", "Cuffs"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region ArmCuff
-    export const ArmCuff: Definition = Definition({
-        Data: new Restraint({
+    export const ArmCuff: TypeWithText = Wearable.CreateWithText({
+        Data: {
             renderWhenLinked: ["Ties"],
             sfx: "FutureLock",
             nonbinding: true,
@@ -654,12 +654,12 @@ export namespace SciFiSet {
             maxwill: 0.8,
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region ArmCuffLinked
-    export const ArmCuffLinked: Definition = ArmCuff.merge({
+    export const ArmCuffLinked: TypeWithText = ArmCuff.merge({
         Data: ArmCuff.Data.merge({
             name: FullNameOf(() => ArmCuffLinked),
             alwaysDressModel: [
@@ -675,7 +675,7 @@ export namespace SciFiSet {
     //#endregion
 
     //#region ArmCuffHandsUp
-    export const ArmCuffHandsUp: Definition = ArmCuff.merge({
+    export const ArmCuffHandsUp: TypeWithText = ArmCuff.merge({
         Data: ArmCuff.Data.merge({
             name: FullNameOf(() => ArmCuffHandsUp),
             alwaysDressModel: [
@@ -687,13 +687,13 @@ export namespace SciFiSet {
                 }
             ],
             bindarms: true,
-            shrine: [...ArmCuff.Data.shrine, "HandsUp"],
+            shrine: [...ArmCuff.Data.get('shrine') ?? [], "HandsUp"],
         })
     })
     //#endregion
 
     //#region ArmCuffHandFront
-    export const ArmCuffHandsFront: Definition = ArmCuff.merge({
+    export const ArmCuffHandsFront: TypeWithText = ArmCuff.merge({
         Data: ArmCuff.Data.merge({
             name: FullNameOf(() => ArmCuffHandsFront),
             alwaysDressModel: [
@@ -705,13 +705,13 @@ export namespace SciFiSet {
                 }
             ],
             bindarms: true,
-            shrine: [...ArmCuff.Data.shrine, "HandsFront"],
+            shrine: [...ArmCuff.Data.get('shrine') ?? [], "HandsFront"],
         })
     })
     //#endregion
 
     //#region ArmCuffYoked
-    export const ArmCuffYoked: Definition = ArmCuff.merge({
+    export const ArmCuffYoked: TypeWithText = ArmCuff.merge({
         Data: ArmCuff.Data.merge({
             name: FullNameOf(() => ArmCuffYoked),
             alwaysDressModel: [
@@ -730,8 +730,8 @@ export namespace SciFiSet {
     //#endregion
 
     //#region TighCuff
-    export const ThighCuff: Definition = Definition({
-        Data: new Restraint({
+    export const ThighCuff: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             sfx: "FutureLock",
             name: FullNameOf(() => ThighCuff),
@@ -758,12 +758,12 @@ export namespace SciFiSet {
             shrine: ["Metal", "Cuffs", "LegCuffsBase"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region ThighCuffLinked
-    export const ThighCuffLinked: Definition = ThighCuff.merge({
+    export const ThighCuffLinked: TypeWithText = ThighCuff.merge({
         Data: ThighCuff.Data.merge({
             name: FullNameOf(() => ThighCuffLinked),
             alwaysDressModel: [
@@ -779,8 +779,8 @@ export namespace SciFiSet {
     //#endregion
 
     //#region AnkleCuff
-    export const AnkleCuff: Definition = Definition({
-        Data: new Restraint({
+    export const AnkleCuff: TypeWithText = Wearable.CreateWithText({
+        Data: {
             inventory: true,
             sfx: "FutureLock",
             name: FullNameOf(() => AnkleCuff),
@@ -812,12 +812,12 @@ export namespace SciFiSet {
             shrine: ["Cuffs", "Metal", "AnkleCuffsBase", "HogtieLower"],
             enemyTags: {},
             playerTags: {},
-        })
+        }
     })
     //#endregion
 
     //#region AnkleCuffLinked
-    export const AnkleCuffLinked: Definition = AnkleCuff.merge({
+    export const AnkleCuffLinked: TypeWithText = AnkleCuff.merge({
         Data: AnkleCuff.Data.merge({
             name: FullNameOf(() => AnkleCuffLinked),
             alwaysDressModel: [
@@ -836,18 +836,18 @@ export namespace SciFiSet {
 }
 //#endregion
 
-export function Register() {
-    const defs = Object.values(SciFiSet)
-    if (defs.every(Mod.CheckNoDuplicateRestraint)) {
-        defs.forEach(Mod.RegisterNewRestraint)
-    }
-    else {
-        throw new Error(`${RootNamespace} register: restraint name duplicated`, {
-            cause: {
-                DuplicatedRestraints: [
-                    ...defs.filter(x => !Mod.CheckNoDuplicateRestraint(x))
-                ]
-            }
-        })
-    }
+//#region Register
+const defs = Object.values(SciFiSet)
+if (defs.every(WearableBase.CheckNoDuplicate)) {
+    defs.forEach(WearableBase.PushToRestraints)
 }
+else {
+    Helpers.Throw(`${RootNamespace} register: restraint name duplicated`, {
+        cause: {
+            DuplicatedRestraints: [
+                ...defs.filter(x => !WearableBase.CheckNoDuplicate(x))
+            ]
+        }
+    })
+}
+//#endregion

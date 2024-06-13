@@ -2,7 +2,7 @@ import *  as React from 'react'
 import { KDButton } from '../../../KDInterfaceExtended/GUI'
 import { KD, RootNamespace } from '../../../Common'
 import { DroneSetControlled } from '../Constants'
-import * as Sensory from '../Sensory'
+// import * as Sensory from '../Sensory'
 
 export interface IControlPanelState {
     Show: boolean
@@ -71,7 +71,7 @@ export function ControlPanel() {
                                 />
                             </KDButton>
                         </div>
-                        <div style={{
+                        {/* <div style={{
                             display: 'flex',
                             flexDirection: 'row'
                         }}>
@@ -89,7 +89,7 @@ export function ControlPanel() {
                             >
                                 <span style={{pointerEvents: 'none', color: 'aqua'}}>Toggle mask</span>
                             </KDButton>
-                        </div>
+                        </div> */}
                     </div>
                 </Context.Provider>
             </div>

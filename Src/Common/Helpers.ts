@@ -75,24 +75,3 @@ export function ThrowIfNullOrEmptyOrWhiteSpace<T extends string>(
 export function NameOf<T>(nameLambda: () => T) {
     return nameLambda.toString().replace(/[ |\(\)=>]/g, '')
 }
-
-export const ProxyTarget = Symbol('ProxyTarget')
-
-export function RecordProxy<T extends object, R extends RecordOf<T>>(record: R): Readonly<T>{
-    return new Proxy(record, {
-        get(target, p, receiver) {
-            if(p === ProxyTarget){
-                return target
-            }
-            else if(typeof p === 'string' && target.has(p)){
-                return target.get(p)
-            }
-            else{
-                return undefined
-            }
-        },
-        set(target, p, newValue, receiver) {
-            Throw('Set immutable object')
-        },
-    })
-}

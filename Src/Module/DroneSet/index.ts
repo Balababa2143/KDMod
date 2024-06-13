@@ -1,9 +1,11 @@
-export * from './Sensory'
+// export * from './Sensory'
 
-import { Register as RegisterSensory } from "./Sensory"
+// import { Register as RegisterSensory } from "./Sensory"
+
+
+
+// export function Register(){
+//     RegisterSensory()
+// }
 
 export * from './Constants'
-
-export function Register(){
-    RegisterSensory()
-}
