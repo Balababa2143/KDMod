@@ -7,8 +7,8 @@ import * as IM from "immutable"
 import { Helpers } from "../../../Common"
 import { WearableBase } from "../../../KDInterfaceExtended"
 import { CreateWithText, TypeWithText as DroneEquipmentRecordWithText, Initializer } from "../Wearable"
-import { EngageLock, ProtocolActivation } from "./Events"
 import { MorphEquipment } from "./Events/MorphEquipment"
+import { ProtocolActivation } from "./Events"
 
 export namespace Equipments {
     export const DroneEarPlug: DroneEquipmentRecordWithText =
@@ -24,7 +24,7 @@ export namespace Equipments {
                 ...es ?? [],
                 {
                     trigger: ProtocolActivation.EventName,
-                    type: EngageLock.HandlerId
+                    type: ProtocolActivation.Handlers.EngageLock.HandlerId
                 }
             ])
             .updateIn(['Data', 'addTag'], tags => [
@@ -45,7 +45,7 @@ export namespace Equipments {
                 ...es ?? [],
                 {
                     trigger: ProtocolActivation.EventName,
-                    type: EngageLock.HandlerId
+                    type: ProtocolActivation.Handlers.EngageLock.HandlerId
                 }
             ])
             .updateIn(['Data', 'shrine'], tags => [
@@ -78,7 +78,7 @@ export namespace Equipments {
                 ...events ?? [],
                 {
                     trigger: ProtocolActivation.EventName,
-                    type: EngageLock.HandlerId
+                    type: ProtocolActivation.Handlers.EngageLock.HandlerId
                 },
                 {
                     trigger: MorphEquipment.EventName,

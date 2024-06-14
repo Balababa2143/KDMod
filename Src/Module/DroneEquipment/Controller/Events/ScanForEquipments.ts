@@ -1,5 +1,5 @@
 import { Helpers, KD, KDVar } from "../../../../Common"
-import { InventoryEventHandlerDefinition, Event } from "../../../../KDInterfaceExtended"
+import { InventoryEventHandlerDesc, EventHandlerDesc } from "../../../../KDInterfaceExtended"
 import { EquipmentCategory as Category } from "../../Constants"
 import { ProtocolActivation } from "../../Sensory/Events"
 
@@ -7,7 +7,7 @@ const ActiveFlags = {
     Sensory: `${Category.Sensory.SubNamespace}.Activated`
 }
 
-export const ScanForEquipments: InventoryEventHandlerDefinition = InventoryEventHandlerDefinition({
+export const ScanForEquipments: InventoryEventHandlerDesc = InventoryEventHandlerDesc({
     EventName: 'tick',
     HandlerId: Category.GetFullNameOf(() => ScanForEquipments),
     Handler: (e, item, data) => {
@@ -47,7 +47,7 @@ export const ScanForEquipments: InventoryEventHandlerDefinition = InventoryEvent
 Helpers.RegisterModule(
     `${Category.Controller.Tag}.Events.ScanForEquipmentsRegistered`,
     () =>{
-        Event.Register(ScanForEquipments)
+        EventHandlerDesc.Register(ScanForEquipments)
     }
 )
 //#endregion

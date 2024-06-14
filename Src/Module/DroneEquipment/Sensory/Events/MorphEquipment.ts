@@ -1,7 +1,7 @@
 import { EquipmentCategory } from "../../Constants"
 import Category = EquipmentCategory.Sensory
 import GetFullNameOf = Category.GetFullNameOf
-import { Event, InventoryEventHandlerDefinition } from "../../../../KDInterfaceExtended"
+import { EventHandlerDesc, InventoryEventHandlerDesc } from "../../../../KDInterfaceExtended"
 import { DroneEquipmentData } from "../../Wearable"
 import { Helpers, KD } from "../../../../Common"
 
@@ -13,7 +13,7 @@ export namespace MorphEquipment {
     }
 
     export namespace Handlers {
-        export const ToggleVisor: InventoryEventHandlerDefinition = InventoryEventHandlerDefinition({
+        export const ToggleVisor: InventoryEventHandlerDesc = InventoryEventHandlerDesc({
             EventName: EventName,
             HandlerId: GetFullNameOf(() => ToggleVisor),
             Handler: (e, item, data) => {
@@ -48,7 +48,7 @@ export namespace MorphEquipment {
 Helpers.RegisterModule(
     `${Category.SubNamespace}.${MorphEquipment.EventName}Registered`,
     () => {
-        Object.values(MorphEquipment.Handlers).forEach(Event.Register)
+        Object.values(MorphEquipment.Handlers).forEach(EventHandlerDesc.Register)
     }
 )
 //#endregion

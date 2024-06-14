@@ -1,15 +1,15 @@
 import { KD } from "../../Common"
-import { EventHandlerDefinition, EventHandlerDefinitionData, MakeEventHandlerDefinitionFactory, ThrowIfDataNull } from "./Common"
+import { EventHandlerDesc, EventHandlerDescData } from "./EventHandlerDesc"
 
 export type InventoryEventHandler =
     (descriptor: KinkyDungeonEvent, source: item, data: unknown) => void
 
-export type InventoryEventHandlerDefinition =
-    EventHandlerDefinition<InventoryEventHandler>
+export type InventoryEventHandlerDesc =
+    EventHandlerDesc<InventoryEventHandler>
 
 const MyEventMap = KD.Variables.EventMapInventory
 
-const _DefaultData: EventHandlerDefinitionData<InventoryEventHandler> = {
+const _DefaultData: EventHandlerDescData<InventoryEventHandler> = {
     EventMap: MyEventMap,
     EventName: undefined!,
     HandlerId: undefined!,
@@ -19,9 +19,9 @@ const _DefaultData: EventHandlerDefinitionData<InventoryEventHandler> = {
 type IEHDProperties =
     Omit<typeof _DefaultData, 'EventMap'>
 
-const Factory = MakeEventHandlerDefinitionFactory(_DefaultData)
+const Factory = EventHandlerDesc.MakeFactory(_DefaultData)
 
-export function InventoryEventHandlerDefinition(props: IEHDProperties): InventoryEventHandlerDefinition{
-    ThrowIfDataNull(props)
+export function InventoryEventHandlerDesc(props: IEHDProperties): InventoryEventHandlerDesc {
+    EventHandlerDesc.ThrowIfDataNull(props)
     return Factory(props)
 }
