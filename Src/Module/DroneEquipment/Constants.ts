@@ -3,14 +3,29 @@ import { NameOf } from "../../Common/Helpers";
 
 export namespace EquipmentCategory {
     export const DroneEquipment = 'DroneEquipment' as const
-    export namespace Sensory {
-        export const SubModuleName = 'Sensory' as const
-        export const Namespace: string = `${RootNamespace}.${DroneEquipment}.${SubModuleName}`
+    export const Namespace = `${RootNamespace}.${DroneEquipment}`
+    export function GetFullNameOf(nameLambda: () => any) {
+        return `${Namespace}.${NameOf(nameLambda)}`
+    }
+    export namespace Controller {
+        const SubModuleName = 'Controller' as const
+        export const SubNamespace: string = `${Namespace}.${SubModuleName}`
+        export const Tag = SubNamespace
         export function GetFullNameOf(nameLambda: () => any) {
-            return `${Namespace}.${NameOf(nameLambda)}`
+            return `${SubNamespace}.${NameOf(nameLambda)}`
         }
-        export const Gag: string = GetFullNameOf(() => Gag)
-        export const EarPlug: string = GetFullNameOf(() => EarPlug)
-        export const Mask: string = GetFullNameOf(() => Mask)
+    }
+    export namespace Sensory {
+        const SubModuleName = 'Sensory' as const
+        export const SubNamespace: string = `${Namespace}.${SubModuleName}`
+        export const Tag = SubNamespace
+        export function GetFullNameOf(nameLambda: () => any) {
+            return `${SubNamespace}.${NameOf(nameLambda)}`
+        }
+        export namespace EquipmentTag {
+            export const Gag: string = GetFullNameOf(() => Gag)
+            export const EarPlug: string = GetFullNameOf(() => EarPlug)
+            export const Mask: string = GetFullNameOf(() => Mask)
+        }
     }
 }

@@ -2,6 +2,7 @@ import { KD } from './Common'
 
 import * as Module from './Module'
 import SF = Module.Template.SciFiSet
+import DC = Module.DroneSet.Controller.Equipments
 import DS = Module.DroneSet.Sensory.Equipments
 import { Helpers } from './Common'
 import { CreateModUIRoot, GUI, InteractiveElementClass } from './KDInterfaceExtended/GUI'
@@ -11,6 +12,7 @@ import { ControlPanel } from './Module/DroneEquipment/UI'
 declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
     [
+        DC.Visor,
         DS.DroneMask,
         DS.DroneEarPlug,
         DS.DroneMuzzle

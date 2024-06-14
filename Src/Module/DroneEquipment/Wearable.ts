@@ -14,7 +14,7 @@ export type Type = WearableOf<DroneEquipmentData>
 
 export type TypeWithText = WearableWithTextOf<DroneEquipmentData>
 
-export type DroneEquipmentInitializer =
+export type Initializer =
 {
     StateMap?: IM.Map<string, string>
 } & WearableInitializer
@@ -24,14 +24,14 @@ const DefaultData: DroneEquipmentData = {
     StateMap: IM.Map()
 }
 
-const Factory = WearableBase.CreateFactory<DroneEquipmentInitializer, DroneEquipmentData>(DefaultData)
+const Factory = WearableBase.CreateFactory<Initializer, DroneEquipmentData>(DefaultData)
 
 export function Create(props: WearableInitializer){
     return Factory(props)
 }
 
-const FactoryWithText = WearableWithText.CreateFactory<DroneEquipmentInitializer, DroneEquipmentData>(Create)
+const FactoryWithText = WearableWithText.CreateFactory<Initializer, DroneEquipmentData>(Create)
 
-export function CreateWithText(props: WearableWithTextInitializer<DroneEquipmentInitializer>){
+export function CreateWithText(props: WearableWithTextInitializer<Initializer>){
     return FactoryWithText(props)
 }

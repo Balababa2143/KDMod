@@ -6,14 +6,14 @@ import Category = EquipmentCategory.Sensory
 import * as IM from "immutable"
 import { Helpers } from "../../../Common"
 import { WearableBase } from "../../../KDInterfaceExtended"
-import { CreateWithText, TypeWithText as DroneEquipmentRecordWithText, DroneEquipmentInitializer } from "../Wearable"
+import { CreateWithText, TypeWithText as DroneEquipmentRecordWithText, Initializer } from "../Wearable"
 
 export namespace Equipments {
     export const DroneEarPlug: DroneEquipmentRecordWithText =
         CreateWithText({
             Data: SciFiSet.EarPlug.Data.merge({
                 name: GetFullNameOf(() => DroneEarPlug)
-            }) as DroneEquipmentInitializer,
+            }) as Initializer,
             InfoText: {
                 DisplayName: 'Drone Ear Plug'
             },
@@ -27,16 +27,16 @@ export namespace Equipments {
                 //     }
                 // })
             ])
-            .updateIn(['Data', 'shrine'], tags => [
+            .updateIn(['Data', 'addTag'], tags => [
                 ...tags ?? [],
-                Category.EarPlug
+                Category.EquipmentTag.EarPlug
             ])
 
     export const DroneMuzzle: DroneEquipmentRecordWithText =
         CreateWithText({
             Data: SciFiSet.Muzzle.Data.merge({
                 name: GetFullNameOf(() => DroneMuzzle)
-            }) as DroneEquipmentInitializer,
+            }) as Initializer,
             InfoText: {
                 DisplayName: 'Drone Muzzle'
             },
@@ -52,14 +52,14 @@ export namespace Equipments {
             ])
             .updateIn(['Data', 'shrine'], tags => [
                 ...tags ?? [],
-                Category.Gag
+                Category.EquipmentTag.Gag
             ])
 
     export const MuzzleStuffedBall: DroneEquipmentRecordWithText =
         CreateWithText({
             Data: SciFiSet.MuzzleStuffedBall.Data.merge({
                 name: GetFullNameOf(() => MuzzleStuffedBall)
-            }) as DroneEquipmentInitializer,
+            }) as Initializer,
             InfoText: {
                 DisplayName: 'Drone Muzzle'
             },
@@ -73,9 +73,9 @@ export namespace Equipments {
                 //     }
                 // })
             ])
-            .updateIn(['Data', 'shrine'], tags => [
+            .updateIn(['Data', 'addTag'], tags => [
                 ...tags ?? [],
-                Category.Gag
+                Category.EquipmentTag.Gag
             ])
 
     function SetMaskProps(template: typeof SciFiSet.Mask, name: string) {
@@ -83,7 +83,7 @@ export namespace Equipments {
             Data: template.Data.merge({
                 name,
 
-            }) as DroneEquipmentInitializer,
+            }) as Initializer,
             InfoText: {
                 DisplayName: 'Drone Mask'
             }
@@ -97,7 +97,7 @@ export namespace Equipments {
                 //     }
                 // })
             ])
-            .updateIn(['Data', 'shrine'], tags => [...tags ?? [], Category.Mask])
+            .updateIn(['Data', 'addTag'], tags => [...tags ?? [], Category.EquipmentTag.Mask])
     }
 
     export const DroneMask: DroneEquipmentRecordWithText =
@@ -116,19 +116,26 @@ export namespace Equipments {
 
 //#region Register
 Helpers.RegisterModule(
-    `${Category.Namespace}Registered`,
+    `${Category.SubNamespace}Registered`,
     () => {
         const defs =
             Object.values(Equipments)
-                .map(e => e.updateIn(['Data', 'shrine'], tags => [
-                    ...tags ?? [],
-                    EquipmentCategory.DroneEquipment
-                ]));
+                .map(e => e
+                    .updateIn(['Data', 'shrine'], tags => [
+                        ...tags ?? [],
+                        EquipmentCategory.Sensory.Tag
+                    ])
+                    .updateIn(['Data', 'addTag'], tags => [
+                        ...tags ?? [],
+                        EquipmentCategory.Sensory.Tag
+                    ])
+                )
+
         if (defs.every(WearableBase.CheckNoDuplicate)) {
             defs.forEach(WearableBase.PushToRestraints)
         }
         else {
-            Helpers.Throw(`${Category.Namespace} register: restraint name duplicated`, {
+            Helpers.Throw(`${Category.SubNamespace} register: restraint name duplicated`, {
                 cause: {
                     DuplicatedRestraints: [
                         ...defs.filter(x => !WearableBase.CheckNoDuplicate(x))
