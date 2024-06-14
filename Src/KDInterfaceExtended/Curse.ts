@@ -1,7 +1,7 @@
-import { Record } from "immutable"
-import { DEFAULT } from "../Common"
+import { Record, RecordOf } from "immutable"
+import { DEFAULT, RecordEx } from "../Common"
 
-export class CurseData extends Record<KDCursedDef>({
+const _DefaultCurseData: KDCursedDef = {
     noShrine: undefined,
     lock: undefined,
     powerMult: undefined,
@@ -19,27 +19,46 @@ export class CurseData extends Record<KDCursedDef>({
     condition: (item: item) => false,
     remove: (item: item, host: item) => { },
     events: undefined,
-}){
-    constructor(prop?: KDCursedDef){
-        super(prop)
-    }
-    static #Default = new CurseData()
-    static get Default() { return this.#Default }
-    declare toJS: () => KDCursedDef
 }
 
-interface CurseProp {
+const _CurseFactory = Record(_DefaultCurseData)
+
+export function Curse(arg: Parameters<typeof _CurseFactory>[0]) {
+    return _CurseFactory(arg)
+}
+
+export type Curse = RecordOf<KDCursedDef>
+
+export namespace Curse {
+    export const DefaultData = _DefaultCurseData
+}
+
+export interface CurseEntryData {
     Name: string,
-    Data: CurseData
+    Curse: Curse
 }
 
-export class Curse extends Record<CurseProp>({
-    Name: DEFAULT,
-    Data: CurseData.Default
-}) {
-    constructor(prop?: CurseProp){
-        super(prop)
+export type CurseEntry = RecordOf<CurseEntryData>
+
+const _DefaultEntryData: CurseEntryData = {
+    Name: undefined!,
+    Curse: Curse(_DefaultCurseData)
+}
+
+const _CurseEntryFactory = Record(_DefaultEntryData)
+
+export function CurseEntry(arg: Parameters<typeof _CurseEntryFactory>[0]) {
+    return _CurseEntryFactory(arg)
+}
+
+export namespace CurseEntry {
+    export const DefaultData = _DefaultEntryData
+    export function Register(entry: CurseEntry) {
+        if (entry.Name in KDCurses) {
+            throw new Error('Sensory Register: SensoryControlCurse already exists')
+        }
+        else {
+            KDCurses[entry.Name] = RecordEx.CreateProxy<KDCursedDef>(entry.Curse)
+        }
     }
-    static #Default = new Curse()
-    static get Default() { return this.#Default }
 }

@@ -3,9 +3,9 @@ import * as DroneEquipment from "../Wearable"
 import { EquipmentCategory } from "../Constants"
 import Category = EquipmentCategory.Controller
 import GetFullNameOf = EquipmentCategory.Controller.GetFullNameOf
-import * as Events from './Events'
 import { SciFiSet } from "../../Template"
 import { Helpers } from "../../../Common"
+import { ScanForEquipments } from "./Events"
 
 export namespace Equipments {
     function SetControllerProps(template: Wearable.TypeWithText, name: string){
@@ -21,8 +21,8 @@ export namespace Equipments {
         .updateIn(['Data', 'events'], es => [
             ...es ?? [],
             {
-                trigger: Events.ScanForEquipments.EventName,
-                type: Events.ScanForEquipments.HandlerId,
+                trigger: ScanForEquipments.EventName,
+                type: ScanForEquipments.HandlerId,
                 inheritLinked: true
             }
         ])

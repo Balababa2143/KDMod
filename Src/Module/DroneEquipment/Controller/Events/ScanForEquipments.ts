@@ -1,6 +1,7 @@
 import { Helpers, KD, KDVar } from "../../../../Common"
 import { InventoryEventHandlerDefinition, Event } from "../../../../KDInterfaceExtended"
 import { EquipmentCategory as Category } from "../../Constants"
+import { ProtocolActivation } from "../../Sensory/Events"
 
 const ActiveFlags = {
     Sensory: `${Category.Sensory.SubNamespace}.Activated`
@@ -12,7 +13,7 @@ export const ScanForEquipments: InventoryEventHandlerDefinition = InventoryEvent
     Handler: (e, item, data) => {
         KD.SendTextMessage_({
             priority: 6,
-            color: '#fffff',
+            color: '#ffffff',
             noPush: true,
             text: 'Control device installed',
             time: 1,
@@ -30,10 +31,13 @@ export const ScanForEquipments: InventoryEventHandlerDefinition = InventoryEvent
                 entity: undefined,
                 noDupe: undefined
             })
-            // KD.SendInventoryEvent(
-            //     ""//TODO: add activation event,
-
-            // )
+            const newData = data as ProtocolActivation.EventData
+            newData.EquipmentCategory = Category.Sensory.Tag
+            KD.SendEvent_({
+                Event: ProtocolActivation.EventName,
+                data: newData,
+                forceSpell: undefined!
+            })
             KDVar.PlayerTags.set(ActiveFlags.Sensory, true)
         }
     }

@@ -7,6 +7,7 @@ import * as IM from "immutable"
 import { Helpers } from "../../../Common"
 import { WearableBase } from "../../../KDInterfaceExtended"
 import { CreateWithText, TypeWithText as DroneEquipmentRecordWithText, Initializer } from "../Wearable"
+import { EngageLock, ProtocolActivation } from "./Events"
 
 export namespace Equipments {
     export const DroneEarPlug: DroneEquipmentRecordWithText =
@@ -20,22 +21,20 @@ export namespace Equipments {
         })
             .updateIn(['Data', 'events'], es => [
                 ...es ?? [],
-                // ...EventModule.SensoryControlProtocal.Data.events({
-                //     variant: {
-                //         template: SciFiSet.EarPlug.Data.name,
-                //         events: SciFiSet.EarPlug.Data.events ?? [],
-                //     }
-                // })
+                {
+                    trigger: ProtocolActivation.EventName,
+                    type: EngageLock.HandlerId
+                }
             ])
             .updateIn(['Data', 'addTag'], tags => [
                 ...tags ?? [],
                 Category.EquipmentTag.EarPlug
             ])
 
-    export const DroneMuzzle: DroneEquipmentRecordWithText =
-        CreateWithText({
-            Data: SciFiSet.Muzzle.Data.merge({
-                name: GetFullNameOf(() => DroneMuzzle)
+    function SetMuzzlerops(template: typeof SciFiSet.BallGag, name: string){
+        return CreateWithText({
+            Data: template.Data.merge({
+                name: name
             }) as Initializer,
             InfoText: {
                 DisplayName: 'Drone Muzzle'
@@ -43,40 +42,26 @@ export namespace Equipments {
         })
             .updateIn(['Data', 'events'], es => [
                 ...es ?? [],
-                // ...EventModule.SensoryControlProtocal.Data.events({
-                //     variant: {
-                //         template: SciFiSet.EarPlug.Data.name,
-                //         events: SciFiSet.EarPlug.Data.events ?? [],
-                //     }
-                // })
+                {
+                    trigger: ProtocolActivation.EventName,
+                    type: EngageLock.HandlerId
+                }
             ])
             .updateIn(['Data', 'shrine'], tags => [
                 ...tags ?? [],
                 Category.EquipmentTag.Gag
             ])
-
-    export const MuzzleStuffedBall: DroneEquipmentRecordWithText =
-        CreateWithText({
-            Data: SciFiSet.MuzzleStuffedBall.Data.merge({
-                name: GetFullNameOf(() => MuzzleStuffedBall)
-            }) as Initializer,
-            InfoText: {
-                DisplayName: 'Drone Muzzle'
-            },
-        })
-            .updateIn(['Data', 'events'], es => [
-                ...es ?? [],
-                // ...EventModule.SensoryControlProtocal.Data.events({
-                //     variant: {
-                //         template: SciFiSet.EarPlug.Data.name,
-                //         events: SciFiSet.EarPlug.Data.events ?? [],
-                //     }
-                // })
-            ])
             .updateIn(['Data', 'addTag'], tags => [
                 ...tags ?? [],
                 Category.EquipmentTag.Gag
             ])
+    }
+
+    export const DroneMuzzle: DroneEquipmentRecordWithText =
+        SetMuzzlerops(SciFiSet.Muzzle,GetFullNameOf(() => DroneMuzzle))
+
+    export const MuzzleStuffedBall: DroneEquipmentRecordWithText =
+        SetMuzzlerops(SciFiSet.MuzzleStuffedBall, GetFullNameOf(() => MuzzleStuffedBall))
 
     function SetMaskProps(template: typeof SciFiSet.Mask, name: string) {
         return CreateWithText({
@@ -90,12 +75,10 @@ export namespace Equipments {
         })
             .updateIn(['Data', 'events'], events => [
                 ...events ?? [],
-                // ...EventModule.SensoryControlProtocal.Data.events({
-                //     variant: {
-                //         template: SciFiSet.Mask.Data.name,
-                //         events: SciFiSet.Mask.Data.events ?? []
-                //     }
-                // })
+                {
+                    trigger: ProtocolActivation.EventName,
+                    type: EngageLock.HandlerId
+                }
             ])
             .updateIn(['Data', 'addTag'], tags => [...tags ?? [], Category.EquipmentTag.Mask])
     }
@@ -127,6 +110,7 @@ Helpers.RegisterModule(
                     ])
                     .updateIn(['Data', 'addTag'], tags => [
                         ...tags ?? [],
+                        EquipmentCategory.Namespace,
                         EquipmentCategory.Sensory.Tag
                     ])
                 )
