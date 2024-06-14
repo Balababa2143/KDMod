@@ -90,6 +90,20 @@ export function ControlPanel() {
                             >
                                 <span style={{pointerEvents: 'none', color: 'aqua'}}>Toggle mask</span>
                             </KDButton>
+                            <KDButton
+                                onClick={e => {
+                                    KD.SendInventoryEvent(
+                                        MorphEquipment.EventName,
+                                        {
+                                            TargetEquipment: Category.Sensory.EquipmentTag.Gag
+                                        } as MorphEquipment.EventData
+                                    )
+                                    KinkyDungeonAdvanceTime(1, true)
+                                    KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
+                                }}
+                            >
+                                <span style={{pointerEvents: 'none', color: 'aqua'}}>Toggle muzzle</span>
+                            </KDButton>
                         </div>
                     </div>
                 </Context.Provider>

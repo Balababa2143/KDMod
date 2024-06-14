@@ -13,9 +13,10 @@ export namespace MorphEquipment {
     }
 
     export namespace Handlers {
-        export const ToggleVisor: InventoryEventHandlerDesc = InventoryEventHandlerDesc({
+
+        export const Toggle: InventoryEventHandlerDesc = InventoryEventHandlerDesc({
             EventName: EventName,
-            HandlerId: GetFullNameOf(() => ToggleVisor),
+            HandlerId: GetFullNameOf(() => Toggle),
             Handler: (e, item, data) => {
                 const evData = data as Partial<EventData>
                 const targetEquipment = evData?.TargetEquipment
@@ -41,6 +42,7 @@ export namespace MorphEquipment {
                 }
             }
         })
+        
     }
 }
 

@@ -5,7 +5,7 @@ import GetFullNameOf = EquipmentCategory.Sensory.GetFullNameOf
 import Category = EquipmentCategory.Sensory
 import * as IM from "immutable"
 import { Helpers } from "../../../Common"
-import { Wearable, WearableBase, WearableEntry } from "../../../KDInterfaceExtended"
+import { WearableEntry } from "../../../KDInterfaceExtended"
 import { MorphEquipment } from "./Events/MorphEquipment"
 import { ProtocolActivation } from "./Events"
 import { DroneEquipmentEntry, DroneEquipmentInitializer } from "../DroneEquipment"
@@ -46,6 +46,10 @@ export namespace Equipments {
                 {
                     trigger: ProtocolActivation.EventName,
                     type: ProtocolActivation.Handlers.EngageLock.HandlerId
+                },
+                {
+                    trigger: MorphEquipment.EventName,
+                    type: MorphEquipment.Handlers.Toggle.HandlerId
                 }
             ])
             .updateIn(['Data', 'shrine'], tags => [
@@ -60,9 +64,15 @@ export namespace Equipments {
 
     export const DroneMuzzle: DroneEquipmentEntry =
         SetMuzzlerops(SciFiSet.Muzzle,GetFullNameOf(() => DroneMuzzle))
+        .setIn(['Data', 'StateMap'], IM.Map({
+            Next: GetFullNameOf(() => MuzzleStuffedBall)
+        }))
 
     export const MuzzleStuffedBall: DroneEquipmentEntry =
         SetMuzzlerops(SciFiSet.MuzzleStuffedBall, GetFullNameOf(() => MuzzleStuffedBall))
+        .setIn(['Data', 'StateMap'], IM.Map({
+            Next: GetFullNameOf(() => DroneMuzzle)
+        }))
 
     function SetMaskProps(template: typeof SciFiSet.Mask, name: string) {
         return DroneEquipmentEntry({
@@ -82,7 +92,7 @@ export namespace Equipments {
                 },
                 {
                     trigger: MorphEquipment.EventName,
-                    type: MorphEquipment.Handlers.ToggleVisor.HandlerId
+                    type: MorphEquipment.Handlers.Toggle.HandlerId
                 }
             ])
             .updateIn(['Data', 'shrine'], tags => [...tags ?? [], Category.EquipmentTag.Mask])
