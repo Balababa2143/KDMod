@@ -2,7 +2,7 @@ import { EquipmentCategory } from "../../Constants"
 import Category = EquipmentCategory.Sensory
 import GetFullNameOf = Category.GetFullNameOf
 import { EventHandlerDesc, InventoryEventHandlerDesc } from "../../../../KDInterfaceExtended"
-import { DroneEquipmentData } from "../../Wearable"
+import { DroneEquipmentData } from "../../DroneEquipment"
 import { Helpers, KD } from "../../../../Common"
 
 export namespace MorphEquipment {

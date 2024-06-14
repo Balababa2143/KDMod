@@ -5,17 +5,17 @@ import GetFullNameOf = EquipmentCategory.Sensory.GetFullNameOf
 import Category = EquipmentCategory.Sensory
 import * as IM from "immutable"
 import { Helpers } from "../../../Common"
-import { WearableBase } from "../../../KDInterfaceExtended"
-import { CreateWithText, TypeWithText as DroneEquipmentRecordWithText, Initializer } from "../Wearable"
+import { Wearable, WearableBase, WearableEntry } from "../../../KDInterfaceExtended"
 import { MorphEquipment } from "./Events/MorphEquipment"
 import { ProtocolActivation } from "./Events"
+import { DroneEquipmentEntry, DroneEquipmentInitializer } from "../DroneEquipment"
 
 export namespace Equipments {
-    export const DroneEarPlug: DroneEquipmentRecordWithText =
-        CreateWithText({
+    export const DroneEarPlug: DroneEquipmentEntry =
+        DroneEquipmentEntry({
             Data: SciFiSet.EarPlug.Data.merge({
                 name: GetFullNameOf(() => DroneEarPlug)
-            }) as Initializer,
+            }) as DroneEquipmentInitializer,
             InfoText: {
                 DisplayName: 'Drone Ear Plug'
             },
@@ -33,10 +33,10 @@ export namespace Equipments {
             ])
 
     function SetMuzzlerops(template: typeof SciFiSet.BallGag, name: string){
-        return CreateWithText({
+        return DroneEquipmentEntry({
             Data: template.Data.merge({
                 name: name
-            }) as Initializer,
+            }) as DroneEquipmentInitializer,
             InfoText: {
                 DisplayName: 'Drone Muzzle'
             },
@@ -58,18 +58,18 @@ export namespace Equipments {
             ])
     }
 
-    export const DroneMuzzle: DroneEquipmentRecordWithText =
+    export const DroneMuzzle: DroneEquipmentEntry =
         SetMuzzlerops(SciFiSet.Muzzle,GetFullNameOf(() => DroneMuzzle))
 
-    export const MuzzleStuffedBall: DroneEquipmentRecordWithText =
+    export const MuzzleStuffedBall: DroneEquipmentEntry =
         SetMuzzlerops(SciFiSet.MuzzleStuffedBall, GetFullNameOf(() => MuzzleStuffedBall))
 
     function SetMaskProps(template: typeof SciFiSet.Mask, name: string) {
-        return CreateWithText({
+        return DroneEquipmentEntry({
             Data: template.Data.merge({
                 name,
 
-            }) as Initializer,
+            }) as DroneEquipmentInitializer,
             InfoText: {
                 DisplayName: 'Drone Mask'
             }
@@ -89,13 +89,13 @@ export namespace Equipments {
             .updateIn(['Data', 'addTag'], tags => [...tags ?? [], Category.EquipmentTag.Mask])
     }
 
-    export const DroneMask: DroneEquipmentRecordWithText =
+    export const DroneMask: DroneEquipmentEntry =
         SetMaskProps(SciFiSet.Mask, GetFullNameOf(() => DroneMask))
             .setIn(['Data', 'StateMap'], IM.Map({
                 Next: GetFullNameOf(() => DroneMaskOpaque)
             }))
 
-    export const DroneMaskOpaque: DroneEquipmentRecordWithText =
+    export const DroneMaskOpaque: DroneEquipmentEntry =
         SetMaskProps(SciFiSet.MaskOpaque, GetFullNameOf(() => DroneMaskOpaque))
             .setIn(['Data', 'StateMap'], IM.Map({
                 Next: GetFullNameOf(() => DroneMask)
@@ -121,14 +121,14 @@ Helpers.RegisterModule(
                     ])
                 )
 
-        if (defs.every(WearableBase.CheckNoDuplicate)) {
-            defs.forEach(WearableBase.PushToRestraints)
+        if (defs.every(WearableEntry.CheckNoDuplicate)) {
+            defs.forEach(WearableEntry.PushToRestraints)
         }
         else {
             Helpers.Throw(`${Category.SubNamespace} register: restraint name duplicated`, {
                 cause: {
                     DuplicatedRestraints: [
-                        ...defs.filter(x => !WearableBase.CheckNoDuplicate(x))
+                        ...defs.filter(x => !WearableEntry.CheckNoDuplicate(x))
                     ]
                 }
             })

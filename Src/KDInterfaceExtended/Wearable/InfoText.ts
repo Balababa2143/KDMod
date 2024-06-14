@@ -6,12 +6,20 @@ export interface InfoTextData {
     FunctionText: string
 }
 
-export type Type = RecordOf<InfoTextData>
+export type InfoText = RecordOf<InfoTextData>
 
-export const DefaultValue: InfoTextData = {
+const _DefaultData: InfoTextData = {
     DisplayName: 'DisplayName',
     FlavorText: 'FlavorText',
     FunctionText: 'FunctionText'
 }
 
-export const Create = Record(DefaultValue)
+const _Factory = Record(_DefaultData)
+
+export function InfoText(props: Parameters<typeof _Factory>[0]){
+    return _Factory(props)
+}
+
+export namespace InfoText {
+    export const DefaultData = _DefaultData
+}

@@ -1,3 +1,3 @@
 export * as Model from './Model'
 export * as Template from './Template'
-export * as DroneSet from './DroneEquipment'
+export * as DroneSet from './CyberDrone'

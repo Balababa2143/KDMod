@@ -1,6 +1,6 @@
 export * from './Wearable'
 export * from './Wearable/InfoText'
-export * from './Wearable/WearableWithText'
+export * from './Wearable/WearableEntry'
 export * from './Curse'
 export * from './Event'
 export * from './EventModule'

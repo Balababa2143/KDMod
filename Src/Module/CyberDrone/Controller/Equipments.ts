@@ -1,18 +1,19 @@
-import { Wearable, WearableBase } from "../../../KDInterfaceExtended"
-import * as DroneEquipment from "../Wearable"
+import { Helpers } from "../../../Common"
+import { WearableEntry, WearableBase } from "../../../KDInterfaceExtended"
+import { SciFiSet } from "../../Template"
 import { EquipmentCategory } from "../Constants"
 import Category = EquipmentCategory.Controller
-import GetFullNameOf = EquipmentCategory.Controller.GetFullNameOf
-import { SciFiSet } from "../../Template"
-import { Helpers } from "../../../Common"
+import GetFullNameOf = Category.GetFullNameOf
+import { DroneEquipmentEntry, DroneEquipmentInitializer } from "../DroneEquipment"
 import { ScanForEquipments } from "./Events"
 
+
 export namespace Equipments {
-    function SetControllerProps(template: Wearable.TypeWithText, name: string){
-        return DroneEquipment.CreateWithText({
+    function SetControllerProps(template: WearableEntry, name: string){
+        return DroneEquipmentEntry({
             Data: template.Data.merge({
                 name,
-            }) as DroneEquipment.Initializer,
+            }) as DroneEquipmentInitializer,
             InfoText: {
                 DisplayName: 'Drone Visor'
             }
@@ -28,7 +29,7 @@ export namespace Equipments {
         ])
     }
 
-    export const Visor: DroneEquipment.TypeWithText =
+    export const Visor: DroneEquipmentEntry =
         SetControllerProps(SciFiSet.Visor, GetFullNameOf(() => Visor))
 }
 
@@ -42,14 +43,14 @@ Helpers.RegisterModule(
                     ...tags ?? [],
                     EquipmentCategory.Controller.Tag
                 ]));
-        if (defs.every(WearableBase.CheckNoDuplicate)) {
-            defs.forEach(WearableBase.PushToRestraints)
+        if (defs.every(WearableEntry.CheckNoDuplicate)) {
+            defs.forEach(WearableEntry.PushToRestraints)
         }
         else {
             Helpers.Throw(`${Category.SubNamespace} register: restraint name duplicated`, {
                 cause: {
                     DuplicatedRestraints: [
-                        ...defs.filter(x => !WearableBase.CheckNoDuplicate(x))
+                        ...defs.filter(x => !WearableEntry.CheckNoDuplicate(x))
                     ]
                 }
             })

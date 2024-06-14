@@ -7,7 +7,7 @@ import DS = Module.DroneSet.Sensory.Equipments
 import { Helpers } from './Common'
 import { CreateModUIRoot, GUI, InteractiveElementClass } from './KDInterfaceExtended/GUI'
 import React, { createContext, useContext, useState } from 'react'
-import { ControlPanel } from './Module/DroneEquipment/UI'
+import { ControlPanel } from './Module/CyberDrone/UI'
 
 declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
