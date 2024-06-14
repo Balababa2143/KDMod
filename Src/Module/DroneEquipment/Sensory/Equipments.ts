@@ -8,6 +8,7 @@ import { Helpers } from "../../../Common"
 import { WearableBase } from "../../../KDInterfaceExtended"
 import { CreateWithText, TypeWithText as DroneEquipmentRecordWithText, Initializer } from "../Wearable"
 import { EngageLock, ProtocolActivation } from "./Events"
+import { MorphEquipment } from "./Events/MorphEquipment"
 
 export namespace Equipments {
     export const DroneEarPlug: DroneEquipmentRecordWithText =
@@ -78,8 +79,13 @@ export namespace Equipments {
                 {
                     trigger: ProtocolActivation.EventName,
                     type: EngageLock.HandlerId
+                },
+                {
+                    trigger: MorphEquipment.EventName,
+                    type: MorphEquipment.Handlers.ToggleVisor.HandlerId
                 }
             ])
+            .updateIn(['Data', 'shrine'], tags => [...tags ?? [], Category.EquipmentTag.Mask])
             .updateIn(['Data', 'addTag'], tags => [...tags ?? [], Category.EquipmentTag.Mask])
     }
 

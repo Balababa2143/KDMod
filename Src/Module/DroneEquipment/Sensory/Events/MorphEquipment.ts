@@ -1,0 +1,54 @@
+import { EquipmentCategory } from "../../Constants"
+import Category = EquipmentCategory.Sensory
+import GetFullNameOf = Category.GetFullNameOf
+import { Event, InventoryEventHandlerDefinition } from "../../../../KDInterfaceExtended"
+import { DroneEquipmentData } from "../../Wearable"
+import { Helpers, KD } from "../../../../Common"
+
+export namespace MorphEquipment {
+    export const EventName = GetFullNameOf(() => MorphEquipment)
+
+    export interface EventData {
+        TargetEquipment: string
+    }
+
+    export namespace Handlers {
+        export const ToggleVisor: InventoryEventHandlerDefinition = InventoryEventHandlerDefinition({
+            EventName: EventName,
+            HandlerId: GetFullNameOf(() => ToggleVisor),
+            Handler: (e, item, data) => {
+                const evData = data as Partial<EventData>
+                const targetEquipment = evData?.TargetEquipment
+                const definition = KDRestraint(item) as DroneEquipmentData
+                const tags = definition.shrine ?? []
+                if (targetEquipment != null && tags.some(tag => tag === targetEquipment)) {
+                    const stateMap = definition.StateMap
+                    if (null != stateMap) {
+                        KD.MorphToInventoryVariant_({
+                            item: item,
+                            curse: item.curse!,
+                            prefix: '',
+                            variant: {
+                                template: stateMap.get('Next')!,
+                                events: []
+                            }
+                        })
+                    }
+                    else {
+                        console.error('null in stateMap')
+                        console.trace()
+                    }
+                }
+            }
+        })
+    }
+}
+
+//#region Register
+Helpers.RegisterModule(
+    `${Category.SubNamespace}.${MorphEquipment.EventName}Registered`,
+    () => {
+        Object.values(MorphEquipment.Handlers).forEach(Event.Register)
+    }
+)
+//#endregion

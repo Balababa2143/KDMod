@@ -2,6 +2,7 @@ import *  as React from 'react'
 import { KDButton } from '../../../KDInterfaceExtended/GUI'
 import { KD, KDVar, RootNamespace } from '../../../Common'
 import { EquipmentCategory as Category } from '../Constants'
+import { MorphEquipment } from '../Sensory/Events/MorphEquipment'
 // import * as Sensory from '../Sensory'
 
 export interface IControlPanelState {
@@ -71,17 +72,17 @@ export function ControlPanel() {
                                 />
                             </KDButton>
                         </div>
-                        {/* <div style={{
+                        <div style={{
                             display: 'flex',
                             flexDirection: 'row'
                         }}>
                             <KDButton
                                 onClick={e => {
                                     KD.SendInventoryEvent(
-                                        Sensory.SensoryProtocol.Event.MorphEquipment.EventName,
+                                        MorphEquipment.EventName,
                                         {
-                                            targetEquipment: Sensory.SensoryItemTags.Mask
-                                        }
+                                            TargetEquipment: Category.Sensory.EquipmentTag.Mask
+                                        } as MorphEquipment.EventData
                                     )
                                     KinkyDungeonAdvanceTime(1, true)
                                     KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
@@ -89,7 +90,7 @@ export function ControlPanel() {
                             >
                                 <span style={{pointerEvents: 'none', color: 'aqua'}}>Toggle mask</span>
                             </KDButton>
-                        </div> */}
+                        </div>
                     </div>
                 </Context.Provider>
             </div>
