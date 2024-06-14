@@ -1,5 +1,4 @@
 export type RequireExactlyOne<T, Keys extends keyof T = keyof T> =
-    Omit<T, Keys> &
     {
         [k in Keys]-?:
         Required<Pick<T, k>> &
@@ -7,9 +6,8 @@ export type RequireExactlyOne<T, Keys extends keyof T = keyof T> =
     }[Keys]
 
 export type NotBoth<T, Keys extends keyof T = keyof T> =
-    Omit<T, Keys> &
     {
         [k in Keys]-?:
-        Required<Pick<T, k>> &
+        Partial<Pick<T, k>> &
         Partial<Record<Exclude<Keys, k>, never>>
     }[Keys]

@@ -34,10 +34,28 @@ export namespace WearableBase {
 export type WearableInitializerBase =
     WearableBaseData
 
+type CustomFactory<Initialzier extends WearableInitializerBase, TData extends WearableBaseData> =
+    (props: Readonly<Initialzier>) => Wearable<TData>
+
+function _CreateFactory<
+    Initialzier extends WearableInitializerBase,
+    TData extends WearableBaseData
+>(defaultValue: TData): CustomFactory<Initialzier, TData> {
+    const Factory = IM.Record<TData>(defaultValue)
+    return (props: Readonly<Initialzier>) =>
+        Factory(props as Partial<TData>)
+}
+
 export type WearableData = restraint
 
 export type WearableInitializer =
-    WearableData &
+    Omit<
+        WearableData,
+        'floors' | 'allFloors' |
+        'shrine' | 'noShrine' |
+        'playerTags' | 'playerTagsMissing' |
+        'playerTagsMult' | 'playerTagsMissingMult'
+    > &
     TypeUtil.RequireExactlyOne<WearableData, 'floors' | 'allFloors'> &
     TypeUtil.RequireExactlyOne<WearableData, 'shrine' | 'noShrine'> &
     TypeUtil.NotBoth<WearableData, 'playerTags' | 'playerTagsMissing'> &
@@ -51,20 +69,20 @@ const _DefaultData: WearableData = {
     noShrine: undefined,
     good: undefined,
     inventory: undefined,
-    power: undefined,
-    weight: undefined,
-    minLevel: undefined,
+    power: undefined!,
+    weight: undefined!,
+    minLevel: undefined!,
     allFloors: undefined,
     cloneTag: undefined,
     escapeChance: undefined,
     events: undefined,
-    enemyTags: undefined,
+    enemyTags: {},
     enemyTagsMult: undefined,
-    playerTags: undefined,
-    playerTagsMult: undefined,
-    playerTagsMissing: undefined,
-    playerTagsMissingMult: undefined,
-    shrine: undefined,
+    playerTags: {},
+    playerTagsMult: {},
+    playerTagsMissing: {},
+    playerTagsMissingMult: {},
+    shrine: [],
     debris: undefined,
     debrisChance: undefined,
     noRecover: undefined,
@@ -98,7 +116,7 @@ const _DefaultData: WearableData = {
     value: undefined,
     AssetGroup: undefined,
     hideTags: undefined,
-    Color: undefined,
+    Color: undefined!,
     maxLevel: undefined,
     floors: undefined,
     helpChance: undefined,
@@ -189,9 +207,9 @@ const _DefaultData: WearableData = {
     UnderlinkedAlwaysRender: undefined,
     NoLinkOver: undefined,
     displayPower: undefined,
-} as unknown as restraint
+}
 
-const _WearableFactory = IM.Record(_DefaultData)
+const _WearableFactory = _CreateFactory<WearableInitializer, WearableData>(_DefaultData)
 
 export function Wearable(props: Parameters<typeof _WearableFactory>[0]) {
     return _WearableFactory(props)
@@ -204,12 +222,7 @@ export namespace Wearable {
         Initialzier extends WearableInitializerBase,
         TData extends WearableBaseData
     >(defaultValue: TData) {
-        const Factory = IM.Record<TData>({
-            ..._DefaultData,
-            ...(defaultValue ?? {})
-        } as TData)
-        return (props: Readonly<Initialzier>) =>
-            Factory(props as Partial<TData>)
+        return _CreateFactory<Initialzier, TData>(defaultValue)
     }
 
 }

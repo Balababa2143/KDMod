@@ -1,6 +1,6 @@
 import * as IM from "immutable"
 import { InfoText, InfoTextData } from "./InfoText"
-import { WearableBaseData, WearableInitializerBase, Wearable } from "./Wearable"
+import { WearableBaseData, WearableInitializerBase, Wearable, WearableInitializer } from "./Wearable"
 import { KD, KDVar, RecordEx } from "../../Common"
 
 export type WearableEntryData<TData extends WearableBaseData = restraint> = {
@@ -39,7 +39,7 @@ function _CreateFactory<Initialzier extends WearableInitializerBase, TData exten
     }
 }
 
-const _Factory = _CreateFactory<restraint, restraint>(Wearable.CreateFactory(Wearable.DefaultData))
+const _Factory = _CreateFactory<WearableInitializer, restraint>(Wearable.CreateFactory(Wearable.DefaultData))
 
 export function WearableEntry(props: Parameters<typeof _Factory>[0]): WearableEntry
 {
