@@ -148,7 +148,7 @@ globalThis.KDDrawNavBar = function(skip: number, quit = false){
         const bx = (2000 - 10 - bwidth)
         const bspacing = 5
         const bheight = 60
-        if(KDVar.PlayerTags.get(Category.Namespace)){
+        if(KDVar.PlayerTags.get(Category.FullName)){
             KD.DrawButtonKDEx_({
                 name: `${RootNamespace}.UI.ControlPanelButton`,
                 Left: bx,

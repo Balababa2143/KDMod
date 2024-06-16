@@ -1,13 +1,12 @@
 import { EquipmentCategory } from "../../Constants"
 import Category = EquipmentCategory.Sensory
-import GetFullNameOf = Category.GetFullNameOf
 import { EventHandlerDesc, InventoryEventHandlerDesc } from "../../../../KDInterfaceExtended"
 import { DroneEquipmentData } from "../../DroneEquipment"
 import { Helpers, KD } from "../../../../Common"
 import { DroneLock } from "../../Lock/DroneLock"
 
 export namespace ProtocolActivation {
-    export const EventName = GetFullNameOf(() => ProtocolActivation)
+    export const EventName = Category.SubGetFullName(() => ProtocolActivation)
 
     export interface EventData {
         EquipmentCategory: string
@@ -16,12 +15,12 @@ export namespace ProtocolActivation {
     export namespace Handlers {
         export const EngageLock: InventoryEventHandlerDesc = InventoryEventHandlerDesc({
             EventName: ProtocolActivation.EventName,
-            HandlerId: GetFullNameOf(() => EngageLock),
+            HandlerId: Category.SubGetFullName(() => EngageLock),
             Handler: (e, item, data) => {
                 const eventDesc = data as ProtocolActivation.EventData
                 if (item.curse == null || item.curse !== DroneLock.Name) {
                     const definition = KDRestraint(item)
-                    if((definition.shrine ?? []).includes(eventDesc.EquipmentCategory)){
+                    if((definition.addTag ?? []).includes(eventDesc.EquipmentCategory)){
                         KD.MorphToInventoryVariant_({
                             item,
                             variant: {
@@ -42,7 +41,7 @@ export namespace ProtocolActivation {
 
 //#region Register
 Helpers.RegisterModule(
-    `${Category.SubNamespace}.${ProtocolActivation.EventName}Registered`,
+    `${Category.FullName}.${ProtocolActivation.EventName}Registered`,
     () => {
         Object.values(ProtocolActivation.Handlers).forEach(EventHandlerDesc.Register)
     }

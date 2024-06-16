@@ -1,7 +1,6 @@
 import { Template } from "../.."
 import SciFiSet = Template.SciFiSet
 import { EquipmentCategory as EquipmentCategory } from "../Constants"
-import GetFullNameOf = EquipmentCategory.Sensory.GetFullNameOf
 import Category = EquipmentCategory.Sensory
 import * as IM from "immutable"
 import { Helpers } from "../../../Common"
@@ -14,7 +13,7 @@ export namespace Equipments {
     export const DroneEarPlug: DroneEquipmentEntry =
         DroneEquipmentEntry({
             Data: SciFiSet.EarPlug.Data.merge({
-                name: GetFullNameOf(() => DroneEarPlug)
+                name: Category.SubGetFullName(() => DroneEarPlug)
             }) as DroneEquipmentInitializer,
             InfoText: {
                 DisplayName: 'Drone Ear Plug'
@@ -63,15 +62,15 @@ export namespace Equipments {
     }
 
     export const DroneMuzzle: DroneEquipmentEntry =
-        SetMuzzlerops(SciFiSet.Muzzle,GetFullNameOf(() => DroneMuzzle))
+        SetMuzzlerops(SciFiSet.Muzzle,Category.SubGetFullName(() => DroneMuzzle))
         .setIn(['Data', 'StateMap'], IM.Map({
-            Next: GetFullNameOf(() => MuzzleStuffedBall)
+            Next: Category.SubGetFullName(() => MuzzleStuffedBall)
         }))
 
     export const MuzzleStuffedBall: DroneEquipmentEntry =
-        SetMuzzlerops(SciFiSet.MuzzleStuffedBall, GetFullNameOf(() => MuzzleStuffedBall))
+        SetMuzzlerops(SciFiSet.MuzzleStuffedBall, Category.SubGetFullName(() => MuzzleStuffedBall))
         .setIn(['Data', 'StateMap'], IM.Map({
-            Next: GetFullNameOf(() => DroneMuzzle)
+            Next: Category.SubGetFullName(() => DroneMuzzle)
         }))
 
     function SetMaskProps(template: typeof SciFiSet.Mask, name: string) {
@@ -100,34 +99,30 @@ export namespace Equipments {
     }
 
     export const DroneMask: DroneEquipmentEntry =
-        SetMaskProps(SciFiSet.Mask, GetFullNameOf(() => DroneMask))
+        SetMaskProps(SciFiSet.Mask, Category.SubGetFullName(() => DroneMask))
             .setIn(['Data', 'StateMap'], IM.Map({
-                Next: GetFullNameOf(() => DroneMaskOpaque)
+                Next: Category.SubGetFullName(() => DroneMaskOpaque)
             }))
 
     export const DroneMaskOpaque: DroneEquipmentEntry =
-        SetMaskProps(SciFiSet.MaskOpaque, GetFullNameOf(() => DroneMaskOpaque))
+        SetMaskProps(SciFiSet.MaskOpaque, Category.SubGetFullName(() => DroneMaskOpaque))
             .setIn(['Data', 'StateMap'], IM.Map({
-                Next: GetFullNameOf(() => DroneMask)
+                Next: Category.SubGetFullName(() => DroneMask)
             }))
             .setIn(['Data', 'blindfold'], 2)
 }
 
 //#region Register
 Helpers.RegisterModule(
-    `${Category.SubNamespace}Registered`,
+    `${Category.FullName}Registered`,
     () => {
         const defs =
             Object.values(Equipments)
                 .map(e => e
-                    .updateIn(['Data', 'shrine'], tags => [
-                        ...tags ?? [],
-                        EquipmentCategory.Sensory.Tag
-                    ])
                     .updateIn(['Data', 'addTag'], tags => [
                         ...tags ?? [],
-                        EquipmentCategory.Namespace,
-                        EquipmentCategory.Sensory.Tag
+                        EquipmentCategory.FullName,
+                        Category.FullName
                     ])
                 )
 
@@ -135,7 +130,7 @@ Helpers.RegisterModule(
             defs.forEach(WearableEntry.PushToRestraints)
         }
         else {
-            Helpers.Throw(`${Category.SubNamespace} register: restraint name duplicated`, {
+            Helpers.Throw(`${Category.FullName} register: restraint name duplicated`, {
                 cause: {
                     DuplicatedRestraints: [
                         ...defs.filter(x => !WearableEntry.CheckNoDuplicate(x))

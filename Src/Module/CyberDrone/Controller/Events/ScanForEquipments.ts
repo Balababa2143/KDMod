@@ -4,12 +4,12 @@ import { EquipmentCategory as Category } from "../../Constants"
 import { ProtocolActivation } from "../../Sensory/Events"
 
 const ActiveFlags = {
-    Sensory: `${Category.Sensory.SubNamespace}.Activated`
+    Sensory: `${Category.Sensory.FullName}.Activated`
 }
 
 export const ScanForEquipments: InventoryEventHandlerDesc = InventoryEventHandlerDesc({
     EventName: 'tick',
-    HandlerId: Category.GetFullNameOf(() => ScanForEquipments),
+    HandlerId: Category.SubGetFullName(() => ScanForEquipments),
     Handler: (e, item, data) => {
         KD.SendTextMessage_({
             priority: 6,
@@ -32,7 +32,7 @@ export const ScanForEquipments: InventoryEventHandlerDesc = InventoryEventHandle
                 noDupe: undefined
             })
             const newData = data as ProtocolActivation.EventData
-            newData.EquipmentCategory = Category.Sensory.Tag
+            newData.EquipmentCategory = Category.Sensory.FullName
             KD.SendEvent_({
                 Event: ProtocolActivation.EventName,
                 data: newData,
@@ -45,7 +45,7 @@ export const ScanForEquipments: InventoryEventHandlerDesc = InventoryEventHandle
 
 //#region register
 Helpers.RegisterModule(
-    `${Category.Controller.Tag}.Events.ScanForEquipmentsRegistered`,
+    `${Category.Controller.FullName}.Events.ScanForEquipmentsRegistered`,
     () =>{
         EventHandlerDesc.Register(ScanForEquipments)
     }

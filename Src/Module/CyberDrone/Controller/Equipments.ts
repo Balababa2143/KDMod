@@ -3,7 +3,6 @@ import { WearableEntry, WearableBase } from "../../../KDInterfaceExtended"
 import { SciFiSet } from "../../Template"
 import { EquipmentCategory } from "../Constants"
 import Category = EquipmentCategory.Controller
-import GetFullNameOf = Category.GetFullNameOf
 import { DroneEquipmentEntry, DroneEquipmentInitializer } from "../DroneEquipment"
 import { ScanForEquipments } from "./Events"
 
@@ -18,7 +17,6 @@ export namespace Equipments {
                 DisplayName: 'Drone Visor'
             }
         })
-        .updateIn(['Data', 'shrine'], tags => [...tags ?? [], Category.Tag])
         .updateIn(['Data', 'events'], es => [
             ...es ?? [],
             {
@@ -30,24 +28,24 @@ export namespace Equipments {
     }
 
     export const Visor: DroneEquipmentEntry =
-        SetControllerProps(SciFiSet.Visor, GetFullNameOf(() => Visor))
+        SetControllerProps(SciFiSet.Visor, Category.SubGetFullName(() => Visor))
 }
 
 //#region Register
 Helpers.RegisterModule(
-    `${Category.SubNamespace}Registered`,
+    `${Category.FullName}Registered`,
     () => {
         const defs =
             Object.values(Equipments)
-                .map(e => e.updateIn(['Data', 'shrine'], tags => [
+                .map(e => e.updateIn(['Data', 'addTag'], tags => [
                     ...tags ?? [],
-                    EquipmentCategory.Controller.Tag
+                    EquipmentCategory.Controller.FullName
                 ]));
         if (defs.every(WearableEntry.CheckNoDuplicate)) {
             defs.forEach(WearableEntry.PushToRestraints)
         }
         else {
-            Helpers.Throw(`${Category.SubNamespace} register: restraint name duplicated`, {
+            Helpers.Throw(`${Category.FullName} register: restraint name duplicated`, {
                 cause: {
                     DuplicatedRestraints: [
                         ...defs.filter(x => !WearableEntry.CheckNoDuplicate(x))
