@@ -147,56 +147,20 @@ async function bundle(opts) {
         //     ".js": '.ks'
         // },
         // external:['pixi.js', 'pixi.js-legacy', '@pixi/react'],
+        plugins: [
+            clean({
+                patterns: [
+                    `${bundleDir}/*`,
+                    `${archiveDir}/*`
+                ]
+            }),
+        ],
     }
 
     await runBuild(buildOptions)
     await CopyAssets(opts)
     await BuildArchive(opts)
 }
-
-// /**
-//  * 
-//  * @param {BundleOptions} opts 
-//  */
-// async function bundleDependency(opts){
-//     const {
-//         productionMode,
-//         entryDir,
-//         entryFile,
-//         bundleDir,
-//         archiveDir
-//     } = opts
-//     /**
-//      * @type {esbuild.BuildOptions}
-//      */
-//     const buildOptions = {
-//         entryPoints: [
-//             'node_modules/@pixi/react/index.js'
-//         ],
-//         bundle: true,
-//         platform: 'browser',
-//         // tsconfig: 'tsconfig.json',
-//         jsx: 'automatic',
-//         logLevel: 'info',
-//         // Only minify in production, leads to faster build time on dev
-//         minify: productionMode,
-//         // Only generate sourcemaps in dev
-//         sourcemap: productionMode ? false : 'inline',
-//         // Folder to put all generated files
-//         outfile: `${bundleDir}/PixiReact.mjs`,
-//         external:['pixi.js', 'pixi.js-legacy'],
-//         plugins: [
-//             clean({
-//                 patterns: [
-//                     `${bundleDir}/*`,
-//                     `${archiveDir}/*`
-//                 ]
-//             }),
-//         ],
-//     }
-
-//     await runBuild(buildOptions)
-// }
 
 function processArgs() {
     const cliArgs = process.argv.slice(2)

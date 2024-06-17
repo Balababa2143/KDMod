@@ -1,10 +1,8 @@
 import *  as React from 'react'
-import { HideOverflowTextClass, InteractiveElementClass, KDButton, KDTexEx } from '../../../KDInterfaceExtended/GUI'
+import { GetFile, HideOverflowTextClass, InteractiveElementClass, KDButton } from '../../../KDInterfaceExtended/GUI'
 import { KD, KDVar, RootNamespace } from '../../../Common'
 import { EquipmentCategory as Category } from '../Constants'
 import { MorphEquipment } from '../Sensory/Events/MorphEquipment'
-import { Container, Sprite } from '@pixi/react'
-import { PixiContainerElm } from '../../../KDInterfaceExtended/GUI/PixiContainerElm'
 
 export interface IControlPanelState {
     Show: boolean
@@ -109,9 +107,7 @@ export function ControlPanel() {
                                     KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
                                 }}
                             >
-                                <PixiContainerElm style={{flex: '0 0 25%'}}>
-                                    <Sprite texture={KDTexEx(KD.Variables.RootDirectory + 'UI/Console.png')!} />
-                                </PixiContainerElm>
+                                <img src={GetFile(KD.Variables.RootDirectory + 'UI/Console.png')}/>
                                 <div className={HideOverflowTextClass} style={{flex: '0 0 75%', color: 'aqua'}}>
                                     Muzzle
                                 </div>

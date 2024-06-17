@@ -4,9 +4,8 @@ import * as Module from './Module'
 import SF = Module.Template.SciFiSet
 import DC = Module.DroneSet.Controller.Equipments
 import DS = Module.DroneSet.Sensory.Equipments
-import { Helpers } from './Common'
-import { CreateModUIRoot, GUI, InteractiveElementClass } from './KDInterfaceExtended/GUI'
-import React, { createContext, useContext, useState } from 'react'
+import { CreateModUIRoot, GUI } from './KDInterfaceExtended/GUI'
+import React from 'react'
 import { ControlPanel } from './Module/CyberDrone/UI'
 
 declare let KDPerkStart: Record<string, () => void>

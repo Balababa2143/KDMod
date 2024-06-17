@@ -1,9 +1,6 @@
 
-import { Container, Stage } from '@pixi/react'
-import React, { PropsWithChildren, createContext, useEffect, useRef, useState } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { createRoot } from 'react-dom/client'
-import { PixiTunnel } from './Pixi'
-import { HtmlTunnel } from './Html'
 import { NameOf } from '../../Common/Helpers'
 
 export const GUIRootClass: string = NameOf(() => GUIRootClass)
@@ -18,38 +15,7 @@ export function GUI({ children }: PropsWithChildren) {
         <div
             className={GUIRootClass}
         >
-                            <Stage
-                    width={PIXIWidth}
-                    height={PIXIHeight}
-                    options={{
-                        antialias: false,
-                        powerPreference: 'high-performance',
-                        resolution: KDResolutionList[Number(localStorage.getItem("KDResolution") ?? 0)],
-                        width: PIXIWidth,
-                        height: PIXIHeight,
-                        resizeTo: PIXIapp.view as HTMLCanvasElement,
-                        backgroundAlpha: 0
-                    }}
-                    onMount={(app) => {
-                        const canvas = app.view as HTMLCanvasElement
-                        Object.assign(canvas.style, {
-                            position: 'absolute',
-                            top: '0',
-                            left: '50%',
-                            transform: 'translate(-50%, 0)',
-                            pointerEvents: 'none'
-                        } as CSSStyleDeclaration)
-                        canvas.id = GUICanvasId
-                        app.queueResize()
-                    }}
-                >
-                    <Container>
-                        <PixiTunnel.Out />
-                    </Container>
-                </Stage>
-                {children}
-                <HtmlTunnel.Out />
-
+            {children}
         </div>
     )
 }
