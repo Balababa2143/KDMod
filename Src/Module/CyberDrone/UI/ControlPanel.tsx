@@ -1,9 +1,8 @@
 import *  as React from 'react'
-import { KDButton } from '../../../KDInterfaceExtended/GUI'
+import { InteractiveElementClass, KDButton } from '../../../KDInterfaceExtended/GUI'
 import { KD, KDVar, RootNamespace } from '../../../Common'
 import { EquipmentCategory as Category } from '../Constants'
 import { MorphEquipment } from '../Sensory/Events/MorphEquipment'
-// import * as Sensory from '../Sensory'
 
 export interface IControlPanelState {
     Show: boolean
@@ -47,6 +46,8 @@ export function ControlPanel() {
                     display: 'block',
                     backgroundColor: 'black'
                 }}
+                className={InteractiveElementClass}
+                onClick={e => {e.stopPropagation()}}
             >
                 <Context.Provider value={{State, SetState}}>
                     <div style={{
@@ -141,8 +142,8 @@ export namespace ControlPanel {
 // Register
 const OldDrawNavBar = globalThis.KDDrawNavBar
 globalThis.KDDrawNavBar = function(skip: number, quit = false){
+    OldDrawNavBar(skip, quit)
     if(!ControlPanel.IsShowing){
-        OldDrawNavBar(skip, quit)
         const by = 440
         const bwidth = 140
         const bx = (2000 - 10 - bwidth)
