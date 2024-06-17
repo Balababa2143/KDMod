@@ -18,7 +18,8 @@ const Context = React.createContext<IControlPanelContext>(null!)
 let DoShow = () => {}
 let isShowing = false
 
-// TODO: Fix mask swap logic
+const StopMouseEventPropagation: React.MouseEventHandler<HTMLElement> =
+    (e) => e.stopPropagation()
 
 export function ControlPanel() {
     const [State, SetState] = React.useState({
@@ -47,7 +48,8 @@ export function ControlPanel() {
                     backgroundColor: 'black'
                 }}
                 className={InteractiveElementClass}
-                onClick={e => {e.stopPropagation()}}
+                onClick={StopMouseEventPropagation}
+                onDoubleClick={StopMouseEventPropagation}
             >
                 <Context.Provider value={{State, SetState}}>
                     <div style={{
