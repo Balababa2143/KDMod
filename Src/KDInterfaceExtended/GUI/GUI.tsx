@@ -9,6 +9,7 @@ export const StaticElementClass = 'KDInterfaceStaticElement' as const
 export const PreventSelectClass = 'KDInterfacePreventSelect' as const
 export const GUICanvasId: string = NameOf(() => GUICanvasId)
 export const HideOverflowTextClass: string = NameOf(() => HideOverflowTextClass)
+export const KDTextBoxStyleClass: string = NameOf(() => KDTextBoxStyleClass)
 
 export function GUI({ children }: PropsWithChildren) {
     return (
@@ -63,6 +64,13 @@ export function CreateModUIRoot() {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: "";
+        }
+        .${KDTextBoxStyleClass}{
+            background-color:${KDTextBoxStyle.backgroundColor};
+            font-family: ${KDTextBoxStyle.fontFamily};
+            /*font-size: ${KDTextBoxStyle.fontSize};*/
+            color: ${KDTextBoxStyle.color};
+            /*line-height: ${KDTextBoxStyle.lineHeight};*/
         }
     ` as const
     const style = document.createElement('style')

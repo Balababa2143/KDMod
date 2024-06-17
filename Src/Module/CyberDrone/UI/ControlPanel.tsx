@@ -1,5 +1,5 @@
 import *  as React from 'react'
-import { GetFile, HideOverflowTextClass, InteractiveElementClass, KDButton } from '../../../KDInterfaceExtended/GUI'
+import { InteractiveElementClass, KDButton } from '../../../KDInterfaceExtended/GUI'
 import { KD, KDVar, RootNamespace } from '../../../Common'
 import { EquipmentCategory as Category } from '../Constants'
 import { MorphEquipment } from '../Sensory/Events/MorphEquipment'
@@ -45,7 +45,7 @@ export function ControlPanel() {
                     borderWidth: 'thin',
                     borderColor: 'darkblue',
                     display: 'block',
-                    // backgroundColor: 'black'
+                    backgroundColor: 'black'
                 }}
                 className={InteractiveElementClass}
                 onClick={StopMouseEventPropagation}
@@ -79,7 +79,8 @@ export function ControlPanel() {
                         </div>
                         <div style={{
                             display: 'flex',
-                            justifyContent: 'center space-between'
+                            justifyContent: 'center space-between',
+                            color: 'white'
                         }}>
                             <KDButton
                                 onClick={e => {
@@ -93,7 +94,7 @@ export function ControlPanel() {
                                     KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
                                 }}
                             >
-                                <span style={{ pointerEvents: 'none', color: 'aqua' }}>Toggle mask</span>
+                                Mask
                             </KDButton>
                             <KDButton
                                 onClick={e => {
@@ -107,11 +108,7 @@ export function ControlPanel() {
                                     KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
                                 }}
                             >
-                                <img src={GetFile(KD.Variables.RootDirectory + 'UI/Console.png')}/>
-                                <div className={HideOverflowTextClass} style={{flex: '0 0 75%', color: 'aqua'}}>
-                                    Muzzle
-                                </div>
-                                
+                                Muzzle
                             </KDButton>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { HideOverflowTextClass, InteractiveElementClass, PreventSelectClass, StaticElementClass } from './GUI'
+import { HideOverflowTextClass, KDTextBoxStyleClass, PreventSelectClass, StaticElementClass } from './GUI'
 import { Helpers, RootNamespace } from '../../Common'
 import { NameOf } from '../../Common/Helpers'
 
@@ -61,7 +61,7 @@ export function KDButton(props: React.JSX.IntrinsicElements['div']) {
     return (
         <div
             {...props}
-            className={`${ButtonBorderClass} ${PreventSelectClass} ${HideOverflowTextClass}`}
+            className={`${ButtonBorderClass} ${PreventSelectClass} ${HideOverflowTextClass} ${KDTextBoxStyleClass}`}
         >
             {childrenWithClass}
         </div>
