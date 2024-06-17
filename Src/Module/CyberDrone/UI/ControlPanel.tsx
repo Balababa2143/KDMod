@@ -1,8 +1,10 @@
 import *  as React from 'react'
-import { InteractiveElementClass, KDButton } from '../../../KDInterfaceExtended/GUI'
+import { HideOverflowTextClass, InteractiveElementClass, KDButton, KDTexEx } from '../../../KDInterfaceExtended/GUI'
 import { KD, KDVar, RootNamespace } from '../../../Common'
 import { EquipmentCategory as Category } from '../Constants'
 import { MorphEquipment } from '../Sensory/Events/MorphEquipment'
+import { Container, Sprite } from '@pixi/react'
+import { PixiContainerElm } from '../../../KDInterfaceExtended/GUI/PixiContainerElm'
 
 export interface IControlPanelState {
     Show: boolean
@@ -15,7 +17,7 @@ export interface IControlPanelContext {
 
 const Context = React.createContext<IControlPanelContext>(null!)
 
-let DoShow = () => {}
+let DoShow = () => { }
 let isShowing = false
 
 const StopMouseEventPropagation: React.MouseEventHandler<HTMLElement> =
@@ -25,7 +27,7 @@ export function ControlPanel() {
     const [State, SetState] = React.useState({
         Show: false
     } as IControlPanelState)
-    DoShow = () =>{
+    DoShow = () => {
         SetState({
             ...State,
             Show: true
@@ -45,13 +47,13 @@ export function ControlPanel() {
                     borderWidth: 'thin',
                     borderColor: 'darkblue',
                     display: 'block',
-                    backgroundColor: 'black'
+                    // backgroundColor: 'black'
                 }}
                 className={InteractiveElementClass}
                 onClick={StopMouseEventPropagation}
                 onDoubleClick={StopMouseEventPropagation}
             >
-                <Context.Provider value={{State, SetState}}>
+                <Context.Provider value={{ State, SetState }}>
                     <div style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -61,8 +63,10 @@ export function ControlPanel() {
                             flexDirection: 'row-reverse'
                         }}>
                             <KDButton
-                                onClick={e => {SetState({...State,Show: false})
-                                }}            
+                                onClick={e => {
+                                    SetState({ ...State, Show: false })
+                                }}
+                                style={{flex: 0, overflow: 'inherit'}}
                             >
                                 <span
                                     style={{
@@ -77,7 +81,7 @@ export function ControlPanel() {
                         </div>
                         <div style={{
                             display: 'flex',
-                            flexDirection: 'row'
+                            justifyContent: 'center space-between'
                         }}>
                             <KDButton
                                 onClick={e => {
@@ -91,7 +95,7 @@ export function ControlPanel() {
                                     KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
                                 }}
                             >
-                                <span style={{pointerEvents: 'none', color: 'aqua'}}>Toggle mask</span>
+                                <span style={{ pointerEvents: 'none', color: 'aqua' }}>Toggle mask</span>
                             </KDButton>
                             <KDButton
                                 onClick={e => {
@@ -105,7 +109,13 @@ export function ControlPanel() {
                                     KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
                                 }}
                             >
-                                <span style={{pointerEvents: 'none', color: 'aqua'}}>Toggle muzzle</span>
+                                <PixiContainerElm style={{flex: '0 0 25%'}}>
+                                    <Sprite texture={KDTexEx(KD.Variables.RootDirectory + 'UI/Console.png')!} />
+                                </PixiContainerElm>
+                                <div className={HideOverflowTextClass} style={{flex: '0 0 75%', color: 'aqua'}}>
+                                    Muzzle
+                                </div>
+                                
                             </KDButton>
                         </div>
                     </div>
@@ -136,22 +146,22 @@ export declare class ControlPanel {
 }
 
 export namespace ControlPanel {
-    export function Show(){
+    export function Show() {
         DoShow()
     }
 }
 
 // Register
 const OldDrawNavBar = globalThis.KDDrawNavBar
-globalThis.KDDrawNavBar = function(skip: number, quit = false){
-    OldDrawNavBar(skip, quit)
-    if(!ControlPanel.IsShowing){
+globalThis.KDDrawNavBar = function (skip: number, quit = false) {
+    if (!ControlPanel.IsShowing) {
+        OldDrawNavBar(skip, quit)
         const by = 440
         const bwidth = 140
         const bx = (2000 - 10 - bwidth)
         const bspacing = 5
         const bheight = 60
-        if(KDVar.PlayerTags.get(Category.FullName)){
+        if (KDVar.PlayerTags.get(Category.FullName)) {
             KD.DrawButtonKDEx_({
                 name: `${RootNamespace}.UI.ControlPanelButton`,
                 Left: bx,
@@ -164,7 +174,7 @@ globalThis.KDDrawNavBar = function(skip: number, quit = false){
                 Image: KD.Variables.RootDirectory + 'UI/Console.png',
                 Color: '#ffffff',
                 enabled: true,
-                func: (_) => {ControlPanel.Show(); return true}
+                func: (_) => { ControlPanel.Show(); return true }
             })
         }
     }

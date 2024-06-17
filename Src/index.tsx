@@ -22,20 +22,20 @@ KDPerkStart["StartDrone"] = () => {
 
 KDPerkStart["StartScifi"] = () => {
     [
-        SF.Visor,
-        SF.Muzzle,
-        SF.EarPlug,
-        SF.MaskOpaque,
+        // SF.Visor,
+        // SF.MuzzleStuffedBall,
+        // SF.EarPlug,
+        // SF.MaskOpaque,
         SF.Catsuit,
         SF.Heel,
         SF.Glove,
         SF.Collar,
         SF.ChastityBelt,
-        SF.ChastityBra,
+        SF.ChastityBraBig,
         SF.Harness,
-        SF.ArmCuff,
-        SF.ThighCuff,
-        SF.AnkleCuff,
+        SF.ArmCuffLinked,
+        SF.ThighCuffLinked,
+        SF.AnkleCuffLinked,
         SF.TorsoBelt,
         // SF.StraightJacket,
     ]
