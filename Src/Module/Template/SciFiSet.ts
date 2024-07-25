@@ -68,7 +68,7 @@ export namespace SciFiSet {
             factionColor: [[2]],
             Color: ["#ff5277"],
             factionFilters: {
-                FullVisor: { color: "LightNeutral", override: true },
+                // FullVisor: { color: "Highlight", override: true },
                 Rim: { color: "DarkNeutral", override: true }
             },
             Group: "ItemHead",
@@ -248,7 +248,7 @@ export namespace SciFiSet {
             debris: "Chains",
             accessible: true,
             Asset: "FuturisticCollar",
-            Model: "FutureCollar",
+            Model: "CyberLinkCollar",
             tightType: "Secure",
             factionFilters: {
                 Display: { color: "Highlight", override: false },
@@ -352,6 +352,112 @@ export namespace SciFiSet {
             playerTags: {},
         }
     })
+    //#endregion
+
+    //#region Mitten
+    export const LongMitten: WearableEntry = WearableEntry({
+        Data: {
+            inventory: true,
+            name: FullNameOf(() => LongMitten),
+            sfx: "FutureLock",
+            sfxRemove: "SciFiConfigure",
+            Model: Model.SciFiSet.OpenMitten,
+            tightType: "Secure",
+            factionFilters: {
+                Mitten: {
+                    color: "Catsuit",
+                    override: false
+                },
+                Straps: {
+                    color: "DarkNeutral",
+                    override: true
+                },
+                Cap: {
+                    color: "LightNeutral",
+                    override: false
+                },
+                Glow: {
+                    color: "Highlight",
+                    override: false
+                },
+                Display: {
+                    color: "Highlight",
+                    override: false
+                },
+                Lock: {
+                    color: "DarkNeutral",
+                    override: true
+                },
+                Cuff: {
+                    color: "DarkNeutral",
+                    override: true
+                },
+                UpperGlow: {
+                    color: "Highlight",
+                    override: false
+                },
+                UpperDisplay: {
+                    color: "Highlight",
+                    override: false
+                },
+                UpperLock: {
+                    color: "DarkNeutral",
+                    override: true
+                },
+                UpperCuff: {
+                    color: "DarkNeutral",
+                    override: true
+                }
+            },
+            DefaultLock: "Red",
+            factionColor: [[],[],[0]],
+            Asset: "LatexElbowGloves",
+            Color: "#ff5277",
+            LinkableBy: [
+                "Wrapping",
+                "Encase",
+                "Harnesses",
+                "Belts",
+                "Belt",
+                "Tape",
+                "Ties",
+                "Hogties",
+                "Link",
+                "Cuffs",
+                "Boxties",
+                "Wristties",
+                "Crossties",
+                "Armbinders",
+                "Straitjackets",
+                "Legbinders",
+                "BindingDress",
+                "Boxbinders",
+                "Petsuits",
+                "Mittens"
+            ],
+            renderWhenLinked: ["Mittens"],
+            Group: "ItemHands",
+            bindhands: 1,
+            power: 10,
+            weight: 0,
+            escapeChance: {Struggle: -0.4,Cut: -0.2,Remove: 0.04,Pick: -0.25},
+            limitChance: {Struggle: 0.3,Cut: 0.2},
+            struggleMaxSpeed: {Remove: 0.1},
+            maxwill: 0.2,
+            enemyTags: {},
+            playerTags: {ItemHandsFull: -2},
+            minLevel: 7,
+            allFloors: true,
+            shrine: ["LongMittens","Mittens","Metal"]
+        }
+    })
+    //#endregion
+
+    //#region LongMitten
+    export const Mitten: WearableEntry =
+        LongMitten
+            .setIn(['Data', 'name'], FullNameOf(() => Mitten))
+            .setIn(['Data', 'Model'], 'CyberMittens')
     //#endregion
 
     //#region Heel
@@ -693,6 +799,23 @@ export namespace SciFiSet {
     })
     //#endregion
 
+        //#region ArmCuffWristTie
+        export const ArmCuffWristTie: WearableEntry = ArmCuff.merge({
+            Data: ArmCuff.Data.merge({
+                name: FullNameOf(() => ArmCuffWristTie),
+                alwaysDressModel: [
+                    {
+                        Model: Model.SciFiSet.ArmLink,
+                        factionFilters: {
+                            Link: { color: "Highlight", override: true },
+                        }
+                    }
+                ],
+                bindarms: true,
+            })
+        })
+        //#endregion
+
     //#region ArmCuffHandFront
     export const ArmCuffHandsFront: WearableEntry = ArmCuff.merge({
         Data: ArmCuff.Data.merge({
@@ -769,9 +892,10 @@ export namespace SciFiSet {
             name: FullNameOf(() => ThighCuffLinked),
             alwaysDressModel: [
                 {
-                    Model: Model.SciFiSet.ThighLink,
+                    Model: 'CyberThighLink',
                     factionFilters: {
-                        Link: { color: "Highlight", override: true },
+                        Tether: {color: "Highlight", override: true},
+                        Glow: {color: "Highlight", override: false},
                     }
                 }
             ]
@@ -823,9 +947,10 @@ export namespace SciFiSet {
             name: FullNameOf(() => AnkleCuffLinked),
             alwaysDressModel: [
                 {
-                    Model: Model.SciFiSet.AnkleLink,
+                    Model: 'CyberAnkleLink',
                     factionFilters: {
-                        Link: { color: "Highlight", override: true },
+                        Tether: {color: "Highlight", override: true},
+                        Glow: {color: "Highlight", override: false},
                     }
                 }
             ]

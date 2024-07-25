@@ -16,21 +16,46 @@ KDPerkStart["StartDrone"] = () => {
         DS.DroneEarPlug,
         DS.DroneMuzzle
     ]
-    .forEach(def => KD.InventoryAddLoose(def.Data.name, undefined, 'Curse'))
+    .forEach(def => KD.InventoryAddLoose(def.Data.name, undefined, 'Dollsmith'))
 }
 
 KDPerkStart["StartScifi"] = () => {
+    const params: Partial<KD.IAddRestraintIfWeakerParameters> = {
+        Bypass: true,
+        Deep: true,
+        variant: {
+            hexes: [],
+            enchants: [],
+            level: 0,
+            minfloor: 1,
+            powerBonus: 0,
+        },
+        Lock: "Cyber3",
+        faction: 'Dollsmith'
+        // faction: 'AncientRobot'
+        // faction: 'Curse'
+        // faction: 'Goddess'
+    };
+
+    ["TrapPlug3", "RearVibe1", "TrapVibeProto", "NippleClamps3", "NippleWeights"].forEach(r => {
+        KD.AddRestraintIfWeaker_({
+            restraint: r,
+            Lock: "Cyber2"
+        })
+    })
+    KD.AddRestraintIfWeaker_({restraint: SF.Catsuit.Data.name, ...params, faction: 'AncientRobot'});
+
     [
         // SF.Visor,
         // SF.MuzzleStuffedBall,
         // SF.EarPlug,
         // SF.MaskOpaque,
-        SF.Catsuit,
         SF.Heel,
-        SF.Glove,
+        // SF.Glove,
+        SF.LongMitten,
         SF.Collar,
         SF.ChastityBelt,
-        SF.ChastityBraBig,
+        SF.ChastityBra,
         SF.Harness,
         SF.ArmCuffLinked,
         SF.ThighCuffLinked,
@@ -38,30 +63,9 @@ KDPerkStart["StartScifi"] = () => {
         SF.TorsoBelt,
         // SF.StraightJacket,
     ]
-        .forEach(def => {
-            KD.AddRestraintIfWeaker_({
-                restraint: def.Data.name,
-                Bypass: true,
-                Deep: true,
-                variant: {
-                    hexes: [],
-                    enchants: [],
-                    level: 0,
-                    minfloor: 1,
-                    powerBonus: 0,
-                },
-                // faction: 'Dollsmith'
-                // faction: 'AncientRobot'
-                faction: 'Curse'
-                // faction: 'Goddess'
-            })
-        });
-    ["TrapPlug3", "RearVibe1", "TrapVibeProto", "NippleClamps3"].forEach(r => {
-        KD.AddRestraintIfWeaker_({
-            restraint: r,
-            Bypass: true,
-        })
-    })
+    .forEach(def => {
+        KD.AddRestraintIfWeaker_({restraint: def.Data.name, ...params})
+    });
 }
 
 KinkyDungeonStatsPresets["StartDrone"] = {
