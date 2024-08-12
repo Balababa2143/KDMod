@@ -2,7 +2,7 @@ import *  as React from 'react'
 import { InteractiveElementClass, KDButton } from '../../../KDInterfaceExtended/GUI'
 import { KD, KDVar, RootNamespace } from '../../../Common'
 import { EquipmentCategory as Category } from '../Constants'
-import { MorphEquipment } from '../Sensory/Events/MorphEquipment'
+import { MorphEquipment } from '../Events'
 
 export interface IControlPanelState {
     Show: boolean

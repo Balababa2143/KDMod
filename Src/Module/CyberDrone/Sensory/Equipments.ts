@@ -5,8 +5,8 @@ import Category = EquipmentCategory.Sensory
 import * as IM from "immutable"
 import { Helpers } from "../../../Common"
 import { WearableEntry } from "../../../KDInterfaceExtended"
-import { MorphEquipment } from "./Events/MorphEquipment"
-import { ProtocolActivation } from "./Events"
+import * as MorphEquipment from "../Events/MorphEquipment"
+import * as ProtocolActivation from "../Events/ProtocolActivation"
 import { DroneEquipmentEntry, DroneEquipmentInitializer } from "../DroneEquipment"
 
 export namespace Equipments {

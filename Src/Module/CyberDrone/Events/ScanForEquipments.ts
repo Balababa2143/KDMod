@@ -1,7 +1,7 @@
-import { Helpers, KD, KDVar } from "../../../../Common"
-import { InventoryEventHandlerDesc, EventHandlerDesc } from "../../../../KDInterfaceExtended"
-import { EquipmentCategory as Category } from "../../Constants"
-import { ProtocolActivation } from "../../Sensory/Events"
+import { Helpers, KD, KDVar } from "../../../Common"
+import { InventoryEventHandlerDesc, EventHandlerDesc } from "../../../KDInterfaceExtended"
+import { EquipmentCategory as Category } from "../Constants"
+import * as ProtocolActivation from "./ProtocolActivation"
 
 const ActiveFlags = {
     Sensory: `${Category.Sensory.FullName}.Activated`

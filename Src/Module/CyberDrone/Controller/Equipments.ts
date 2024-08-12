@@ -4,7 +4,7 @@ import { SciFiSet } from "../../Template"
 import { EquipmentCategory } from "../Constants"
 import Category = EquipmentCategory.Controller
 import { DroneEquipmentEntry, DroneEquipmentInitializer } from "../DroneEquipment"
-import { ScanForEquipments } from "./Events"
+import { ScanForEquipments } from "../Events/ScanForEquipments"
 
 
 export namespace Equipments {

@@ -6,7 +6,7 @@ import DC = Module.DroneSet.Controller.Equipments
 import DS = Module.DroneSet.Sensory.Equipments
 import { CreateModUIRoot, GUI } from './KDInterfaceExtended/GUI'
 import React from 'react'
-import { ControlPanel } from './Module/CyberDrone/UI'
+import { ControlPanel } from './Module/CyberDrone/UI/ControlPanel'
 
 declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
@@ -47,17 +47,17 @@ KDPerkStart["StartScifi"] = () => {
 
     [
         // SF.Visor,
-        // SF.MuzzleStuffedBall,
+        SF.MuzzlePluged,
         // SF.EarPlug,
         // SF.MaskOpaque,
         SF.Heel,
-        // SF.Glove,
-        SF.LongMitten,
+        SF.Glove,
+        // SF.LongMitten,
         SF.Collar,
         SF.ChastityBelt,
         SF.ChastityBra,
         SF.Harness,
-        SF.ArmCuffLinked,
+        SF.ArmCuffWristTie,
         SF.ThighCuffLinked,
         SF.AnkleCuffLinked,
         SF.TorsoBelt,
