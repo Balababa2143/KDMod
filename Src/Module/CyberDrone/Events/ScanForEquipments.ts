@@ -1,4 +1,4 @@
-import { Helpers, KD, KDVar } from "../../../Common"
+import { Helpers, KD } from "../../../Common"
 import { InventoryEventHandlerDesc, EventHandlerDesc } from "../../../KDInterfaceExtended"
 import { EquipmentCategory as Category } from "../Constants"
 import * as ProtocolActivation from "./ProtocolActivation"
@@ -20,8 +20,8 @@ export const ScanForEquipments: InventoryEventHandlerDesc = InventoryEventHandle
             entity: undefined,
             noDupe: undefined
         })
-        if ((!KDVar.PlayerTags.get(ActiveFlags.Sensory)) &&
-            Object.values(Category.Sensory.EquipmentTag).every(tag => KDVar.PlayerTags.get(tag))) {
+        if ((!KD.Var.PlayerTags.get(ActiveFlags.Sensory)) &&
+            Object.values(Category.Sensory.EquipmentTag).every(tag => KD.Var.PlayerTags.get(tag))) {
             KD.SendTextMessage_({
                 priority: 10,
                 color: '#e5311a',
@@ -38,7 +38,7 @@ export const ScanForEquipments: InventoryEventHandlerDesc = InventoryEventHandle
                 data: newData,
                 forceSpell: undefined!
             })
-            KDVar.PlayerTags.set(ActiveFlags.Sensory, true)
+            KD.Var.PlayerTags.set(ActiveFlags.Sensory, true)
         }
     }
 })

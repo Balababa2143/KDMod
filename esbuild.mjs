@@ -137,15 +137,16 @@ async function bundle(opts) {
         tsconfig: 'tsconfig.json',
         jsx: 'automatic',
         logLevel: 'info',
+        treeShaking: true,
         // Only minify in production, leads to faster build time on dev
         minify: productionMode,
         // Only generate sourcemaps in dev
         sourcemap: productionMode ? false : 'inline',
         // Folder to put all generated files
         outdir: bundleDir,
-        // outExtension: {
-        //     ".js": '.ks'
-        // },
+        outExtension: {
+            ".js": productionMode ? ".ks" : ".js"
+        },
         // external:['pixi.js', 'pixi.js-legacy', '@pixi/react'],
         plugins: [
             clean({

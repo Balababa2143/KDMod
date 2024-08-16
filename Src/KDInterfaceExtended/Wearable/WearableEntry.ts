@@ -1,7 +1,7 @@
 import * as IM from "immutable"
 import { InfoText, InfoTextData } from "./InfoText"
 import { WearableBaseData, WearableInitializerBase, Wearable, WearableInitializer } from "./Wearable"
-import { KD, KDVar, RecordEx } from "../../Common"
+import { KD, RecordEx } from "../../Common"
 
 export type WearableEntryData<TData extends WearableBaseData = restraint> = {
     Data: Wearable<TData>,
@@ -56,7 +56,7 @@ export namespace WearableEntry {
     }
     
     export function PushToRestraints<TData extends WearableBaseData>(def: WearableEntry<TData>) {
-        KDVar.Restraints.push(RecordEx.CreateProxy<restraint>(def.Data as any))
+        KD.Var.Restraints.push(RecordEx.CreateProxy<restraint>(def.Data as any))
         KD.AddRestraintText(
             def.Data.name,
             def.InfoText.DisplayName,

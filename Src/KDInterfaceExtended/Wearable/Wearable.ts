@@ -1,5 +1,5 @@
 import * as IM from "immutable"
-import { KD, KDVar, RecordEx, TypeUtil } from "../../Common"
+import { KD, RecordEx, TypeUtil } from "../../Common"
 import { WearableEntry } from "./WearableEntry"
 
 export type Wearable<Property extends WearableBaseData = WearableData> =

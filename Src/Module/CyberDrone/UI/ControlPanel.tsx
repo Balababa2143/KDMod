@@ -1,6 +1,6 @@
 import *  as React from 'react'
 import { InteractiveElementClass, KDButton } from '../../../KDInterfaceExtended/GUI'
-import { KD, KDVar, RootNamespace } from '../../../Common'
+import { KD, RootNamespace } from '../../../Common'
 import { EquipmentCategory as Category } from '../Constants'
 import { MorphEquipment } from '../Events'
 
@@ -154,7 +154,7 @@ globalThis.KDDrawNavBar = function (skip: number, quit = false) {
         const bx = (2000 - 10 - bwidth)
         const bspacing = 5
         const bheight = 60
-        if (KDVar.PlayerTags.get(Category.FullName)) {
+        if (KD.Var.PlayerTags.get(Category.FullName)) {
             KD.DrawButtonKDEx_({
                 name: `${RootNamespace}.UI.ControlPanelButton`,
                 Left: bx,
@@ -164,7 +164,7 @@ globalThis.KDDrawNavBar = function (skip: number, quit = false) {
                 Label: 'Control',
                 FontSize: 24,
                 ShiftText: true,
-                Image: KD.Variables.RootDirectory + 'UI/Console.png',
+                Image: KD.Var.RootDirectory + 'UI/Console.png',
                 Color: '#ffffff',
                 enabled: true,
                 func: (_) => { ControlPanel.Show(); return true }
