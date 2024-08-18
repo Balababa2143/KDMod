@@ -3,6 +3,7 @@ import { NameOf } from "../../Common/Helpers"
 declare let HIDEARMPOSES: string[]
 
 const Folder = `${RootNamespace}/LockedGlove` as const
+const CatsuitFolder = 'Catsuit' as const
 const Namespace: string = `${RootNamespace}.${NameOf(() => LockedGlove)}`
 
 export namespace LockedGlove {
@@ -17,155 +18,87 @@ Helpers.RegisterModule(
     () =>{
         AddModel({
             Name: LockedGlove.GloveLeft,
-            Folder: Folder,
+            Folder: CatsuitFolder,
             Parent: LockedGlove.Glove,
             Categories: ["Gloves", "Mittens", "Restraints"],
             Restraint: true,
             AddPose: ["Mittens"],
             Layers: ToLayerMap([
-                {
-                    Name: "ArmLeft", Layer: "GloveLeft", Pri: 100.1,
+                { Name: "ArmLeft", Layer: "GloveLeft", Pri: 1 + 100,
                     Poses: ToMapSubtract(ARMPOSES, [...HIDEARMPOSES], "Hogtie"),
                     GlobalDefaultOverride: ToMap(["Hogtie", "Front", "Crossed"]),
                     AppendPose: ToMapDupe(["Hogtie"]),
                     AppendPoseRequire: ToMap(["Wristtie"]),
-                    InheritColor: 'GloveBody'
+                    Folder: Folder
                 },
-                {
-                    Name: "ForeArmLeft", Layer: "GloveLeft", Pri: 100.1,
+                { Name: "ForeArmLeft", Layer: "ForeGloveLeft", Pri: 1 + 100,
                     Poses: ToMap(FOREARMPOSES),
                     GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
-                    SwapLayerPose: { Crossed: "CrossGloveLeft", Front: "ForeGloveLeft" },
-                    InheritColor: 'GloveBody'
+                    SwapLayerPose: {Crossed: "CrossArmLeft"},
                 },
-                {
-                    Name: "HandLeft", Layer: "GloveLeft", Pri: 100.1,
+                { Name: "HandLeft", Layer: "GloveLeft", Pri: 1 + 100,
                     Poses: ToMap(HANDLEFTPOSES),
                     GlobalDefaultOverride: ToMap(["Front"]),
                     HidePoses: ToMap(["HideHands", "EncaseHandLeft"]),
-                    InheritColor: 'GloveBody'
                 },
-                {
-                    Name: "ForeHandLeft", Layer: "GloveLeft", Pri: 100.1,
+                { Name: "ForeHandLeft", Layer: "ForeGloveLeft", Pri: 1 + 100,
                     Sprite: "HandLeft",
                     Poses: ToMap(FOREHANDLEFTPOSES),
                     GlobalDefaultOverride: ToMap(["Front"]),
-                    SwapLayerPose: { Crossed: "CrossGloveLeft", Front: "ForeGloveLeft" },
                     HidePoses: ToMap(["HideHands", "EncaseHandLeft"]),
-                    InheritColor: 'GloveBody'
-                },
-                {
-                    Name: "ZipperLeft", Layer: "GloveLeft", Pri: 100.2,
-                    Poses: ToMapSubtract([...ARMPOSES], ["Wristtie", "Boxtie", "Up"]),
-                    GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
-                    SwapLayerPose: { Crossed: "CrossGloveLeft", Front: "ForeGloveLeft" },
-                    // TieToLayer: "LatexLeft",
-                    NoOverride: true,
-                    InheritColor: "Zipper",
-                },
-                {
-                    Name: "BandLeft", Layer: "GloveLeft", Pri: 100.3,
-                    Poses: ToMapSubtract([...ARMPOSES], ["Wristtie", "Boxtie", "Up"]),
-                    GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
-                    SwapLayerPose: { Crossed: "CrossGloveLeft", Front: "ForeGloveLeft" },
-                    // TieToLayer: "LongGloveLeft",
-                    NoOverride: true,
-                    InheritColor: "Band",
-                },
-                {
-                    Name: "LockLeft", Layer: "GloveLeft", Pri: 100.4,
-                    Poses: ToMapSubtract([...ARMPOSES], ["Wristtie", "Boxtie", "Up"]),
-                    GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
-                    SwapLayerPose: { Crossed: "CrossGloveLeft", Front: "ForeGloveLeft" },
-                    // TieToLayer: "LongGloveLeft",
-                    NoOverride: true,
-                    InheritColor: "Lock",
                 },
             ])
         })
         
         AddModel({
             Name: LockedGlove.GloveRight,
-            Folder: Folder,
+            Folder: CatsuitFolder,
             Parent: LockedGlove.Glove,
             Categories: ["Gloves", "Mittens", "Restraints"],
             Restraint: true,
             AddPose: ["Mittens"],
             Layers: ToLayerMap([
-                {
-                    Name: "ArmRight", Layer: "GloveRight", Pri: 100.1,
+                { Name: "ArmRight", Layer: "GloveRight", Pri: 1 + 100,
                     Poses: ToMapSubtract(ARMPOSES, [...HIDEARMPOSES], "Hogtie"),
                     GlobalDefaultOverride: ToMap(["Hogtie", "Front", "Crossed"]),
                     AppendPose: ToMapDupe(["Hogtie"]),
                     AppendPoseRequire: ToMap(["Wristtie"]),
-                    InheritColor: 'GloveBody'
+                    Folder: Folder
                 },
-                {
-                    Name: "ForeArmRight", Layer: "GloveRight", Pri: 100.1,
+                { Name: "ForeArmRight", Layer: "ForeGloveRight", Pri: 1 + 100,
                     Poses: ToMap(FOREARMPOSES),
                     GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
-                    SwapLayerPose: { Crossed: "CrossGloveRight", Front: "ForeGloveRight" },
-                    InheritColor: 'GloveBody'
+                    SwapLayerPose: {Crossed: "CrossArmRight"},
                 },
-                {
-                    Name: "HandRight", Layer: "GloveRight", Pri: 100.1,
+                { Name: "HandRight", Layer: "GloveRight", Pri: 1 + 100,
                     Poses: ToMap(HANDRIGHTPOSES),
                     GlobalDefaultOverride: ToMap(["Front"]),
                     HidePoses: ToMap(["HideHands", "EncaseHandRight"]),
-                    InheritColor: 'GloveBody'
                 },
-                {
-                    Name: "ForeHandRight", Layer: "GloveRight", Pri: 100.1,
+                { Name: "ForeHandRight", Layer: "ForeGloveRight", Pri: 1 + 100,
                     Sprite: "HandRight",
                     Poses: ToMap(FOREHANDRIGHTPOSES),
                     GlobalDefaultOverride: ToMap(["Front"]),
-                    SwapLayerPose: { Crossed: "CrossGloveRight", Front: "ForeGloveRight" },
                     HidePoses: ToMap(["HideHands", "EncaseHandRight"]),
-                    InheritColor: 'GloveBody'
                 },
-                {
-                    Name: "ZipperRight", Layer: "GloveRight", Pri: 100.2,
-                    Poses: ToMapSubtract([...ARMPOSES], ["Wristtie", "Boxtie", "Up"]),
-                    GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
-                    SwapLayerPose: { Crossed: "CrossGloveRight", Front: "ForeGloveRight" },
-                    // TieToLayer: "LatexRight",
-                    NoOverride: true,
-                    InheritColor: "Zipper",
-                },
-                {
-                    Name: "BandRight", Layer: "GloveRight", Pri: 100.3,
-                    Poses: ToMapSubtract([...ARMPOSES], ["Wristtie", "Boxtie", "Up"]),
-                    GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
-                    SwapLayerPose: { Crossed: "CrossGloveRight", Front: "ForeGloveRight" },
-                    // TieToLayer: "LongGloveRight",
-                    NoOverride: true,
-                    InheritColor: "Band",
-                },
-                {
-                    Name: "LockRight", Layer: "GloveRight", Pri: 100.4,
-                    Poses: ToMapSubtract([...ARMPOSES], ["Wristtie", "Boxtie", "Up"]),
-                    GlobalDefaultOverride: ToMap(["Front", "Crossed"]),
-                    SwapLayerPose: { Crossed: "CrossGloveRight", Front: "ForeGloveRight" },
-                    // TieToLayer: "LongGloveRight",
-                    NoOverride: true,
-                    InheritColor: "Lock",
-                }
             ])
         })
         
         AddModel({
             Name: LockedGlove.Glove,
-            Folder: Folder,
+            Folder: CatsuitFolder,
             TopLevel: true,
             Categories: ["Gloves", "Mittens", "Restraints"],
             Restraint: true,
             AddPose: ["Mittens"],
             Layers: ToLayerMap([
                 ...KD.GetModelLayers_({
-                    ModelName: LockedGlove.GloveLeft
+                    ModelName: LockedGlove.GloveLeft,
+                    InheritColor: "GloveBody"
                 }),
                 ...KD.GetModelLayers_({
-                    ModelName: LockedGlove.GloveRight
+                    ModelName: LockedGlove.GloveRight,
+                    InheritColor: "GloveBody"
                 }),
             ])
         })

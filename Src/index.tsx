@@ -36,13 +36,13 @@ KDPerkStart["StartScifi"] = () => {
         // faction: 'Goddess'
     };
 
-    ["TrapPlug3", "RearVibe1", "TrapVibeProto", "NippleClamps3", "NippleWeights"].forEach(r => {
+    ["TrapPlug3", "RearVibe1", "TrapVibeProto"].forEach(r => {
         KD.AddRestraintIfWeaker_({
             restraint: r,
             Lock: "Cyber2"
         })
-    })
-    KD.AddRestraintIfWeaker_({restraint: SF.Catsuit.Data.name, ...params, faction: 'AncientRobot'});
+    });
+    // KD.AddRestraintIfWeaker_({restraint: SF.Catsuit.Data.name, ...params, faction: 'AncientRobot'});
 
     [
         // SF.Visor,
