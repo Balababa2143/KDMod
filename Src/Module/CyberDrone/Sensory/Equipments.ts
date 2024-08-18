@@ -1,6 +1,6 @@
 import { Template } from "../.."
 import SciFiSet = Template.SciFiSet
-import { EquipmentCategory as EquipmentCategory } from "../Constants"
+import { EquipmentCategory as EquipmentCategory, ItemTags } from "../Constants"
 import Category = EquipmentCategory.Sensory
 import * as IM from "immutable"
 import { Helpers } from "../../../Common"
@@ -26,9 +26,10 @@ export namespace Equipments {
                     type: ProtocolActivation.Handlers.EngageLock.HandlerId
                 }
             ])
-            .updateIn(['Data', 'addTag'], tags => [
+            .updateIn(['Data', 'shrine'], tags => [
                 ...tags ?? [],
-                Category.EquipmentTag.EarPlug
+                Category.EquipmentTag.EarPlug,
+                ItemTags.CyberDrone.Equipment
             ])
 
     function SetMuzzlerops(template: typeof SciFiSet.BallGag, name: string){
@@ -53,11 +54,8 @@ export namespace Equipments {
             ])
             .updateIn(['Data', 'shrine'], tags => [
                 ...tags ?? [],
-                Category.EquipmentTag.Gag
-            ])
-            .updateIn(['Data', 'addTag'], tags => [
-                ...tags ?? [],
-                Category.EquipmentTag.Gag
+                Category.EquipmentTag.Gag,
+                ItemTags.CyberDrone.Equipment
             ])
     }
 
@@ -94,8 +92,12 @@ export namespace Equipments {
                     type: MorphEquipment.Handlers.Toggle.HandlerId
                 }
             ])
-            .updateIn(['Data', 'shrine'], tags => [...tags ?? [], Category.EquipmentTag.Mask])
-            .updateIn(['Data', 'addTag'], tags => [...tags ?? [], Category.EquipmentTag.Mask])
+            .updateIn(['Data', 'shrine'], tags => [
+                ...tags ?? [],
+                Category.EquipmentTag.Mask,
+                ItemTags.CyberDrone.Controller,
+                ItemTags.CyberDrone.Equipment
+            ])
     }
 
     export const DroneMask: DroneEquipmentEntry =

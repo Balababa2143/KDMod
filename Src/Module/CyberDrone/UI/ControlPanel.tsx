@@ -1,7 +1,7 @@
 import *  as React from 'react'
 import { InteractiveElementClass, KDButton } from '../../../KDInterfaceExtended/GUI'
 import { KD, RootNamespace } from '../../../Common'
-import { EquipmentCategory as Category } from '../Constants'
+import { EquipmentCategory as Category, ItemTags } from '../Constants'
 import { MorphEquipment } from '../Events'
 
 export interface IControlPanelState {
@@ -144,6 +144,21 @@ export namespace ControlPanel {
     }
 }
 
+function CanShowControlButton(equipmentTag: string, controllerTag: string){
+    if(KD.Var.PlayerTags.get(equipmentTag)){
+        if(KD.IsHandsBound() || KD.IsArmsBound()){
+            return KD.Var.PlayerTags.get(controllerTag) != null
+        }
+        else{
+            return true
+        }
+    }
+    else{
+        return false
+    }
+}
+
+
 // Register
 const OldDrawNavBar = globalThis.KDDrawNavBar
 globalThis.KDDrawNavBar = function (skip: number, quit = false) {
@@ -154,7 +169,7 @@ globalThis.KDDrawNavBar = function (skip: number, quit = false) {
         const bx = (2000 - 10 - bwidth)
         const bspacing = 5
         const bheight = 60
-        if (KD.Var.PlayerTags.get(Category.FullName)) {
+        if (CanShowControlButton(ItemTags.CyberDrone.Equipment, ItemTags.CyberDrone.Controller)) {
             KD.DrawButtonKDEx_({
                 name: `${RootNamespace}.UI.ControlPanelButton`,
                 Left: bx,

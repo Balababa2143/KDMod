@@ -4,4 +4,4 @@ export * as Helpers from './Helpers'
 export * as RecordEx from './RecordEx'
 export * as TypeUtil from './TypeUtil'
 export const DEFAULT = 'DEFAULT' as const
-export const RootNamespace = 'KDMod' as const
+export const RootNamespace = 'DroneMod' as const

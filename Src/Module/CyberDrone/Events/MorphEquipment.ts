@@ -18,11 +18,11 @@ export namespace Handlers {
         EventName: EventName,
         HandlerId: Category.SubGetFullName(() => Toggle),
         Handler: (e, item, data) => {
+            console.log('OnMorphEquipment:Toggle', item, data)
             const evData = data as Partial<EventData>
             const targetEquipment = evData?.TargetEquipment
             const definition = KDRestraint(item) as DroneEquipmentData
-            const tags = definition.addTag ?? []
-            if (targetEquipment != null && tags.some(tag => tag === targetEquipment)) {
+            if (targetEquipment != null && definition.shrine && definition.shrine.some(tag => tag === targetEquipment)) {
                 const stateMap = definition.StateMap
                 if (null != stateMap) {
                     KD.MorphToInventoryVariant_({

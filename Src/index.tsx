@@ -11,7 +11,6 @@ import { ControlPanel } from './Module/CyberDrone/UI/ControlPanel'
 declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
     [
-        DC.Visor,
         DS.DroneMask,
         DS.DroneEarPlug,
         DS.DroneMuzzle
@@ -47,7 +46,7 @@ KDPerkStart["StartScifi"] = () => {
 
     [
         // SF.Visor,
-        SF.MuzzlePluged,
+        // SF.MuzzlePluged,
         // SF.EarPlug,
         // SF.MaskOpaque,
         SF.Heel,
@@ -57,9 +56,9 @@ KDPerkStart["StartScifi"] = () => {
         SF.ChastityBelt,
         SF.ChastityBra,
         SF.Harness,
-        SF.ArmCuffWristTie,
+        SF.ArmCuffLinked,
         SF.ThighCuffLinked,
-        SF.AnkleCuffLinked,
+        SF.AnkleCuff,
         SF.TorsoBelt,
         // SF.StraightJacket,
     ]
