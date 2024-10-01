@@ -15,7 +15,12 @@ KDPerkStart["StartDrone"] = () => {
         DS.DroneEarPlug,
         DS.DroneMuzzle
     ]
-    .forEach(def => KD.InventoryAddLoose(def.Data.name, undefined, 'Dollsmith'))
+    .forEach(def => KD.InventoryAddLoose_({
+        Name:def.Data.name,
+        faction: 'Dollsmith',
+        // faction: 'Nevermere',
+        UnlockCurse: undefined
+    }))
 }
 
 KDPerkStart["StartScifi"] = () => {
@@ -34,6 +39,7 @@ KDPerkStart["StartScifi"] = () => {
         // faction: 'AncientRobot'
         // faction: 'Curse'
         // faction: 'Goddess'
+        // faction: 'Nevermere'
     };
 
     ["TrapPlug3", "RearVibe1", "TrapVibeProto"].forEach(r => {
@@ -59,7 +65,7 @@ KDPerkStart["StartScifi"] = () => {
         SF.ArmCuffLinked,
         SF.ThighCuffLinked,
         SF.AnkleCuff,
-        SF.TorsoBelt,
+        // SF.TorsoBelt,
         // SF.StraightJacket,
     ]
     .forEach(def => {

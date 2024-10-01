@@ -68,6 +68,12 @@ export namespace Equipments {
     export const MuzzleStuffedBall: DroneEquipmentEntry =
         SetMuzzlerops(SciFiSet.MuzzleStuffedBall, Category.SubGetFullName(() => MuzzleStuffedBall))
         .setIn(['Data', 'StateMap'], IM.Map({
+            Next: Category.SubGetFullName(() => MuzzlePluged)
+        }))
+
+    export const MuzzlePluged: DroneEquipmentEntry =
+        SetMuzzlerops(SciFiSet.MuzzlePluged, Category.SubGetFullName(() => MuzzlePluged))
+        .setIn(['Data', 'StateMap'], IM.Map({
             Next: Category.SubGetFullName(() => DroneMuzzle)
         }))
 
