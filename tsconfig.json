@@ -3,14 +3,15 @@
         "strict": true,
         "alwaysStrict": true,
         "strictBindCallApply": true,
+        "noImplicitAny": false,
         "target": "ESNext",
         "module": "ESNext",
-        "moduleResolution": "Bundler",
+        "moduleResolution": "Node",
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "allowJs": true,
         "checkJs": true,
-        "jsx": "preserve",
+        "jsx": "react",
         "isolatedModules": true,
         "outDir": "Build",
         "inlineSourceMap": true,
@@ -34,5 +35,10 @@
         {
             "path": "./KDInterface/Generated"
         }
-    ]
+    ],
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    }
 }

@@ -20,8 +20,8 @@ export const ScanForEquipments: InventoryEventHandlerDesc = InventoryEventHandle
             entity: undefined,
             noDupe: undefined
         })
-        if ((!KD.Var.PlayerTags.get(ActiveFlags.Sensory)) &&
-            Object.values(Category.Sensory.EquipmentTag).every(tag => KD.Var.PlayerTags.get(tag))) {
+        if ((!KinkyDungeonPlayerTags.get(ActiveFlags.Sensory)) &&
+            Object.values(Category.Sensory.EquipmentTag).every(tag => KinkyDungeonPlayerTags.get(tag))) {
             KD.SendTextMessage_({
                 priority: 10,
                 color: '#e5311a',
@@ -38,7 +38,7 @@ export const ScanForEquipments: InventoryEventHandlerDesc = InventoryEventHandle
                 data: newData,
                 forceSpell: undefined!
             })
-            KD.Var.PlayerTags.set(ActiveFlags.Sensory, true)
+            KinkyDungeonPlayerTags.set(ActiveFlags.Sensory, true)
         }
     }
 })

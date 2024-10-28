@@ -56,7 +56,7 @@ export namespace WearableEntry {
     }
     
     export function PushToRestraints<TData extends WearableBaseData>(def: WearableEntry<TData>) {
-        KD.Var.Restraints.push(RecordEx.CreateProxy<restraint>(def.Data as any))
+        KinkyDungeonRestraints.push(RecordEx.CreateProxy<restraint>(def.Data as any))
         KD.AddRestraintText(
             def.Data.name,
             def.InfoText.DisplayName,

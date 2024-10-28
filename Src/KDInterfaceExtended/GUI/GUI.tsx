@@ -2,6 +2,7 @@
 import React, { PropsWithChildren } from 'react'
 import { createRoot } from 'react-dom/client'
 import { NameOf } from '../../Common/Helpers'
+import { KD } from '../../Common'
 
 export const GUIRootClass: string = NameOf(() => GUIRootClass)
 export const InteractiveElementClass = 'KDInterfaceInteractiveElement' as const

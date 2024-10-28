@@ -90,7 +90,7 @@ export function ControlPanel() {
                                             TargetEquipment: Category.Sensory.EquipmentTag.Mask
                                         } as MorphEquipment.EventData
                                     )
-                                    KinkyDungeonAdvanceTime(1, true)
+                                    KinkyDungeonAdvanceTime(1, true, true)
                                     KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
                                 }}
                             >
@@ -104,7 +104,7 @@ export function ControlPanel() {
                                             TargetEquipment: Category.Sensory.EquipmentTag.Gag
                                         } as MorphEquipment.EventData
                                     )
-                                    KinkyDungeonAdvanceTime(1, true)
+                                    KinkyDungeonAdvanceTime(1, true, true)
                                     KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
                                 }}
                             >
@@ -145,9 +145,9 @@ export namespace ControlPanel {
 }
 
 function CanShowControlButton(equipmentTag: string, controllerTag: string){
-    if(KD.Var.PlayerTags.get(equipmentTag)){
+    if(KinkyDungeonPlayerTags.get(equipmentTag)){
         if(KD.IsHandsBound() || KD.IsArmsBound()){
-            return KD.Var.PlayerTags.get(controllerTag) != null
+            return KinkyDungeonPlayerTags.get(controllerTag) != null
         }
         else{
             return true
@@ -179,7 +179,7 @@ globalThis.KDDrawNavBar = function (skip: number, quit = false) {
                 Label: 'Control',
                 FontSize: 24,
                 ShiftText: true,
-                Image: KD.Var.RootDirectory + 'UI/Console.png',
+                Image: KinkyDungeonRootDirectory + 'UI/Console.png',
                 Color: '#ffffff',
                 enabled: true,
                 func: (_) => { ControlPanel.Show(); return true }

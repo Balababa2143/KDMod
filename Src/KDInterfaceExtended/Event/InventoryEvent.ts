@@ -7,7 +7,7 @@ export type InventoryEventHandler =
 export type InventoryEventHandlerDesc =
     EventHandlerDesc<InventoryEventHandler>
 
-const MyEventMap = KD.Var.EventMapInventory
+const MyEventMap = KDEventMapInventory
 
 const _DefaultData: EventHandlerDescData<InventoryEventHandler> = {
     EventMap: MyEventMap,

@@ -1,11 +1,9 @@
 import { Wearable, WearableBase, WearableEntry } from '../../KDInterfaceExtended'
-import { Helpers, RootNamespace } from '../../Common'
+import { Helpers, KD, RootNamespace } from '../../Common'
 import NameOf = Helpers.NameOf
 import * as Model from '../Model'
 
-declare let KDMaskLink: string[]
-
-const Namespace: string = `${RootNamespace}.Template.${NameOf(() => SciFiSet)}`
+const Namespace: string = `${RootNamespace}.Template.SciFiSet`
 
 //#region  SciFiSet
 export namespace SciFiSet {
