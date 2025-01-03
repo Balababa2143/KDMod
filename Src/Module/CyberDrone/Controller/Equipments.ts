@@ -28,7 +28,7 @@ export namespace Equipments {
     }
 
     export const Visor: DroneEquipmentEntry =
-        SetControllerProps(SciFiSet.Visor, Category.SubGetFullName(() => Visor))
+        SetControllerProps(SciFiSet.VisorTransparent, Category.SubGetFullName(() => Visor))
 }
 
 //#region Register

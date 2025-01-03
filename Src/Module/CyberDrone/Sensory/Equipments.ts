@@ -8,29 +8,49 @@ import { WearableEntry } from "../../../KDInterfaceExtended"
 import * as MorphEquipment from "../Events/MorphEquipment"
 import * as ProtocolActivation from "../Events/ProtocolActivation"
 import { DroneEquipmentEntry, DroneEquipmentInitializer } from "../DroneEquipment"
+import * as Model from '../../Model'
 
 export namespace Equipments {
-    export const DroneEarPlug: DroneEquipmentEntry =
-        DroneEquipmentEntry({
-            Data: SciFiSet.EarPlug.Data.merge({
-                name: Category.SubGetFullName(() => DroneEarPlug)
+    const SetVisorProps = (template: typeof SciFiSet.VisorTransparent, name: string) => {
+        return DroneEquipmentEntry({
+            Data: template.Data.merge({
+                name: name
             }) as DroneEquipmentInitializer,
             InfoText: {
-                DisplayName: 'Drone Ear Plug'
+                DisplayName: 'Drone Visor',
+                FunctionText: name
             },
         })
-            .updateIn(['Data', 'events'], es => [
-                ...es ?? [],
-                {
-                    trigger: ProtocolActivation.EventName,
-                    type: ProtocolActivation.Handlers.EngageLock.HandlerId
-                }
-            ])
-            .updateIn(['Data', 'shrine'], tags => [
-                ...tags ?? [],
-                Category.EquipmentTag.EarPlug,
-                ItemTags.CyberDrone.Equipment
-            ])
+        .updateIn(['Data', 'events'], es => [
+            ...es ?? [],
+            {
+                trigger: ProtocolActivation.EventName,
+                type: ProtocolActivation.Handlers.EngageLock.HandlerId
+            },
+            {
+                trigger: MorphEquipment.EventName,
+                type: MorphEquipment.Handlers.Toggle.HandlerId
+            }
+        ])
+        .updateIn(['Data', 'shrine'], tags => [
+            ...tags ?? [],
+            Category.EquipmentTag.EarPlug,
+            ItemTags.CyberDrone.Equipment
+        ])
+    }
+
+    export const DroneVisorTransparent: DroneEquipmentEntry =
+        SetVisorProps(SciFiSet.VisorTransparent, Category.SubGetFullName(() => DroneVisorTransparent))
+        .setIn(['Data', 'StateMap'], IM.Map({
+            Next: Category.SubGetFullName(() => DroneVisorOpaque)
+        }))
+
+    export const DroneVisorOpaque: DroneEquipmentEntry =
+        SetVisorProps(SciFiSet.VisorOpaque, Category.SubGetFullName(() => DroneVisorOpaque))
+        .setIn(['Data', 'StateMap'], IM.Map({
+            Next: Category.SubGetFullName(() => DroneVisorTransparent)
+        }))
+        .setIn(['Data', 'blindfold'], 2)
 
     function SetMuzzlerops(template: typeof SciFiSet.BallGag, name: string){
         return DroneEquipmentEntry({
@@ -41,26 +61,26 @@ export namespace Equipments {
                 DisplayName: 'Drone Muzzle'
             },
         })
-            .updateIn(['Data', 'events'], es => [
-                ...es ?? [],
-                {
-                    trigger: ProtocolActivation.EventName,
-                    type: ProtocolActivation.Handlers.EngageLock.HandlerId
-                },
-                {
-                    trigger: MorphEquipment.EventName,
-                    type: MorphEquipment.Handlers.Toggle.HandlerId
-                }
-            ])
-            .updateIn(['Data', 'shrine'], tags => [
-                ...tags ?? [],
-                Category.EquipmentTag.Gag,
-                ItemTags.CyberDrone.Equipment
-            ])
+        .updateIn(['Data', 'events'], es => [
+            ...es ?? [],
+            {
+                trigger: ProtocolActivation.EventName,
+                type: ProtocolActivation.Handlers.EngageLock.HandlerId
+            },
+            {
+                trigger: MorphEquipment.EventName,
+                type: MorphEquipment.Handlers.Toggle.HandlerId
+            }
+        ])
+        .updateIn(['Data', 'shrine'], tags => [
+            ...tags ?? [],
+            Category.EquipmentTag.Gag,
+            ItemTags.CyberDrone.Equipment
+        ])
     }
 
     export const DroneMuzzle: DroneEquipmentEntry =
-        SetMuzzlerops(SciFiSet.Muzzle,Category.SubGetFullName(() => DroneMuzzle))
+        SetMuzzlerops(SciFiSet.Muzzle, Category.SubGetFullName(() => DroneMuzzle))
         .setIn(['Data', 'StateMap'], IM.Map({
             Next: Category.SubGetFullName(() => MuzzleStuffedBall)
         }))

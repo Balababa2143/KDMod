@@ -11,7 +11,7 @@ namespace Folder {
 const Namespace: string = `${RootNamespace}.Model.${NameOf(() => SciFiSet)}`
 
 export namespace SciFiSet {
-    export const EarPlug: string = `${Namespace}.${NameOf(() => EarPlug)}`
+    export const VisorTransparent: string = `${Namespace}.${NameOf(() => VisorTransparent)}`
     export const Muzzle: string = `${Namespace}.${NameOf(() => Muzzle)}`
     export const MuzzlePlug: string = `${Namespace}.${NameOf(() => MuzzlePlug)}`
     export const Belt: string = `${Namespace}.${NameOf(() => Belt)}`
@@ -21,8 +21,9 @@ export namespace SciFiSet {
     export const ThighLink: string = `${Namespace}.${NameOf(() => ThighLink)}`
     export const AnkleLink: string = `${Namespace}.${NameOf(() => AnkleLink)}`
     export const Visor: string = `${Namespace}.${NameOf(() => Visor)}`
-    export const Mask: string = `${Namespace}.${NameOf(() => Mask)}`
     export const VisorOpaque: string = `${Namespace}.${NameOf(() => VisorOpaque)}`
+    export const Mask: string = `${Namespace}.${NameOf(() => Mask)}`
+    export const EarPlug: string = `${Namespace}.${NameOf(() => EarPlug)}`
     export const MaskOpaque: string = `${Namespace}.${NameOf(() => MaskOpaque)}`
     export const OpenMitten: string = `${Namespace}.${NameOf(() => OpenMitten)}`
 }
@@ -45,7 +46,7 @@ Helpers.RegisterModule(
                 }
             ]
         }))
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.Belt, true))
+        
         globalThis.AddModel(KD.GetModelWithExtraLayers_({
             BaseModel: 'CyberCuffsThigh',
             NewModel: SciFiSet.TighCuff,
@@ -60,7 +61,7 @@ Helpers.RegisterModule(
                 }
             ]
         }))
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.TighCuff, true))
+        
         globalThis.AddModel({
             Name: SciFiSet.ArmLink,
             Folder: Folder.CuffLink,
@@ -84,7 +85,7 @@ Helpers.RegisterModule(
                 },
             ])
         })
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.ArmLink, true))
+        
         globalThis.AddModel({
             Name: SciFiSet.ArmLinkYoke,
             Folder: Folder.CuffLink,
@@ -108,7 +109,7 @@ Helpers.RegisterModule(
                 },
             ])
         })
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.ArmLinkYoke, true))
+        
         globalThis.AddModel({
             Name: SciFiSet.ThighLink,
             Folder: Folder.CuffLink,
@@ -123,7 +124,7 @@ Helpers.RegisterModule(
                 },
             ])
         })
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.ThighLink, true))
+        
         globalThis.AddModel({
             Name: SciFiSet.AnkleLink,
             Folder: Folder.CuffLink,
@@ -138,37 +139,92 @@ Helpers.RegisterModule(
                 },
             ])
         })
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.AnkleLink, true))
+        
+
+        ModelDefs["ElfEars"].AddPose!.push("Elf", "ElfEarsStandard")
+        ModelDefs["ElfEarsLong"].AddPose!.push("Elf", "ElfEarLong")
+        ModelDefs["ElfEarsFloppy"].AddPose!.push("Elf", "ElfFloppy")
+
         globalThis.AddModel({
             Name: SciFiSet.EarPlug,
             TopLevel: true,
             Protected: true,
             Categories: ["Body", "Face", "Cosplay"],
             Folder: Folder.EarPlug,
+            RemovePoses: ["HideEars"],
             Layers: globalThis.ToLayerMap([
                 {
-                    Name: "EarPlugFront", Layer: "Head", Pri: 0.3,
+                    Name: "EarPlugHuman", Layer: "HairOver", Pri: 0.3,
                     Invariant: true,
                     InheritColor: 'BaseMetal',
-                    HidePoses: globalThis.ToMap(["Cosplay", "AnimalEars"]),
+                    HidePoses: globalThis.ToMap(["AnimalEars", "Elf"]),
+                    HideWhenOverridden: true
                 },
                 {
-                    Name: "ElfEarPlugFront", Layer: "Head", Pri: 0.3,
+                    Name: "EarPlugElfLongFront", Layer: "HairOver", Pri: 0.3,
                     Invariant: true,
                     InheritColor: 'BaseMetal',
-                    RequirePoses: globalThis.ToMap(["Cosplay"]),
-                    HidePoses: globalThis.ToMap(["AnimalEars"]),
+                    RequirePoses: globalThis.ToMap(["Cosplay", "Elf"]),
+                    HidePoses: globalThis.ToMap(["AnimalEars", "ElfFloppy"]),
+                    HideWhenOverridden: true
                 },
                 {
-                    Name: "ElfEarPlugBack", Layer: "Head", Pri: -0.09,
+                    Name: "EarPlugElfLongBack", Layer: "Head", Pri: -0.09,
                     Invariant: true,
                     InheritColor: 'BaseMetal',
-                    RequirePoses: globalThis.ToMap(["Cosplay"]),
-                    HidePoses: globalThis.ToMap(["AnimalEars"]),
+                    RequirePoses: globalThis.ToMap(["Cosplay", "Elf"]),
+                    HidePoses: globalThis.ToMap(["AnimalEars", "ElfFloppy"]),
+                    HideWhenOverridden: true
+                }
+            ])
+        })
+        
+
+        globalThis.AddModel({
+            Name: SciFiSet.VisorTransparent,
+            Folder: Folder.Visor,
+            TopLevel: true,
+            Categories: ["Accessories", "Face"],
+            Layers: globalThis.ToLayerMap([
+                {
+                    Name: "VisorGlass", Layer: "Goggles", Pri: 14,
+                    Folder: Folder.Visor,
+                    InheritColor: 'BaseMetal',
+                    Invariant: true,
+                    HideWhenOverridden: true,
+                }
+            ])
+        })
+
+        globalThis.AddModel({
+            Name: SciFiSet.VisorOpaque,
+            Folder: Folder.Visor,
+            TopLevel: true,
+            Categories: ["Accessories", "Face"],
+            Layers: globalThis.ToLayerMap([
+                {
+                    Name: "VisorOpaque", Layer: "Goggles", Pri: 14,
+                    Folder: Folder.Visor,
+                    InheritColor: 'BaseMetal',
+                    Invariant: true,
+                    // HideWhenOverridden: true,
                 },
             ])
         })
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.EarPlug, true))
+
+        // globalThis.AddModel(KD.GetModelWithExtraLayers_({
+        //     BaseModel: SciFiSet.EarPlug,
+        //     NewModel: SciFiSet.VisorOpaque,
+        //     Layers:[
+        //         {
+        //             Name: "VisorOpaque", Layer: "Blindfold", Pri: 14,
+        //             Folder: Folder.Visor,
+        //             InheritColor: 'BaseMetal',
+        //             Invariant: true,
+        //             HideWhenOverridden: true,
+        //         },
+        //     ]
+        // }))
 
         const unwantedLayers =
             globalThis.GetModelLayers('AdvancedSciFiMuzzle')
@@ -181,7 +237,7 @@ Helpers.RegisterModule(
                 globalThis.GetModelLayers('UltimateSciFiBallGag')
                     .filter(ballGagLayer => !unwantedLayers.some(unwantedLayer => ballGagLayer.Name === unwantedLayer))
         }))
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.Muzzle, true))
+        
 
         globalThis.AddModel(KD.GetModelWithExtraLayers_({
             BaseModel: SciFiSet.Muzzle,
@@ -220,39 +276,39 @@ Helpers.RegisterModule(
                 }
             ]
         }))
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.MuzzlePlug, true))
+        
 
-        globalThis.AddModel({
-            Name: SciFiSet.Visor,
-            Folder: Folder.Visor,
-            TopLevel: true,
-            Categories: ["Accessories", "Face"],
-            Layers: globalThis.ToLayerMap([
-                {
-                    Name: "VisorGlass", Layer: "Goggles", Pri: 14,
-                    InheritColor: "Goggles",
-                    Invariant: true,
-                    HideWhenOverridden: true,
-                },
-            ])
-        })
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.Visor, true))
+        // globalThis.AddModel({
+        //     Name: SciFiSet.Visor,
+        //     Folder: Folder.Visor,
+        //     TopLevel: true,
+        //     Categories: ["Accessories", "Face"],
+        //     Layers: globalThis.ToLayerMap([
+        //         {
+        //             Name: "VisorGlass", Layer: "Goggles", Pri: 14,
+        //             InheritColor: "Goggles",
+        //             Invariant: true,
+        //             HideWhenOverridden: true,
+        //         },
+        //     ])
+        // })
+        
 
-        globalThis.AddModel({
-            Name: SciFiSet.VisorOpaque,
-            Folder: Folder.Visor,
-            TopLevel: true,
-            Categories: ["Accessories", "Face"],
-            Layers: globalThis.ToLayerMap([
-                {
-                    Name: "VisorOpaque", Layer: "Blindfold", Pri: 14,
-                    InheritColor: "Goggles",
-                    Invariant: true,
-                    HideWhenOverridden: true,
-                },
-            ])
-        })
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.Visor, true))
+        // globalThis.AddModel({
+        //     Name: SciFiSet.EarPlug,
+        //     Folder: Folder.Visor,
+        //     TopLevel: true,
+        //     Categories: ["Accessories", "Face"],
+        //     Layers: globalThis.ToLayerMap([
+        //         {
+        //             Name: "VisorOpaque", Layer: "Blindfold", Pri: 14,
+        //             InheritColor: "Goggles",
+        //             Invariant: true,
+        //             HideWhenOverridden: true,
+        //         },
+        //     ])
+        // })
+        
 
         globalThis.AddModel({
             Name: SciFiSet.Mask,
@@ -264,7 +320,7 @@ Helpers.RegisterModule(
             },
             Layers: globalThis.ToLayerMap([
                 {
-                    Name: "DollmakerFull", Layer: "Hood", Pri: -10,
+                    Name: "DollmakerFull", Layer: "Goggles", Pri: -10,
                     Invariant: true,
                     HideWhenOverridden: true,
                     Folder: 'Visors',
@@ -273,7 +329,7 @@ Helpers.RegisterModule(
                     }
                 },
                 {
-                    Name: "DollmakerFullRim", Layer: "Hood", Pri: -10 + 0.1,
+                    Name: "DollmakerFullRim", Layer: "MaskOver", Pri: -10 + 0.1,
                     InheritColor: "Rim",
                     Invariant: true,
                     NoOverride: true,
@@ -285,7 +341,7 @@ Helpers.RegisterModule(
                 },
             ])
         })
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.Mask, true))
+        
 
         const DarkGlassFilter: LayerFilter = { "gamma": 0.43333333333333335, "saturation": 0, "contrast": 2.3166666666666664, "brightness": 0.9666666666666667, "red": 0.6, "green": 0.6833333333333333, "blue": 1.5333333333333332, "alpha": 1 }
         globalThis.AddModel({
@@ -326,7 +382,7 @@ Helpers.RegisterModule(
                 },
             ])
         })
-        globalThis.AddModel(globalThis.GetModelFashionVersion(SciFiSet.MaskOpaque, true))
+        
 
         const OpenMittenLeft: string = `${Namespace}.${NameOf(() => OpenMittenLeft)}`
         const OpenMittenRight: string = `${Namespace}.${NameOf(() => OpenMittenRight)}`

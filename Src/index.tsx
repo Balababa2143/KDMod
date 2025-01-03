@@ -12,7 +12,7 @@ declare let KDPerkStart: Record<string, () => void>
 KDPerkStart["StartDrone"] = () => {
     [
         DS.DroneMask,
-        DS.DroneEarPlug,
+        DS.DroneVisorTransparent,
         DS.DroneMuzzle
     ]
     .forEach(def => KD.InventoryAddLoose_({

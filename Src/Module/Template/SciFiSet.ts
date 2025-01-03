@@ -15,44 +15,42 @@ export namespace SciFiSet {
 
     //#region Sensory
 
-    //#region Visor
-    export const Visor: WearableEntry = WearableEntry({
-        Data: {
-            renderWhenLinked: [TransparentMask],
-            name: FullNameOf(() => Visor),
-            inventory: true,
-            sfx: "FutureLock",
-            accessible: true,
-            Asset: "InteractiveVisor",
-            Model: Model.SciFiSet.Visor,
-            DefaultLock: "Blue",
-            Color: ['#91023a'],
-            factionFilters: {
-                Goggles: { color: "LightNeutral", override: true }
-            },
-            Group: "ItemHead",
-            LinkableBy: [...KDVisorLink, ...KDMaskLink],
-            power: 40,
-            weight: 0,
-            escapeChance: { "Struggle": -0.6, "Cut": -1.0, "Remove": 0.5, "Pick": -0.5 },
-            maxwill: 0.1,
-            minLevel: 0,
-            allFloors: true,
-            shrine: ["Visors"],
-            enemyTags: {},
-            playerTags: {},
-        }
-    })
-    //#endregion
-
-    //#region Visor
-    export const VisorOpaque: WearableEntry = Visor.merge({
-        Data: Visor.Data.merge({
-            name: FullNameOf(() => VisorOpaque),
-            Model: Model.SciFiSet.VisorOpaque,
-        })
-    })
-    //#endregion
+    // //#region Visor
+    // export const Visor: WearableEntry = WearableEntry({
+    //     Data: {
+    //         renderWhenLinked: [TransparentMask],
+    //         name: FullNameOf(() => Visor),
+    //         inventory: true,
+    //         sfx: "FutureLock",
+    //         accessible: true,
+    //         Asset: "InteractiveVisor",
+    //         Model: Model.SciFiSet.Visor,
+    //         DefaultLock: "Blue",
+    //         Color: ['#91023a'],
+    //         factionFilters: {
+    //             Goggles: { color: "LightNeutral", override: true }
+    //         },
+    //         Group: "ItemHead",
+    //         LinkableBy: [...KDVisorLink, ...KDMaskLink],
+    //         power: 40,
+    //         weight: 0,
+    //         escapeChance: { "Struggle": -0.6, "Cut": -1.0, "Remove": 0.5, "Pick": -0.5 },
+    //         maxwill: 0.1,
+    //         minLevel: 0,
+    //         allFloors: true,
+    //         shrine: ["Visors"],
+    //         enemyTags: {},
+    //         playerTags: {},
+    //     }
+    // })
+    
+    // export const VisorOpaque: WearableEntry = Visor.merge({
+    //     Data: Visor.Data.merge({
+    //         name: FullNameOf(() => VisorOpaque),
+    //         Model: Model.SciFiSet.VisorOpaque,
+    //     })
+    // })
+    // //#endregion
 
     //#region Mask
     export const Mask: WearableEntry = WearableEntry({
@@ -71,7 +69,7 @@ export namespace SciFiSet {
             },
             Group: "ItemHead",
             Asset: "DroneMask",
-            LinkableBy: [...KDMaskLink, ...KDVisorLink],
+            LinkableBy: [...KDMaskLink],
             power: 39,
             weight: 0,
             escapeChance: { "Struggle": -0.6, "Cut": -1.0, "Remove": 0.5, "Pick": -0.5 },
@@ -208,29 +206,41 @@ export namespace SciFiSet {
     })
     //#endregion
 
-    //#region EarPlug
-    export const EarPlug: WearableEntry = WearableEntry({
+    //#region Visor
+    export const VisorTransparent: WearableEntry = WearableEntry({
         Data: {
             inventory: true,
-            name: FullNameOf(() => EarPlug),
+            name: FullNameOf(() => VisorTransparent),
             escapeChance: { "Struggle": -0.25, "Cut": -0.8, "Remove": 0.05, "Pick": -0.25 },
             DefaultLock: "Red",
-            Group: "ItemEars",
+            Group: "ItemHead",
             shrine: ["Metal"],
-            Model: Model.SciFiSet.EarPlug,
+            Model: Model.SciFiSet.VisorTransparent,
+            alwaysDressModel: [{
+                Model: Model.SciFiSet.EarPlug,
+                factionFilters: {
+                    BaseMetal: { color: "DarkNeutral", override: true },
+                }
+            }],
+            LinkableBy: [...KDVisorLink],
             factionFilters: {
                 BaseMetal: { color: "DarkNeutral", override: true },
             },
-            alwaysRender: true,
+            // alwaysRender: true,
             enemyTags: {},
             playerTags: {},
             Color: [],
             minLevel: 0,
             power: 10,
             weight: 0,
-            allFloors: true,
+            allFloors: true
         }
     })
+
+    export const VisorOpaque = 
+        VisorTransparent
+        .deleteIn(['Data', 'LinkableBy'])
+        .setIn(['Data', 'Model'], Model.SciFiSet.VisorOpaque)
     //#endregion
 
     //#endregion

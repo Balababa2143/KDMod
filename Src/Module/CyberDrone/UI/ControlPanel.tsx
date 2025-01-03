@@ -101,6 +101,20 @@ export function ControlPanel() {
                                     KD.SendInventoryEvent(
                                         MorphEquipment.EventName,
                                         {
+                                            TargetEquipment: Category.Sensory.EquipmentTag.EarPlug
+                                        } as MorphEquipment.EventData
+                                    )
+                                    KinkyDungeonAdvanceTime(1, true, true)
+                                    KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay)
+                                }}
+                            >
+                                Visor
+                            </KDButton>
+                            <KDButton
+                                onClick={e => {
+                                    KD.SendInventoryEvent(
+                                        MorphEquipment.EventName,
+                                        {
                                             TargetEquipment: Category.Sensory.EquipmentTag.Gag
                                         } as MorphEquipment.EventData
                                     )
